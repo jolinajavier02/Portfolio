@@ -565,16 +565,45 @@ function getSocialLink(platform) {
 
 // Parallax Effects
 function initializeParallax() {
-    window.addEventListener('scroll', () => {
+    const parallaxElements = document.querySelectorAll('.floating-card');
+    
+    function updateParallax() {
         const scrolled = window.pageYOffset;
-        const parallaxElements = document.querySelectorAll('.floating-card');
+        const rate = scrolled * -0.5;
         
         parallaxElements.forEach((element, index) => {
             const speed = 0.5 + (index * 0.1);
-            const yPos = -(scrolled * speed);
-            element.style.transform = `translateY(${yPos}px)`;
+            element.style.transform = `translateY(${rate * speed}px)`;
+        });
+    }
+    
+    // Add click animations to floating cards
+    parallaxElements.forEach(card => {
+        card.addEventListener('click', () => {
+            card.style.animation = 'none';
+            card.style.transform = 'scale(1.2) rotate(360deg)';
+            
+            setTimeout(() => {
+                card.style.animation = 'float 3s ease-in-out infinite';
+                card.style.transform = '';
+            }, 600);
+        });
+        
+        // Add magnetic effect
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            card.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px) scale(1.1)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
         });
     });
+    
+    window.addEventListener('scroll', throttle(updateParallax, 16));
 }
 
 // Notification System
