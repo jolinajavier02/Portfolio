@@ -297,14 +297,53 @@ function initializeProjectCards() {
         // Add stagger animation delay
         card.style.animationDelay = `${index * 0.1}s`;
         
-        // Card hover effects
+        // Enhanced hover effect
         card.addEventListener('mouseenter', () => {
             card.style.transform = 'translateY(-10px) scale(1.02)';
+            card.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15)';
         });
         
         card.addEventListener('mouseleave', () => {
             card.style.transform = 'translateY(0) scale(1)';
+            card.style.boxShadow = '';
         });
+        
+        // Tilt effect on mouse move
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+            
+            card.style.transform = `translateY(-10px) scale(1.02) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        
+        // Handle project link clicks
+        const liveBtn = card.querySelector('.live-demo-btn');
+        const codeBtn = card.querySelector('.view-code-btn');
+        
+        if (liveBtn) {
+            liveBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const title = card.querySelector('h3').textContent;
+                showNotification(`Opening ${title} live demo...`);
+                // Add your live demo URL logic here
+            });
+        }
+        
+        if (codeBtn) {
+            codeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const title = card.querySelector('h3').textContent;
+                showNotification(`Opening ${title} source code...`);
+                // Add your GitHub URL logic here
+            });
+        }
         
         // Card click handler
         card.addEventListener('click', () => {
