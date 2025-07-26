@@ -91,24 +91,41 @@ function startHeroAnimations() {
     });
 }
 
-// Custom Cursor
+// Enhanced Custom Cursor
 function initializeCursor() {
     if (window.innerWidth <= 768) return; // Disable on mobile
     
     document.addEventListener('mousemove', updateCursorPosition);
     
-    // Cursor hover effects
-    const hoverElements = document.querySelectorAll('a, button, .project-card, .social-link');
+    // Enhanced cursor hover effects
+    const hoverElements = document.querySelectorAll('a, button, .project-card, .social-link, .btn, .floating-card');
     hoverElements.forEach(element => {
         element.addEventListener('mouseenter', () => {
             cursor.classList.add('hover');
             cursorFollower.classList.add('hover');
+            
+            // Add text cursor for specific elements
+            if (element.tagName === 'A' || element.classList.contains('btn')) {
+                cursor.innerHTML = '<span style="font-size: 10px; color: white; font-weight: bold;">CLICK</span>';
+            }
         });
         
         element.addEventListener('mouseleave', () => {
             cursor.classList.remove('hover');
             cursorFollower.classList.remove('hover');
+            cursor.innerHTML = '';
         });
+    });
+    
+    // Cursor click effects
+    document.addEventListener('mousedown', () => {
+        cursor.style.transform = 'scale(0.8)';
+        cursorFollower.style.transform = 'scale(1.2)';
+    });
+    
+    document.addEventListener('mouseup', () => {
+        cursor.style.transform = 'scale(1)';
+        cursorFollower.style.transform = 'scale(1)';
     });
     
     // Animate cursor
@@ -121,9 +138,10 @@ function updateCursorPosition(e) {
 }
 
 function animateCursor() {
-    // Smooth cursor movement
-    cursorX += (mouseX - cursorX) * 0.1;
-    cursorY += (mouseY - cursorY) * 0.1;
+    // Enhanced smooth cursor movement
+    const speed = 0.15;
+    cursorX += (mouseX - cursorX) * speed;
+    cursorY += (mouseY - cursorY) * speed;
     
     cursor.style.left = mouseX + 'px';
     cursor.style.top = mouseY + 'px';
