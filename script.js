@@ -587,26 +587,68 @@ function createResumePreviewModal() {
     setTimeout(() => openModal(modal), 100);
 }
 
-// Social Links
+// Enhanced Social Links
 function initializeSocialLinks() {
     const socialLinks = document.querySelectorAll('.social-link');
     
-    socialLinks.forEach(link => {
+    socialLinks.forEach((link, index) => {
+        // Staggered entrance animation
+        link.style.animationDelay = `${index * 0.1}s`;
+        
+        // Enhanced hover effects
+        link.addEventListener('mouseenter', () => {
+            link.style.transform = 'translateY(-5px) scale(1.1)';
+            link.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.2)';
+        });
+        
+        link.addEventListener('mouseleave', () => {
+            link.style.transform = 'translateY(0) scale(1)';
+            link.style.boxShadow = '';
+        });
+        
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const platform = link.dataset.platform;
             
-            // Add click animation
-            link.style.transform = 'scale(0.9)';
+            // Enhanced click animation
+            link.style.animation = 'pulse 0.3s ease-in-out';
+            
+            // Create sparkle effect
+            for (let i = 0; i < 6; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.style.cssText = `
+                    position: absolute;
+                    width: 4px;
+                    height: 4px;
+                    background: #6366f1;
+                    border-radius: 50%;
+                    pointer-events: none;
+                    animation: sparkle 0.6s ease-out forwards;
+                    z-index: 1000;
+                `;
+                
+                const rect = link.getBoundingClientRect();
+                const angle = (i * 60) * Math.PI / 180;
+                const distance = 30;
+                
+                sparkle.style.left = (rect.left + rect.width / 2) + 'px';
+                sparkle.style.top = (rect.top + rect.height / 2) + 'px';
+                sparkle.style.setProperty('--end-x', Math.cos(angle) * distance + 'px');
+                sparkle.style.setProperty('--end-y', Math.sin(angle) * distance + 'px');
+                
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => sparkle.remove(), 600);
+            }
+            
             setTimeout(() => {
-                link.style.transform = 'scale(1)';
-            }, 150);
-            
-            // Show notification for demo purposes
-            showNotification(`Opening ${platform} profile...`, 'info');
-            
-            // In a real implementation, you would open the actual social links
-            // window.open(getSocialLink(platform), '_blank');
+                link.style.animation = '';
+                // Show notification for demo purposes
+                showNotification(`Opening ${platform} profile...`, 'info');
+                
+                // In a real implementation, you would open the actual social links
+                // window.open(getSocialLink(platform), '_blank');
+            }, 300);
         });
     });
     
