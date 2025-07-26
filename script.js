@@ -591,6 +591,55 @@ function initializeSocialLinks() {
             // window.open(getSocialLink(platform), '_blank');
         });
     });
+    
+    // Enhanced button animations
+    const buttons = document.querySelectorAll('.btn');
+    
+    buttons.forEach(button => {
+        // Create ripple effect container
+        const rippleContainer = document.createElement('span');
+        rippleContainer.style.position = 'relative';
+        rippleContainer.style.overflow = 'hidden';
+        button.appendChild(rippleContainer);
+        
+        button.addEventListener('mouseenter', () => {
+            button.style.transform = 'translateY(-3px) scale(1.05)';
+            button.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.2)';
+        });
+        
+        button.addEventListener('mouseleave', () => {
+            button.style.transform = 'translateY(0) scale(1)';
+            button.style.boxShadow = '';
+        });
+        
+        // Ripple effect on click
+        button.addEventListener('click', (e) => {
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            const ripple = document.createElement('span');
+            ripple.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                left: ${x}px;
+                top: ${y}px;
+                background: rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+            `;
+            
+            button.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
 }
 
 function getSocialLink(platform) {
