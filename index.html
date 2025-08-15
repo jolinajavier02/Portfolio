@@ -3,320 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jolina Javier - UI/UX Designer & Front-End Developer</title>
+    <title>Jolina Javier - Terminal Portfolio</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-
-    <!-- Loading Screen -->
-    <div class="loading-screen">
-        <div class="loader">
-            <div class="loader-text">Jolina Javier</div>
-            <div class="loader-bar"></div>
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="btn close"></span>
+                <span class="btn minimize"></span>
+                <span class="btn maximize"></span>
+            </div>
+            <div class="terminal-title">jolina@portfolio:~$</div>
         </div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">JJ</span>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
-                <li class="nav-item"><a href="#resume" class="nav-link">Resume</a></li>
-                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <div class="theme-toggle">
-                <i class="fas fa-moon"></i>
-            </div>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1 class="hero-title">
-                        <span class="title-line">Hey, I'm</span>
-                        <span class="title-line highlight">Jolina Javier!</span>
-                    </h1>
-                    <p class="hero-subtitle animated-text">
-                        I design delightful user experiences ✨
-                    </p>
-                    <div class="hero-description">
-                        <p>UI/UX Designer & Front-End Developer passionate about creating intuitive and beautiful digital experiences.</p>
-                    </div>
-                    <div class="hero-buttons">
-                        <button class="btn btn-primary" id="aboutBtn">Get to know me</button>
-                        <button class="btn btn-secondary" onclick="scrollToSection('projects')">View my work</button>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="floating-elements">
-                        <div class="floating-card card-1" data-tooltip="Figma">
-                            <i class="fab fa-figma"></i>
-                        </div>
-                        <div class="floating-card card-2" data-tooltip="HTML5">
-                            <i class="fab fa-html5"></i>
-                        </div>
-                        <div class="floating-card card-3" data-tooltip="CSS3">
-                            <i class="fab fa-css3-alt"></i>
-                        </div>
-                        <div class="floating-card card-4" data-tooltip="JavaScript">
-                            <i class="fab fa-js-square"></i>
-                        </div>
-                        <div class="floating-card card-5" data-tooltip="React">
-                            <i class="fab fa-react"></i>
-                        </div>
-                        <div class="floating-card card-6" data-tooltip="Canva">
-                            <i class="fas fa-palette"></i>
-                        </div>
-                        <div class="floating-card card-7" data-tooltip="Adobe">
-                            <i class="fab fa-adobe"></i>
-                        </div>
-                    </div>
+        
+        <div class="terminal-body">
+            <div class="output" id="output">
+                <div class="welcome-message">
+                    <pre class="ascii-art">
+     ██╗ ██████╗ ██╗     ██╗███╗   ██╗ █████╗ 
+     ██║██╔═══██╗██║     ██║████╗  ██║██╔══██╗
+     ██║██║   ██║██║     ██║██╔██╗ ██║███████║
+██   ██║██║   ██║██║     ██║██║╚██╗██║██╔══██║
+╚█████╔╝╚██████╔╝███████╗██║██║ ╚████║██║  ██║
+ ╚════╝  ╚═════╝ ╚══════╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝
+                    </pre>
+                    <p>Welcome to Jolina Javier's Terminal Portfolio</p>
+                    <p>UI/UX Designer & Front-End Developer</p>
+                    <p>Type <span class="highlight">'help'</span> to see available commands.</p>
                 </div>
             </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="scroll-arrow"></div>
-        </div>
-    </section>
-
-    <!-- About Modal -->
-    <div class="modal-overlay" id="aboutModal">
-        <div class="modal-content about-modal">
-            <button class="modal-close">&times;</button>
-            <div class="about-content">
-                <div class="about-header">
-                    <div class="about-avatar">
-                        <div class="avatar-placeholder">
-                            <img src="https://via.placeholder.com/100x100/6366f1/ffffff?text=JJ" alt="Jolina Javier Profile" class="profile-image">
-                        </div>
-                    </div>
-                    <h2>About Jolina</h2>
-                </div>
-                <div class="about-body">
-                    <p class="about-intro">
-                        Hi there! I'm a passionate UI/UX Designer and Front-End Developer with a love for creating meaningful digital experiences.
-                    </p>
-                    <div class="about-philosophy">
-                        <h3>My Design Philosophy</h3>
-                        <p>
-                            I believe great design is invisible - it should feel natural and intuitive. My approach combines user-centered thinking with creative problem-solving to craft experiences that are both beautiful and functional.
-                        </p>
-                    </div>
-                    <div class="about-skills">
-                        <h3>What I Do</h3>
-                        <div class="skills-grid">
-                            <div class="skill-item">
-                                <i class="fas fa-palette"></i>
-                                <span>UI/UX Design</span>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fas fa-code"></i>
-                                <span>Front-End Development</span>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fas fa-mobile-alt"></i>
-                                <span>Responsive Design</span>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fas fa-users"></i>
-                                <span>User Research</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            
+            <div class="input-line">
+                <span class="prompt">jolina@portfolio:~$ </span>
+                <input type="text" id="commandInput" class="command-input" autocomplete="off" spellcheck="false">
+                <span class="cursor-blink">|</span>
             </div>
         </div>
     </div>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Featured Projects</h2>
-                <p class="section-subtitle">A showcase of my recent work and creative solutions</p>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card" data-project="1">
-                    <div class="project-image">
-                        <img src="https://via.placeholder.com/400x200/6366f1/ffffff?text=E-Commerce+App" alt="E-Commerce Mobile App" class="project-img">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <button class="btn btn-small" onclick="window.open('#', '_blank')">Live Demo</button>
-                                <button class="btn btn-small btn-secondary" onclick="window.open('#', '_blank')">View Code</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">E-Commerce Mobile App</h3>
-                        <p class="project-description">A modern shopping app with intuitive navigation and seamless checkout experience.</p>
-                        <div class="project-tools">
-                            <span class="tool-tag">Figma</span>
-                            <span class="tool-tag">React Native</span>
-                            <span class="tool-tag">UI/UX</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card" data-project="2">
-                    <div class="project-image">
-                        <img src="https://via.placeholder.com/400x200/ec4899/ffffff?text=Dashboard+Analytics" alt="Dashboard Analytics" class="project-img">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <button class="btn btn-small" onclick="window.open('#', '_blank')">Live Demo</button>
-                                <button class="btn btn-small btn-secondary" onclick="window.open('#', '_blank')">View Code</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Dashboard Analytics</h3>
-                        <p class="project-description">Clean and data-driven dashboard for business intelligence and reporting.</p>
-                        <div class="project-tools">
-                            <span class="tool-tag">HTML</span>
-                            <span class="tool-tag">CSS</span>
-                            <span class="tool-tag">JavaScript</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card" data-project="3">
-                    <div class="project-image">
-                        <img src="https://via.placeholder.com/400x200/10b981/ffffff?text=Brand+Identity" alt="Brand Identity System" class="project-img">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <button class="btn btn-small" onclick="window.open('#', '_blank')">Live Demo</button>
-                                <button class="btn btn-small btn-secondary" onclick="window.open('#', '_blank')">View Code</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Brand Identity System</h3>
-                        <p class="project-description">Complete brand redesign with modern visual identity and style guide.</p>
-                        <div class="project-tools">
-                            <span class="tool-tag">Adobe XD</span>
-                            <span class="tool-tag">Illustrator</span>
-                            <span class="tool-tag">Branding</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Resume Section -->
-    <section id="resume" class="resume">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Resume</h2>
-                <p class="section-subtitle">My professional journey and experience</p>
-            </div>
-            <div class="resume-content">
-                <div class="resume-preview">
-                    <div class="resume-placeholder">
-                        <i class="fas fa-file-pdf"></i>
-                        <h3>Resume Preview</h3>
-                        <p>Download my complete resume to learn more about my experience and skills.</p>
-                    </div>
-                </div>
-                <div class="resume-actions">
-                    <button class="btn btn-primary resume-download">
-                        <i class="fas fa-download"></i>
-                        Download Resume
-                    </button>
-                    <button class="btn btn-secondary resume-view">
-                        <i class="fas fa-eye"></i>
-                        Quick View
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Let's Connect</h2>
-                <p class="section-subtitle">Ready to bring your ideas to life? Let's chat!</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>jolina.javier@email.com</span>
-                    </div>
-                    <div class="social-links">
-                        <a href="#" class="social-link" data-platform="github">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="#" class="social-link" data-platform="linkedin">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#" class="social-link" data-platform="wantedly">
-                            <i class="fas fa-briefcase"></i>
-                        </a>
-                    </div>
-                </div>
-                <button class="btn btn-primary contact-btn" id="contactFormBtn">
-                    <i class="fas fa-paper-plane"></i>
-                    Send Message
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Modal -->
-    <div class="modal-overlay" id="contactModal">
-        <div class="modal-content contact-modal">
-            <button class="modal-close">&times;</button>
-            <div class="contact-form-container">
-                <h2>Get In Touch</h2>
-                <form class="contact-form">
-                    <div class="form-group">
-                        <input type="text" id="name" required>
-                        <label for="name">Your Name</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" required>
-                        <label for="email">Email Address</label>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" required></textarea>
-                        <label for="message">Your Message</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary form-submit">
-                        <span class="btn-text">Send Message</span>
-                        <span class="btn-loading">Sending...</span>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 Jolina Javier. Designed & developed with ❤️</p>
-        </div>
-    </footer>
-
+    
     <script src="script.js"></script>
 </body>
 </html>
