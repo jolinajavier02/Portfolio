@@ -194,30 +194,27 @@ body {
 
 /* Projects */
 .project-item {
-    margin: 10px 0;
-    padding: 10px 0;
-    border-bottom: 1px solid #333;
-}
-
-.project-title {
-    color: #00ff00;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.project-description {
+    margin: 0.5rem 0;
+    padding: 0.5rem 0;
     color: #ccc;
-    margin-bottom: 5px;
+    line-height: 1.6;
 }
 
 .project-link {
-    color: #74c0fc;
-    text-decoration: underline;
-    cursor: pointer;
+    color: #00ff00;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted #00ff00;
 }
 
 .project-link:hover {
-    color: #339af0;
+    color: #000000;
+    background-color: #00ff00;
+    padding: 2px 4px;
+    border-radius: 3px;
+    border-bottom: none;
+    text-shadow: none;
 }
 
 /* Education */
