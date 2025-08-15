@@ -18,72 +18,6 @@ body {
     padding: 20px;
 }
 
-/* Landing Screen Styles */
-.landing-screen {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-    background-color: #0a0a0a;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    transition: opacity 0.5s ease-out;
-}
-
-.landing-content {
-    text-align: center;
-    max-width: 800px;
-    padding: 40px;
-    animation: fadeInUp 1s ease-out;
-}
-
-.landing-greeting {
-    font-size: 4rem;
-    color: #00ff00;
-    margin-bottom: 30px;
-    text-shadow: 0 0 20px #00ff00;
-    font-weight: bold;
-    letter-spacing: 2px;
-}
-
-.landing-description {
-    font-size: 1.2rem;
-    color: #00ff00;
-    line-height: 1.6;
-    margin-bottom: 30px;
-    opacity: 0.9;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.landing-instruction {
-    font-size: 1rem;
-    color: #00ff00;
-    opacity: 0.7;
-    font-style: italic;
-    animation: blink 2s infinite;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes blink {
-    0%, 50% { opacity: 0.7; }
-    51%, 100% { opacity: 0.3; }
-}
-
 .terminal-container {
     width: 100%;
     max-width: 900px;
@@ -297,69 +231,6 @@ body {
     font-weight: bold;
     font-size: 1.1em;
     margin: 10px 0;
-    text-shadow: 0 0 5px #00ff00;
-}
-
-/* Education section styling */
-.education-section {
-    color: #00ff00;
-    margin: 10px 0;
-}
-
-.education-entry {
-    margin: 20px 0;
-    padding: 15px 0;
-    border-bottom: 1px solid rgba(0, 255, 0, 0.3);
-}
-
-.education-entry:last-child {
-    border-bottom: none;
-}
-
-.education-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-}
-
-.education-header strong {
-    color: #00ff00;
-    font-size: 16px;
-    text-shadow: 0 0 5px #00ff00;
-    flex: 1;
-    min-width: 300px;
-}
-
-.education-date {
-    color: #00ff00;
-    font-size: 14px;
-    margin-left: auto;
-    opacity: 0.8;
-    font-style: italic;
-}
-
-.education-courses {
-    margin: 10px 0;
-    padding-left: 20px;
-}
-
-.course-item {
-    color: #00ff00;
-    font-size: 14px;
-    margin: 5px 0;
-    line-height: 1.4;
-    opacity: 0.9;
-}
-
-.education-description {
-    color: #00ff00;
-    font-size: 14px;
-    margin: 10px 0;
-    padding-left: 20px;
-    opacity: 0.8;
-    font-style: italic;
-    line-height: 1.4;
 }
 
 .skills-table {
@@ -492,19 +363,6 @@ body {
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
         gap: 10px;
     }
-    
-    .landing-greeting {
-        font-size: 2.5rem;
-    }
-    
-    .landing-description {
-        font-size: 1rem;
-        padding: 0 20px;
-    }
-    
-    .landing-content {
-        padding: 20px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -526,14 +384,6 @@ body {
     
     .prompt {
         font-size: 12px;
-    }
-    
-    .landing-greeting {
-        font-size: 2rem;
-    }
-    
-    .landing-description {
-        font-size: 0.9rem;
     }
 }
 
