@@ -227,27 +227,54 @@ class TerminalPortfolio {
     
     showProjects() {
         const projects = [
-            { name: 'Broccobae', url: 'https://www.broccobae.com/', description: 'Vegan recipe destination website' },
-            { name: 'CalDef', url: 'https://jolinajavier02.github.io/Caldef/', description: 'Calorie deficit tracker application' },
-            { name: 'Coffee App', url: 'https://jolinajavier02.github.io/Coffee-App/', description: 'Coffee ordering experience prototype' },
-            { name: 'Globetrone Bank App', url: 'https://jolinajavier02.github.io/Globetrone-Bank-App/', description: 'Banking app for international users' },
-            { name: 'Globetrone Case Study', url: 'https://jolinajavier02.github.io/Globetrone-Case-Study/', description: 'Complete case study and prototype' }
+            { 
+                name: 'Broccobae.com', 
+                url: 'https://www.broccobae.com/', 
+                description: 'A website designed to showcase vegan recipes, helping users discover meal ideas with images, categories, and easy navigation for cooking inspiration.' 
+            },
+            { 
+                name: 'CalDef', 
+                url: 'https://jolinajavier02.github.io/Caldef/', 
+                description: 'A web application that calculates daily food intake and tracks the weight of meals for individuals following a diet deficit plan, helping users manage nutrition and health goals.' 
+            },
+            { 
+                name: 'Coffee App', 
+                url: 'https://jolinajavier02.github.io/Coffee-App/', 
+                description: 'A mobile and web app design for ordering coffee online, featuring intuitive user flow, menu browsing, order tracking, and an interactive interface for customers to customize and place orders.' 
+            },
+            { 
+                name: 'Globetrone Bank App', 
+                url: 'https://jolinajavier02.github.io/Globetrone-Bank-App/', 
+                description: 'A banking app concept designed for international users and foreign workers in Japan, including features for currency exchange, international money transfers, account management, and secure transactions.' 
+            },
+            { 
+                name: 'Globetrone Case Study', 
+                url: 'https://jolinajavier02.github.io/Globetrone-Case-Study/', 
+                description: 'A detailed UX case study documenting the research, wireframes, user flows, and prototypes of the Globetrone Bank App, focusing on problem-solving and creating a user-friendly financial experience.' 
+            }
         ];
         
         this.addOutput('Projects Portfolio:', 'help-title');
         this.addOutput('', '');
         
+        let delay = 0;
         projects.forEach((project, index) => {
-            const projectLine = `${index + 1}. <a href="${project.url}" target="_blank" class="project-link">${project.name}</a> -> ${project.description}`;
             setTimeout(() => {
+                const projectLine = `${index + 1}. <a href="${project.url}" target="_blank" class="project-link">${project.name}</a>`;
                 this.typeText(projectLine, 'project-item', 30);
-            }, index * 200);
+            }, delay);
+            delay += 800;
+            
+            setTimeout(() => {
+                this.typeText(`   ${project.description}`, 'project-description', 20);
+                this.addOutput('', '');
+            }, delay);
+            delay += 1000;
         });
         
         setTimeout(() => {
-            this.addOutput('', '');
             this.typeText('💡 Click on any project name to open it in a new tab', 'info', 40);
-        }, projects.length * 200 + 500);
+        }, delay + 300);
     }
     
     showEducation() {
