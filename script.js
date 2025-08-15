@@ -183,68 +183,95 @@ class TerminalPortfolio {
     }
     
     showSkills() {
-        const skillsText = `
-<div class="skills-section">
-    <div class="help-title">Technical Skills & Tools</div>
-    <br>
-    <div class="skills-grid">
-        <div class="skill-item">
-            <i class="fab fa-html5"></i>
-            <span>HTML5</span>
-        </div>
-        <div class="skill-item">
-            <i class="fab fa-css3-alt"></i>
-            <span>CSS3</span>
-        </div>
-        <div class="skill-item">
-            <i class="fab fa-js-square"></i>
-            <span>JavaScript</span>
-        </div>
-        <div class="skill-item">
-            <i class="fab fa-react"></i>
-            <span>React</span>
-        </div>
-        <div class="skill-item">
-            <i class="fab fa-figma"></i>
-            <span>Figma</span>
-        </div>
-        <div class="skill-item">
-            <i class="fab fa-github"></i>
-            <span>GitHub</span>
-        </div>
-        <div class="skill-item">
-            <i class="fas fa-code"></i>
-            <span>VS Code</span>
-        </div>
-    </div>
-    <br>
-    <p><span class="highlight">Design:</span> UI/UX Design, Prototyping, Wireframing, User Research</p>
-    <p><span class="highlight">Development:</span> Responsive Design, Modern JavaScript, React, CSS Frameworks</p>
-    <p><span class="highlight">Tools:</span> Figma, Adobe Creative Suite, Git, VS Code, Browser DevTools</p>
-</div>`;
-        this.addOutput(skillsText);
+        const technicalSkills = [
+            { name: 'HTML', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
+            { name: 'CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
+            { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+            { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+            { name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
+            { name: 'GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
+            { name: 'Hosting', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/digitalocean/digitalocean-original.svg' },
+            { name: 'VS Code', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' }
+        ];
+        
+        const designSkills = [
+            { name: 'Responsive Design', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
+            { name: 'Visual Layout', icon: 'https://img.icons8.com/fluency/48/design.png' },
+            { name: 'Project Execution', icon: 'https://img.icons8.com/fluency/48/project-management.png' },
+            { name: 'Collaboration', icon: 'https://img.icons8.com/fluency/48/collaboration.png' },
+            { name: 'Adaptability', icon: 'https://img.icons8.com/color/48/change.png' }
+        ];
+        
+        this.addOutput('Skills Portfolio:', 'help-title');
+        this.addOutput('', '');
+        
+        // Technical Skills Section
+        setTimeout(() => {
+            this.typeText('Technical Skills & Tools:', 'section-title', 30);
+        }, 200);
+        
+        setTimeout(() => {
+            let techTable = '<table style="width: 100%; margin: 10px 0;"><tr>';
+            technicalSkills.forEach((skill, index) => {
+                if (index % 4 === 0 && index > 0) {
+                    techTable += '</tr><tr>';
+                }
+                techTable += `<td align="center" style="width: 120px; padding: 10px;">
+                    <img src="${skill.icon}" width="48" height="48" style="filter: brightness(0.9);" />
+                    <br><span style="color: #00ff00; font-size: 0.9em;">${skill.name}</span>
+                </td>`;
+            });
+            techTable += '</tr></table>';
+            this.addOutput(techTable, 'skills-table');
+        }, 800);
+        
+        // Design & Soft Skills Section
+        setTimeout(() => {
+            this.addOutput('', '');
+            this.typeText('Design & Soft Skills:', 'section-title', 30);
+        }, 1400);
+        
+        setTimeout(() => {
+            let designTable = '<table style="width: 100%; margin: 10px 0;"><tr>';
+            designSkills.forEach((skill, index) => {
+                if (index % 3 === 0 && index > 0) {
+                    designTable += '</tr><tr>';
+                }
+                designTable += `<td align="center" style="width: 150px; padding: 10px;">
+                    <img src="${skill.icon}" width="48" height="48" style="filter: brightness(0.9);" />
+                    <br><span style="color: #00ff00; font-size: 0.9em;">${skill.name}</span>
+                </td>`;
+            });
+            designTable += '</tr></table>';
+            this.addOutput(designTable, 'skills-table');
+        }, 2000);
+        
+        setTimeout(() => {
+            this.addOutput('', '');
+            this.typeText('💡 Always learning and expanding my skillset!', 'info', 40);
+        }, 2600);
     }
     
     showProjects() {
         const projects = [
             { 
                 name: 'Broccobae.com', 
-                url: 'https://www.broccobae.com/', 
+                url: 'https://broccobae.com', 
                 description: 'A website designed to showcase vegan recipes, helping users discover meal ideas with images, categories, and easy navigation for cooking inspiration.' 
             },
             { 
-                name: 'CalDef', 
-                url: 'https://jolinajavier02.github.io/Caldef/', 
+                name: 'Caldef', 
+                url: 'https://github.com/jolina/Caldef', 
                 description: 'A web application that calculates daily food intake and tracks the weight of meals for individuals following a diet deficit plan, helping users manage nutrition and health goals.' 
             },
             { 
                 name: 'Coffee App', 
-                url: 'https://jolinajavier02.github.io/Coffee-App/', 
+                url: 'https://github.com/jolina/Coffee-App', 
                 description: 'A mobile and web app design for ordering coffee online, featuring intuitive user flow, menu browsing, order tracking, and an interactive interface for customers to customize and place orders.' 
             },
             { 
                 name: 'Globetrone Bank App', 
-                url: 'https://jolinajavier02.github.io/Globetrone-Bank-App/', 
+                url: 'https://github.com/jolina/Globetrone-Bank-App', 
                 description: 'A banking app concept designed for international users and foreign workers in Japan, including features for currency exchange, international money transfers, account management, and secure transactions.' 
             },
             { 
@@ -278,31 +305,68 @@ class TerminalPortfolio {
     }
     
     showEducation() {
-        const educationText = `
-<div class="education-section">
-    <div class="help-title">Educational Background</div>
-    <br>
-    <div class="education-item">
-        <div class="education-title">Google UX Design Certificate</div>
-        <div class="education-description">Comprehensive program covering UX research, design thinking, prototyping, and usability testing.</div>
-        <div class="education-year">2023</div>
-    </div>
-    <br>
-    <div class="education-item">
-        <div class="education-title">CalArts UI/UX Design Specialization</div>
-        <div class="education-description">Specialized coursework in visual design, user interface design, and user experience principles.</div>
-        <div class="education-year">2022</div>
-    </div>
-    <br>
-    <div class="education-item">
-        <div class="education-title">Bachelor of Science in Hospitality Management</div>
-        <div class="education-description">Foundation in customer service, project management, and business operations.</div>
-        <div class="education-year">2020</div>
-    </div>
-    <br>
-    <p><span class="highlight">Continuous Learning:</span> Staying updated with latest design trends, development frameworks, and industry best practices through online courses and workshops.</p>
-</div>`;
-        this.addOutput(educationText);
+        this.addOutput('Education & Certifications:', 'help-title');
+        this.addOutput('', '');
+        
+        // Google UX Design Certificate
+        setTimeout(() => {
+            const googleCert = `
+                <div class="education-entry">
+                    <div class="education-header">
+                        <img src="https://img.icons8.com/color/48/000000/google-logo.png" width="32" height="32" style="vertical-align: middle; margin-right: 10px;" />
+                        <strong>Google UX Design Certificate — Coursera</strong>
+                        <span class="education-date">Jul–Oct 2024</span>
+                    </div>
+                    <div class="education-courses">
+                        <div class="course-item">✅ 1. Foundations of User Experience (UX) Design</div>
+                        <div class="course-item">✅ 2. Start the UX Design Process: Empathize, Define, and Ideate</div>
+                        <div class="course-item">✅ 3. Build Wireframes and Low-Fidelity Prototypes</div>
+                        <div class="course-item">✅ 4. Conduct UX Research and Test Early Concepts</div>
+                        <div class="course-item">✅ 5. Create High-Fidelity Designs and Prototypes in Figma</div>
+                        <div class="course-item">✅ 6. Responsive Web Design in Adobe XD and Figma</div>
+                        <div class="course-item">✅ 7. Design a User Experience for Social Good & Prepare for Jobs</div>
+                    </div>
+                </div>`;
+            this.addOutput(googleCert, 'education-section');
+        }, 300);
+        
+        // UI/UX Design Specialization
+        setTimeout(() => {
+            const calartsCert = `
+                <div class="education-entry">
+                    <div class="education-header">
+                        <img src="https://img.icons8.com/fluency/48/000000/adobe-xd.png" width="32" height="32" style="vertical-align: middle; margin-right: 10px;" />
+                        <strong>UI/UX Design Specialization — California Institute of the Arts / Coursera</strong>
+                        <span class="education-date">Jul–Oct 2024</span>
+                    </div>
+                    <div class="education-courses">
+                        <div class="course-item">✅ 1. Visual Elements of User Interface Design</div>
+                        <div class="course-item">✅ 2. UX Design Fundamentals</div>
+                    </div>
+                </div>`;
+            this.addOutput(calartsCert, 'education-section');
+        }, 1200);
+        
+        // Bachelor's Degree
+        setTimeout(() => {
+            const bachelorDegree = `
+                <div class="education-entry">
+                    <div class="education-header">
+                        <span style="font-size: 32px; margin-right: 10px; vertical-align: middle;">🎓</span>
+                        <strong>Bachelor of Science in Hospitality Management — University of Eastern Philippines</strong>
+                        <span class="education-date">2020–2024</span>
+                    </div>
+                    <div class="education-description">
+                        Foundation in customer service, project management, and business operations.
+                    </div>
+                </div>`;
+            this.addOutput(bachelorDegree, 'education-section');
+        }, 2100);
+        
+        setTimeout(() => {
+            this.addOutput('', '');
+            this.typeText('🌟 Continuously learning and growing in UX/UI design!', 'info', 40);
+        }, 2800);
     }
     
     showContact() {
