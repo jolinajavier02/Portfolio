@@ -27,32 +27,7 @@ class TerminalPortfolio {
         this.init();
     }
     
-    animateAsciiName(element, text) {
-        const animateOnce = () => {
-            let i = 0;
-            element.innerHTML = '';
-            element.classList.add('typing');
-            
-            const timer = setInterval(() => {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                } else {
-                    clearInterval(timer);
-                    element.classList.remove('typing');
-                    element.classList.add('finished');
-                    
-                    // Wait 3 seconds then restart
-                    setTimeout(() => {
-                        element.classList.remove('finished');
-                        animateOnce();
-                    }, 3000);
-                }
-            }, 30);
-        };
-        
-        animateOnce();
-    }
+
     
     init() {
         this.commandInput.addEventListener('keydown', this.handleKeyDown.bind(this));
@@ -92,13 +67,6 @@ class TerminalPortfolio {
     startTypewriterAnimation() {
         const text1 = "Hi! I'm Jolina Javier, a passionate UI/UX Designer and Front-End Developer.";
         const text2 = "I enjoy creating intuitive and user-friendly digital experiences.";
-        const asciiArt = `     ██╗ ██████╗ ██╗     ██╗███╗   ██╗ █████╗       ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗ 
-     ██║██╔═══██╗██║     ██║████╗  ██║██╔══██╗      ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
-     ██║██║   ██║██║     ██║██╔██╗ ██║███████║      ██║███████║██║   ██║██║█████╗  ██████╔╝
-██   ██║██║   ██║██║     ██║██║╚██╗██║██╔══██║ ██   ██║██╔══██║╚██╗ ██╔╝██║██╔══╝  ██╔══██╗
-╚█████╔╝╚██████╔╝███████╗██║██║ ╚████║██║  ██║ ╚█████╔╝██║  ██║ ╚████╔╝ ██║███████╗██║  ██║
- ╚════╝  ╚═════╝ ╚══════╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝  ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚══════╝╚═╝  ╚═╝`;
-        
         const typewriter1 = document.getElementById('typewriter1');
         const typewriter2 = document.getElementById('typewriter2');
         const asciiNameElement = document.getElementById('ascii-name');
@@ -110,10 +78,7 @@ class TerminalPortfolio {
             instructionDiv.style.transition = 'opacity 0.5s ease-in';
         }
         
-        // Start repeated animation for ASCII art name
-        if (asciiNameElement) {
-            this.animateAsciiName(asciiNameElement, asciiArt);
-        }
+        // ASCII art name is now displayed as static text in HTML
         
         if (typewriter1 && typewriter2) {
             // Start first line immediately (no continuous animation)
