@@ -27,6 +27,33 @@ class TerminalPortfolio {
         this.init();
     }
     
+    animateAsciiName(element, text) {
+        const animateOnce = () => {
+            let i = 0;
+            element.innerHTML = '';
+            element.classList.add('typing');
+            
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(timer);
+                    element.classList.remove('typing');
+                    element.classList.add('finished');
+                    
+                    // Wait 3 seconds then restart
+                    setTimeout(() => {
+                        element.classList.remove('finished');
+                        animateOnce();
+                    }, 3000);
+                }
+            }, 30);
+        };
+        
+        animateOnce();
+    }
+    
     init() {
         this.commandInput.addEventListener('keydown', this.handleKeyDown.bind(this));
         this.setupLandingPage();
@@ -83,9 +110,9 @@ class TerminalPortfolio {
             instructionDiv.style.transition = 'opacity 0.5s ease-in';
         }
         
-        // Start continuous animation for ASCII art name
+        // Start repeated animation for ASCII art name
         if (asciiNameElement) {
-            this.typeTextTypewriter(asciiNameElement, asciiArt, 20, null, true);
+            this.animateAsciiName(asciiNameElement, asciiArt);
         }
         
         if (typewriter1 && typewriter2) {
@@ -106,44 +133,25 @@ class TerminalPortfolio {
         }
     }
     
-    typeTextTypewriter(element, text, speed, callback, continuous = false) {
+    typeTextTypewriter(element, text, speed, callback) {
         let i = 0;
         element.innerHTML = '';
         element.classList.add('typing');
-        
-        // Check if this is ASCII art (multi-line) or regular text
-        const isAsciiArt = text.includes('█') || text.includes('╗') || text.includes('╚');
-        
-        if (!isAsciiArt) {
-            element.style.width = '0';
-            element.style.display = 'inline-block';
-        }
+        element.style.width = '0';
+        element.style.display = 'inline-block';
         
         const timer = setInterval(() => {
             if (i < text.length) {
                 element.innerHTML += text.charAt(i);
-                
-                // Only adjust width for single-line text, not ASCII art
-                if (!isAsciiArt) {
-                    element.style.width = (i + 1) * 0.6 + 'em';
-                }
+                element.style.width = (i + 1) * 0.6 + 'em';
                 i++;
             } else {
                 clearInterval(timer);
                 element.classList.remove('typing');
                 element.classList.add('finished');
+                element.style.width = 'auto';
                 
-                if (!isAsciiArt) {
-                    element.style.width = 'auto';
-                }
-                
-                if (continuous) {
-                    // Wait 2 seconds then restart the animation
-                    setTimeout(() => {
-                        element.classList.remove('finished');
-                        this.typeTextTypewriter(element, text, speed, callback, continuous);
-                    }, 2000);
-                } else if (callback) {
+                if (callback) {
                     callback();
                 }
             }
