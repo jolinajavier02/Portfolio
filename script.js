@@ -129,10 +129,11 @@ class TerminalPortfolio {
     initWelcomeSection() {
         const asciiNameElement = document.getElementById('ascii-name');
         if (asciiNameElement) {
-            // Apply the same styling as the landing page typewriter
+            // Apply the exact same styling as the landing page "Hi Dear" text
             asciiNameElement.style.color = '#ccc';
             asciiNameElement.style.fontSize = '18px';
             asciiNameElement.style.lineHeight = '1.6';
+            asciiNameElement.style.margin = '10px 0';
             asciiNameElement.style.fontFamily = "'JetBrains Mono', monospace";
             asciiNameElement.style.textAlign = 'center';
             
