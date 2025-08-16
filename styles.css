@@ -275,6 +275,134 @@ body {
     text-shadow: 0 0 3px #00ff00;
 }
 
+/* Education section styling */
+.education-section {
+    color: #00ff00;
+    margin: 10px 0;
+}
+
+.education-entry {
+    margin-bottom: 20px;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.education-entry:last-child {
+    border-bottom: none;
+}
+
+.education-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.education-header strong {
+    color: #00ff00;
+    font-size: 16px;
+    margin-right: 15px;
+    text-shadow: 0 0 3px #00ff00;
+}
+
+.education-date {
+    color: #888;
+    font-style: italic;
+    margin-left: auto;
+    font-size: 14px;
+}
+
+.education-courses {
+    margin-left: 42px;
+    margin-top: 8px;
+}
+
+.course-item {
+    color: #00ff00;
+    margin: 5px 0;
+    padding: 3px 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.education-description {
+    color: #ccc;
+    margin-left: 42px;
+    margin-top: 8px;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+/* About section styling */
+.about-content {
+    color: #00ff00;
+    margin: 10px 0;
+}
+
+.about-section {
+    line-height: 1.6;
+}
+
+.about-intro p,
+.about-philosophy p,
+.about-goal p {
+    color: #ccc;
+    margin: 10px 0;
+    font-size: 15px;
+}
+
+.about-intro strong {
+    color: #00ff00;
+    text-shadow: 0 0 3px #00ff00;
+}
+
+.about-focus,
+.about-projects {
+    margin: 20px 0;
+}
+
+.focus-title,
+.projects-title {
+    color: #00ff00;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 0 0 3px #00ff00;
+}
+
+.focus-list,
+.projects-list {
+    margin-left: 20px;
+}
+
+.focus-item,
+.project-brief {
+    color: #ccc;
+    margin: 8px 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.about-cta {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.about-cta p {
+    color: #ccc;
+    text-align: center;
+    font-style: italic;
+}
+
+.command-highlight {
+    color: #00ff00;
+    font-weight: bold;
+    background-color: rgba(0, 255, 0, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    text-shadow: 0 0 3px #00ff00;
+}
+
 /* Education */
 .education-item {
     margin: 10px 0;

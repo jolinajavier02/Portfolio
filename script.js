@@ -166,20 +166,53 @@ class TerminalPortfolio {
     }
     
     showAbout() {
-        const aboutText = `
-<div class="about-section">
-    <div class="help-title">About Jolina Javier</div>
-    <p>Hello! I'm a passionate UI/UX Designer and Front-End Developer with a keen eye for creating intuitive and beautiful digital experiences.</p>
-    <br>
-    <p><span class="highlight">Background:</span> I combine creativity with technical skills to bridge the gap between design and development.</p>
-    <br>
-    <p><span class="highlight">Philosophy:</span> I believe great design should be invisible - it should feel natural and effortless to users while solving real problems.</p>
-    <br>
-    <p><span class="highlight">Approach:</span> User-centered design thinking combined with modern development practices to create meaningful digital solutions.</p>
-    <br>
-    <p><span class="highlight">Interests:</span> UI/UX Design, Front-End Development, User Research, Accessibility, and emerging web technologies.</p>
-</div>`;
-        this.addOutput(aboutText);
+        this.addOutput('About Me', 'help-title');
+        this.addOutput('', '');
+        
+        setTimeout(() => {
+            const aboutContent = `
+                <div class="about-section">
+                    <div class="about-intro">
+                        <p>Hi! I'm <strong>Jolina Javier</strong>, a passionate <span class="highlight">UI/UX Designer</span> and <span class="highlight">Front-End Developer</span>.</p>
+                        <p>I enjoy creating intuitive and user-friendly digital experiences that solve real-world problems.</p>
+                        <p>I believe that thoughtful design can make technology accessible, enjoyable, and meaningful for everyone.</p>
+                    </div>
+                    
+                    <div class="about-focus">
+                        <div class="focus-title">🎯 I focus on:</div>
+                        <div class="focus-list">
+                            <div class="focus-item">• Designing seamless interfaces with attention to detail and aesthetics</div>
+                            <div class="focus-item">• Conducting UX research to understand user needs and behavior</div>
+                            <div class="focus-item">• Developing responsive and interactive web and mobile solutions</div>
+                            <div class="focus-item">• Transforming ideas into functional prototypes and interactive designs</div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-philosophy">
+                        <p>I am constantly learning and improving my craft. I approach each project with <span class="highlight">curiosity</span>, <span class="highlight">empathy</span>, and <span class="highlight">creativity</span>, aiming to deliver designs that not only look good but also enhance user experience.</p>
+                    </div>
+                    
+                    <div class="about-projects">
+                        <div class="projects-title">🚀 Some of my projects include:</div>
+                        <div class="projects-list">
+                            <div class="project-brief">• Travel and tour website for planning trips efficiently</div>
+                            <div class="project-brief">• Broccobae vegan website for discovering and exploring recipes</div>
+                            <div class="project-brief">• Caldef app for calculating daily calorie intake for diet management</div>
+                            <div class="project-brief">• Globetrone Bank App case study showcasing UX research and prototypes</div>
+                            <div class="project-brief">• Globetrone functioning prototype app demonstrating practical banking solutions</div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-goal">
+                        <p>My goal is to use design as a tool to solve problems, inspire users, and make digital experiences more accessible. I love exploring new ideas, experimenting with design tools, and learning from each project to become a better designer.</p>
+                    </div>
+                    
+                    <div class="about-cta">
+                        <p>💡 Type <span class="command-highlight">'projects'</span> to see my work, or <span class="command-highlight">'contact'</span> to get in touch!</p>
+                    </div>
+                </div>`;
+            this.addOutput(aboutContent, 'about-content');
+        }, 300);
     }
     
     showSkills() {
@@ -305,31 +338,68 @@ class TerminalPortfolio {
     }
     
     showEducation() {
-        const educationText = `
-<div class="education-section">
-    <div class="help-title">Educational Background</div>
-    <br>
-    <div class="education-item">
-        <div class="education-title">Google UX Design Certificate</div>
-        <div class="education-description">Comprehensive program covering UX research, design thinking, prototyping, and usability testing.</div>
-        <div class="education-year">2023</div>
-    </div>
-    <br>
-    <div class="education-item">
-        <div class="education-title">CalArts UI/UX Design Specialization</div>
-        <div class="education-description">Specialized coursework in visual design, user interface design, and user experience principles.</div>
-        <div class="education-year">2022</div>
-    </div>
-    <br>
-    <div class="education-item">
-        <div class="education-title">Bachelor of Science in Hospitality Management</div>
-        <div class="education-description">Foundation in customer service, project management, and business operations.</div>
-        <div class="education-year">2020</div>
-    </div>
-    <br>
-    <p><span class="highlight">Continuous Learning:</span> Staying updated with latest design trends, development frameworks, and industry best practices through online courses and workshops.</p>
-</div>`;
-        this.addOutput(educationText);
+        this.addOutput('Education & Certifications:', 'help-title');
+        this.addOutput('', '');
+        
+        // Google UX Design Certificate
+        setTimeout(() => {
+            const googleCert = `
+                <div class="education-entry">
+                    <div class="education-header">
+                        <img src="https://img.icons8.com/color/48/000000/google-logo.png" width="32" height="32" style="vertical-align: middle; margin-right: 10px;" />
+                        <strong>Google UX Design Certificate — Coursera</strong>
+                        <span class="education-date">Jul–Oct 2024</span>
+                    </div>
+                    <div class="education-courses">
+                        <div class="course-item">✅ 1. Foundations of User Experience (UX) Design</div>
+                        <div class="course-item">✅ 2. Start the UX Design Process: Empathize, Define, and Ideate</div>
+                        <div class="course-item">✅ 3. Build Wireframes and Low-Fidelity Prototypes</div>
+                        <div class="course-item">✅ 4. Conduct UX Research and Test Early Concepts</div>
+                        <div class="course-item">✅ 5. Create High-Fidelity Designs and Prototypes in Figma</div>
+                        <div class="course-item">✅ 6. Responsive Web Design in Adobe XD and Figma</div>
+                        <div class="course-item">✅ 7. Design a User Experience for Social Good & Prepare for Jobs</div>
+                    </div>
+                </div>`;
+            this.addOutput(googleCert, 'education-section');
+        }, 300);
+        
+        // UI/UX Design Specialization
+        setTimeout(() => {
+            const calartsCert = `
+                <div class="education-entry">
+                    <div class="education-header">
+                        <img src="https://img.icons8.com/fluency/48/000000/adobe-xd.png" width="32" height="32" style="vertical-align: middle; margin-right: 10px;" />
+                        <strong>UI/UX Design Specialization — California Institute of the Arts / Coursera</strong>
+                        <span class="education-date">Jul–Oct 2024</span>
+                    </div>
+                    <div class="education-courses">
+                        <div class="course-item">✅ 1. Visual Elements of User Interface Design</div>
+                        <div class="course-item">✅ 2. UX Design Fundamentals</div>
+                    </div>
+                </div>`;
+            this.addOutput(calartsCert, 'education-section');
+        }, 1200);
+        
+        // Bachelor's Degree
+        setTimeout(() => {
+            const bachelorDegree = `
+                <div class="education-entry">
+                    <div class="education-header">
+                        <span style="font-size: 32px; margin-right: 10px; vertical-align: middle;">🎓</span>
+                        <strong>Bachelor of Science in Hospitality Management — University of Eastern Philippines</strong>
+                        <span class="education-date">2020–2024</span>
+                    </div>
+                    <div class="education-description">
+                        Foundation in customer service, project management, and business operations.
+                    </div>
+                </div>`;
+            this.addOutput(bachelorDegree, 'education-section');
+        }, 2100);
+        
+        setTimeout(() => {
+            this.addOutput('', '');
+            this.typeText('🌟 Continuously learning and growing in UX/UI design!', 'info', 40);
+        }, 2800);
     }
     
     showContact() {
