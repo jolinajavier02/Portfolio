@@ -47,14 +47,7 @@
             <div class="output" id="output">
                 <div class="welcome-message">
                     <div class="ascii-name-container">
-                        <pre class="ascii-art">
-     ██╗ ██████╗ ██╗     ██╗███╗   ██╗ █████╗       ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗ 
-     ██║██╔═══██╗██║     ██║████╗  ██║██╔══██╗      ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
-     ██║██║   ██║██║     ██║██╔██╗ ██║███████║      ██║███████║██║   ██║██║█████╗  ██████╔╝
-██   ██║██║   ██║██║     ██║██║╚██╗██║██╔══██║ ██   ██║██╔══██║╚██╗ ██╔╝██║██╔══╝  ██╔══██╗
-╚█████╔╝╚██████╔╝███████╗██║██║ ╚████║██║  ██║ ╚█████╔╝██║  ██║ ╚████╔╝ ██║███████╗██║  ██║
- ╚════╝  ╚═════╝ ╚══════╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝  ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚══════╝╚═╝  ╚═╝
-                        </pre>
+                        <h1 id="typewriter"></h1>
                     </div>
                     <p>Welcome to Jolina Javier's Terminal Portfolio</p>
                     <p>UI/UX Designer & Front-End Developer</p>
@@ -71,5 +64,27 @@
     </div>
     
     <script src="script.js"></script>
+    
+    <script>
+        const text = "JOLINA JAVIER";
+        let index = 0;
+        
+        function typeWriter() {
+            if (index < text.length) {
+                document.getElementById("typewriter").innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, 150); // speed of typing
+            } else {
+                // Restart animation after delay
+                setTimeout(() => {
+                    document.getElementById("typewriter").innerHTML = "";
+                    index = 0;
+                    typeWriter();
+                }, 1000);
+            }
+        }
+        
+        typeWriter();
+    </script>
 </body>
 </html>
