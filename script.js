@@ -397,14 +397,33 @@ class TerminalPortfolio {
         div.className = `command-output ${className}`;
         this.output.appendChild(div);
         
-        let i = 0;
-        const typeInterval = setInterval(() => {
-            div.textContent += text[i];
-            i++;
-            if (i >= text.length) {
-                clearInterval(typeInterval);
-            }
-        }, delay);
+        // Check if text contains HTML tags
+        const hasHTML = /<[^>]*>/.test(text);
+        
+        if (hasHTML) {
+            // For HTML content, type character by character but preserve HTML structure
+            let i = 0;
+            let currentHTML = '';
+            const typeInterval = setInterval(() => {
+                currentHTML += text[i];
+                // Update innerHTML to render HTML properly
+                div.innerHTML = currentHTML;
+                i++;
+                if (i >= text.length) {
+                    clearInterval(typeInterval);
+                }
+            }, delay);
+        } else {
+            // For plain text, use textContent as before
+            let i = 0;
+            const typeInterval = setInterval(() => {
+                div.textContent += text[i];
+                i++;
+                if (i >= text.length) {
+                    clearInterval(typeInterval);
+                }
+            }, delay);
+        }
     }
     
     scrollToBottom() {
