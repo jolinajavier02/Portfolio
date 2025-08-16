@@ -110,19 +110,32 @@ class TerminalPortfolio {
         let i = 0;
         element.innerHTML = '';
         element.classList.add('typing');
-        element.style.width = '0';
-        element.style.display = 'inline-block';
+        
+        // Check if this is ASCII art (multi-line) or regular text
+        const isAsciiArt = text.includes('█') || text.includes('╗') || text.includes('╚');
+        
+        if (!isAsciiArt) {
+            element.style.width = '0';
+            element.style.display = 'inline-block';
+        }
         
         const timer = setInterval(() => {
             if (i < text.length) {
                 element.innerHTML += text.charAt(i);
-                element.style.width = (i + 1) * 0.6 + 'em';
+                
+                // Only adjust width for single-line text, not ASCII art
+                if (!isAsciiArt) {
+                    element.style.width = (i + 1) * 0.6 + 'em';
+                }
                 i++;
             } else {
                 clearInterval(timer);
                 element.classList.remove('typing');
                 element.classList.add('finished');
-                element.style.width = 'auto';
+                
+                if (!isAsciiArt) {
+                    element.style.width = 'auto';
+                }
                 
                 if (continuous) {
                     // Wait 2 seconds then restart the animation
