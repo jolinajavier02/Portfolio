@@ -8,9 +8,6 @@ class TerminalPortfolio {
         this.commandHistory = [];
         this.historyIndex = -1;
         this.currentPath = '~';
-        this.asciiAnimationActive = false;
-        this.asciiAnimationTimer = null;
-        this.asciiAnimationTimeout = null;
         
         this.commands = {
             help: this.showHelp.bind(this),
@@ -31,6 +28,10 @@ class TerminalPortfolio {
     }
     
     animateAsciiName(element, text) {
+        this.asciiAnimationActive = true;
+        this.currentAsciiTimer = null;
+        this.currentAsciiTimeout = null;
+        
         const animateOnce = () => {
             if (!this.asciiAnimationActive) return;
             
@@ -38,9 +39,9 @@ class TerminalPortfolio {
             element.innerHTML = '';
             element.classList.add('typing');
             
-            this.asciiAnimationTimer = setInterval(() => {
+            this.currentAsciiTimer = setInterval(() => {
                 if (!this.asciiAnimationActive) {
-                    clearInterval(this.asciiAnimationTimer);
+                    clearInterval(this.currentAsciiTimer);
                     return;
                 }
                 
@@ -48,12 +49,12 @@ class TerminalPortfolio {
                     element.innerHTML += text.charAt(i);
                     i++;
                 } else {
-                    clearInterval(this.asciiAnimationTimer);
+                    clearInterval(this.currentAsciiTimer);
                     element.classList.remove('typing');
                     element.classList.add('finished');
                     
-                    // Wait 3 seconds then restart
-                    this.asciiAnimationTimeout = setTimeout(() => {
+                    // Wait 3 seconds then restart if still active
+                    this.currentAsciiTimeout = setTimeout(() => {
                         if (this.asciiAnimationActive) {
                             element.classList.remove('finished');
                             animateOnce();
@@ -63,8 +64,17 @@ class TerminalPortfolio {
             }, 30);
         };
         
-        this.asciiAnimationActive = true;
         animateOnce();
+    }
+    
+    stopAsciiAnimation() {
+        this.asciiAnimationActive = false;
+        if (this.currentAsciiTimer) {
+            clearInterval(this.currentAsciiTimer);
+        }
+        if (this.currentAsciiTimeout) {
+            clearTimeout(this.currentAsciiTimeout);
+        }
     }
     
     init() {
@@ -173,16 +183,6 @@ class TerminalPortfolio {
     
     hideLandingPage() {
         if (this.landingOverlay) {
-            // Stop ASCII animation
-            this.asciiAnimationActive = false;
-            if (this.asciiAnimationTimer) {
-                clearInterval(this.asciiAnimationTimer);
-            }
-            if (this.asciiAnimationTimeout) {
-                clearTimeout(this.asciiAnimationTimeout);
-            }
-            
-            this.isLandingPage = false;
             this.landingOverlay.classList.add('hidden');
             // Focus on terminal input after landing page disappears
             setTimeout(() => {
@@ -194,29 +194,20 @@ class TerminalPortfolio {
     handleKeyDown(e) {
         switch(e.key) {
             case 'Enter':
-                if (this.isLandingPage) {
-                    this.hideLandingPage();
-                } else {
-                    this.processCommand();
-                }
+                this.stopAsciiAnimation();
+                this.processCommand();
                 break;
             case 'ArrowUp':
-                if (!this.isLandingPage) {
-                    this.navigateHistory(-1);
-                    e.preventDefault();
-                }
+                this.navigateHistory(-1);
+                e.preventDefault();
                 break;
             case 'ArrowDown':
-                if (!this.isLandingPage) {
-                    this.navigateHistory(1);
-                    e.preventDefault();
-                }
+                this.navigateHistory(1);
+                e.preventDefault();
                 break;
             case 'Tab':
-                if (!this.isLandingPage) {
-                    this.autoComplete();
-                    e.preventDefault();
-                }
+                this.autoComplete();
+                e.preventDefault();
                 break;
         }
     }
