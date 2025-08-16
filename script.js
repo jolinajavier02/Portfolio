@@ -57,6 +57,7 @@ class TerminalPortfolio {
                     this.currentAsciiTimeout = setTimeout(() => {
                         if (this.asciiAnimationActive) {
                             element.classList.remove('finished');
+                            element.innerHTML = ''; // Clear content before restarting
                             animateOnce();
                         }
                     }, 3000);
