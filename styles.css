@@ -102,13 +102,12 @@ body {
     margin: 0;
     display: block;
     font-family: 'Courier New', monospace;
-    color: #00ff00;
-    white-space: pre-wrap;
+    color: #00FF00;
+    white-space: pre;
     font-size: 12px;
     line-height: 1.2;
-    text-align: left;
+    text-align: center;
     overflow: visible;
-    word-wrap: break-word;
 }
 
 .welcome-message p {

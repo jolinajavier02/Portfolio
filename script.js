@@ -8,6 +8,7 @@ class TerminalPortfolio {
         this.commandHistory = [];
         this.historyIndex = -1;
         this.currentPath = '~';
+        this.helpTyped = false;
         
         this.commands = {
             help: this.showHelp.bind(this),
@@ -27,6 +28,20 @@ class TerminalPortfolio {
         this.init();
     }
     
+    initWelcomeSection() {
+        const asciiArt = `     ██╗ ██████╗ ██╗     ██╗███╗   ██╗ █████╗       ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗ 
+     ██║██╔═══██╗██║     ██║████╗  ██║██╔══██╗      ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
+     ██║██║   ██║██║     ██║██╔██╗ ██║███████║      ██║███████║██║   ██║██║█████╗  ██████╔╝
+██   ██║██║   ██║██║     ██║██║╚██╗██║██╔══██║ ██   ██║██╔══██║╚██╗ ██╔╝██║██╔══╝  ██╔══██╗
+╚█████╔╝╚██████╔╝███████╗██║██║ ╚████║██║  ██║ ╚█████╔╝██║  ██║ ╚████╔╝ ██║███████╗██║  ██║
+ ╚════╝  ╚═════╝ ╚══════╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝  ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚══════╝╚═╝  ╚═╝`;
+        
+        const asciiNameElement = document.getElementById('ascii-name');
+        if (asciiNameElement) {
+            this.animateAsciiName(asciiNameElement, asciiArt);
+        }
+    }
+    
     animateAsciiName(element, text) {
         this.asciiAnimationActive = true;
         this.currentAsciiTimer = null;
@@ -35,28 +50,39 @@ class TerminalPortfolio {
         const animateOnce = () => {
             if (!this.asciiAnimationActive) return;
             
-            let i = 0;
+            const lines = text.split('\n');
+            let currentLine = 0;
             element.innerHTML = '';
             element.classList.add('typing');
             
-            this.currentAsciiTimer = setInterval(() => {
-                if (!this.asciiAnimationActive) {
-                    clearInterval(this.currentAsciiTimer);
-                    return;
-                }
+            const animateNextLine = () => {
+                if (!this.asciiAnimationActive) return;
                 
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
+                if (currentLine < lines.length) {
+                    // Add the current line
+                    if (currentLine > 0) {
+                        element.innerHTML += '\n';
+                    }
+                    element.innerHTML += lines[currentLine];
+                    currentLine++;
+                    
+                    // Schedule next line
+                    this.currentAsciiTimeout = setTimeout(animateNextLine, 200);
                 } else {
-                    clearInterval(this.currentAsciiTimer);
+                    // Animation complete
                     element.classList.remove('typing');
                     element.classList.add('finished');
                     
-                    // Keep the text visible after animation completes
-                    // No restart - animation runs only once
+                    // Loop the animation continuously until 'help' is typed
+                    this.currentAsciiTimeout = setTimeout(() => {
+                        if (this.asciiAnimationActive && !this.helpTyped) {
+                            animateOnce();
+                        }
+                    }, 2000);
                 }
-            }, 30);
+            };
+            
+            animateNextLine();
         };
         
         animateOnce();
@@ -76,6 +102,9 @@ class TerminalPortfolio {
         this.commandInput.addEventListener('keydown', this.handleKeyDown.bind(this));
         this.setupLandingPage();
         this.commandInput.focus();
+        
+        // Initialize ASCII art in welcome section
+        this.initWelcomeSection();
         
         // Show welcome message with typing effect
         setTimeout(() => {
@@ -110,27 +139,15 @@ class TerminalPortfolio {
     startTypewriterAnimation() {
         const text1 = "Hi! I'm Jolina Javier, a passionate UI/UX Designer and Front-End Developer.";
         const text2 = "I enjoy creating intuitive and user-friendly digital experiences.";
-        const asciiArt = `     ██╗ ██████╗ ██╗     ██╗███╗   ██╗ █████╗       ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗ 
-     ██║██╔═══██╗██║     ██║████╗  ██║██╔══██╗      ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
-     ██║██║   ██║██║     ██║██╔██╗ ██║███████║      ██║███████║██║   ██║██║█████╗  ██████╔╝
-██   ██║██║   ██║██║     ██║██║╚██╗██║██╔══██║ ██   ██║██╔══██║╚██╗ ██╔╝██║██╔══╝  ██╔══██╗
-╚█████╔╝╚██████╔╝███████╗██║██║ ╚████║██║  ██║ ╚█████╔╝██║  ██║ ╚████╔╝ ██║███████╗██║  ██║
- ╚════╝  ╚═════╝ ╚══════╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝  ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚══════╝╚═╝  ╚═╝`;
         
         const typewriter1 = document.getElementById('typewriter1');
         const typewriter2 = document.getElementById('typewriter2');
-        const asciiNameElement = document.getElementById('ascii-name');
         const instructionDiv = document.querySelector('.landing-instruction');
         
         // Hide instruction initially
         if (instructionDiv) {
             instructionDiv.style.opacity = '0';
             instructionDiv.style.transition = 'opacity 0.5s ease-in';
-        }
-        
-        // Start repeated animation for ASCII art name
-        if (asciiNameElement) {
-            this.animateAsciiName(asciiNameElement, asciiArt);
         }
         
         if (typewriter1 && typewriter2) {
@@ -222,6 +239,11 @@ class TerminalPortfolio {
         const [command, ...args] = input.split(' ');
         
         if (this.commands[command]) {
+            // Stop ASCII animation when help is typed
+            if (command === 'help') {
+                this.helpTyped = true;
+                this.stopAsciiAnimation();
+            }
             this.commands[command](args);
         } else {
             this.addOutput(`Command not found: ${command}. Type 'help' for available commands.`, 'error');
