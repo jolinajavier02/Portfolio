@@ -380,11 +380,13 @@ body {
 .landing-ascii {
     color: #00ff00;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 16px;
-    line-height: 1.2;
+    font-size: 12px;
+    line-height: 1.1;
     margin-bottom: 30px;
     text-shadow: 0 0 10px #00ff00;
     animation: glowPulse 2s ease-in-out infinite alternate;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .landing-description {
