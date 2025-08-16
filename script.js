@@ -4,6 +4,7 @@ class TerminalPortfolio {
     constructor() {
         this.commandInput = document.getElementById('commandInput');
         this.output = document.getElementById('output');
+        this.landingOverlay = document.getElementById('landingOverlay');
         this.commandHistory = [];
         this.historyIndex = -1;
         this.currentPath = '~';
@@ -28,6 +29,7 @@ class TerminalPortfolio {
     
     init() {
         this.commandInput.addEventListener('keydown', this.handleKeyDown.bind(this));
+        this.setupLandingPage();
         this.commandInput.focus();
         
         // Show welcome message with typing effect
@@ -39,6 +41,89 @@ class TerminalPortfolio {
         document.addEventListener('click', () => {
             this.commandInput.focus();
         });
+    }
+    
+    setupLandingPage() {
+        // Handle Enter key press on landing page
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && this.landingOverlay && !this.landingOverlay.classList.contains('hidden')) {
+                this.hideLandingPage();
+            }
+        });
+        
+        // Also handle click on landing page
+        if (this.landingOverlay) {
+            this.landingOverlay.addEventListener('click', () => {
+                this.hideLandingPage();
+            });
+        }
+        
+        // Start typewriter animation
+        this.startTypewriterAnimation();
+    }
+    
+    startTypewriterAnimation() {
+        const text1 = "Hi! I'm Jolina Javier, a passionate UI/UX Designer and Front-End Developer.";
+        const text2 = "I enjoy creating intuitive and user-friendly digital experiences.";
+        
+        const typewriter1 = document.getElementById('typewriter1');
+        const typewriter2 = document.getElementById('typewriter2');
+        const instructionDiv = document.querySelector('.landing-instruction');
+        
+        // Hide instruction initially
+        if (instructionDiv) {
+            instructionDiv.style.opacity = '0';
+            instructionDiv.style.transition = 'opacity 0.5s ease-in';
+        }
+        
+        if (typewriter1 && typewriter2) {
+            // Start first line immediately
+            this.typeText(typewriter1, text1, 50, () => {
+                // Start second line after first is complete
+                setTimeout(() => {
+                    this.typeText(typewriter2, text2, 50, () => {
+                        // Show instruction after both lines are complete
+                        setTimeout(() => {
+                            if (instructionDiv) {
+                                instructionDiv.style.opacity = '1';
+                            }
+                        }, 500);
+                    });
+                }, 500);
+            });
+        }
+    }
+    
+    typeText(element, text, speed, callback) {
+        let i = 0;
+        element.innerHTML = '';
+        element.classList.add('typing');
+        element.style.width = '0';
+        element.style.display = 'inline-block';
+        
+        const timer = setInterval(() => {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                element.style.width = (i + 1) * 0.6 + 'em';
+                i++;
+            } else {
+                clearInterval(timer);
+                element.classList.remove('typing');
+                element.classList.add('finished');
+                element.style.width = 'auto';
+                if (callback) callback();
+            }
+        }, speed);
+    }
+    
+    hideLandingPage() {
+        if (this.landingOverlay) {
+            this.landingOverlay.classList.add('hidden');
+            // Focus on terminal input after landing page disappears
+            setTimeout(() => {
+                this.commandInput.focus();
+            }, 500);
+        }
     }
     
     handleKeyDown(e) {
