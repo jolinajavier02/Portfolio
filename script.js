@@ -16,6 +16,7 @@ class TerminalPortfolio {
             skills: this.showSkills.bind(this),
             projects: this.showProjects.bind(this),
             education: this.showEducation.bind(this),
+            resume: this.showResume.bind(this),
             contact: this.showContact.bind(this),
             clear: this.clearTerminal.bind(this),
             whoami: this.whoami.bind(this),
@@ -422,6 +423,7 @@ class TerminalPortfolio {
         <div class="help-command"><span class="command-name">skills</span> - View technical skills and tools</div>
         <div class="help-command"><span class="command-name">projects</span> - Browse portfolio projects</div>
         <div class="help-command"><span class="command-name">education</span> - View educational background</div>
+        <div class="help-command"><span class="command-name">resume</span> - Download resume (UI/UX or Front-End)</div>
         <div class="help-command"><span class="command-name">contact</span> - Get contact information</div>
         <div class="help-command"><span class="command-name">clear</span> - Clear the terminal</div>
         <div class="help-command"><span class="command-name">whoami</span> - Display current user</div>
@@ -669,6 +671,57 @@ class TerminalPortfolio {
             this.addOutput('', '');
             this.typeText('🌟 Continuously learning and growing in UX/UI design!', 'info', 40);
         }, 2800);
+    }
+    
+    showResume() {
+        this.addOutput('Resume Downloads:', 'help-title');
+        this.addOutput('', '');
+        
+        const resumeText = `
+<div class="resume-section">
+    <div class="resume-option">
+        <div class="resume-header">
+            <span style="font-size: 24px; margin-right: 10px;">📄</span>
+            <strong style="color: #00ff00;">UI/UX Designer Resume</strong>
+        </div>
+        <div class="resume-description">
+            Focused on user experience design, research, and interface design skills.
+        </div>
+        <div class="resume-download">
+            <a href="UI_UX Designer Resume.pdf" download="Jolina_Javier_UIUX_Resume.pdf" 
+               style="color: #74c0fc; text-decoration: none; font-weight: bold;"
+               onmouseover="this.style.color='#339af0'" 
+               onmouseout="this.style.color='#74c0fc'">
+               📥 Download UI/UX Resume
+            </a>
+        </div>
+    </div>
+    
+    <div class="resume-option">
+        <div class="resume-header">
+            <span style="font-size: 24px; margin-right: 10px;">💻</span>
+            <strong style="color: #00ff00;">Front-End Developer Resume</strong>
+        </div>
+        <div class="resume-description">
+            Highlighting technical skills, programming languages, and development projects.
+        </div>
+        <div class="resume-download">
+            <a href="Front end Developer Resume.pdf" download="Jolina_Javier_Frontend_Resume.pdf" 
+               style="color: #74c0fc; text-decoration: none; font-weight: bold;"
+               onmouseover="this.style.color='#339af0'" 
+               onmouseout="this.style.color='#74c0fc'">
+               📥 Download Front-End Resume
+            </a>
+        </div>
+    </div>
+</div>`;
+        
+        this.addOutput(resumeText, 'resume-section');
+        
+        setTimeout(() => {
+            this.addOutput('', '');
+            this.typeText('💡 Choose the resume that best fits the role you\'re considering!', 'info', 40);
+        }, 500);
     }
     
     showContact() {
