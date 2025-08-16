@@ -77,20 +77,18 @@ class TerminalPortfolio {
         }
         
         if (typewriter1 && typewriter2) {
-            // Start first line immediately
-            this.typeTextTypewriter(typewriter1, text1, 50, () => {
-                // Start second line after first is complete
-                setTimeout(() => {
-                    this.typeTextTypewriter(typewriter2, text2, 50, () => {
-                        // Show instruction after both lines are complete
-                        setTimeout(() => {
-                            if (instructionDiv) {
-                                instructionDiv.style.opacity = '1';
-                            }
-                        }, 500);
-                    });
-                }, 500);
-            });
+            // Show instruction immediately since animation will be continuous
+            if (instructionDiv) {
+                instructionDiv.style.opacity = '1';
+            }
+            
+            // Start both lines with continuous animation
+            this.typeTextTypewriter(typewriter1, text1, 50, null, true);
+            
+            // Start second line after a delay
+            setTimeout(() => {
+                this.typeTextTypewriter(typewriter2, text2, 50, null, true);
+            }, text1.length * 50 + 1000); // Wait for first line to complete plus 1 second
         }
     }
     
