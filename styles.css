@@ -93,6 +93,16 @@ body {
     text-align: center;
 }
 
+.ascii-name-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.ascii-name-container .ascii-art {
+    margin: 0;
+    display: inline-block;
+}
+
 .welcome-message p {
     color: #ccc;
     margin-bottom: 8px;
