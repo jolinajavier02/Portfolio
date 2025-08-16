@@ -8,8 +8,8 @@ class TerminalPortfolio {
         this.commandHistory = [];
         this.historyIndex = -1;
         this.currentPath = '~';
-        this.isLandingPage = true;
         this.asciiAnimationActive = false;
+        this.asciiAnimationTimer = null;
         this.asciiAnimationTimeout = null;
         
         this.commands = {
@@ -31,39 +31,40 @@ class TerminalPortfolio {
     }
     
     animateAsciiName(element, text) {
-        // Display the full text immediately
-        element.innerHTML = text;
-        
-        const fadeAnimation = () => {
+        const animateOnce = () => {
             if (!this.asciiAnimationActive) return;
             
-            // Fade in
-            element.style.opacity = '0';
-            element.style.transition = 'opacity 1s ease-in-out';
+            let i = 0;
+            element.innerHTML = '';
+            element.classList.add('typing');
             
-            setTimeout(() => {
-                if (this.asciiAnimationActive) {
-                    element.style.opacity = '1';
+            this.asciiAnimationTimer = setInterval(() => {
+                if (!this.asciiAnimationActive) {
+                    clearInterval(this.asciiAnimationTimer);
+                    return;
                 }
-            }, 100);
-            
-            // Fade out after 3 seconds
-            this.asciiAnimationTimeout = setTimeout(() => {
-                if (this.asciiAnimationActive) {
-                    element.style.opacity = '0';
+                
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(this.asciiAnimationTimer);
+                    element.classList.remove('typing');
+                    element.classList.add('finished');
                     
-                    // Restart after fade out completes
-                    setTimeout(() => {
+                    // Wait 3 seconds then restart
+                    this.asciiAnimationTimeout = setTimeout(() => {
                         if (this.asciiAnimationActive) {
-                            fadeAnimation();
+                            element.classList.remove('finished');
+                            animateOnce();
                         }
-                    }, 1000);
+                    }, 3000);
                 }
-            }, 3000);
+            }, 30);
         };
         
         this.asciiAnimationActive = true;
-        fadeAnimation();
+        animateOnce();
     }
     
     init() {
@@ -174,6 +175,9 @@ class TerminalPortfolio {
         if (this.landingOverlay) {
             // Stop ASCII animation
             this.asciiAnimationActive = false;
+            if (this.asciiAnimationTimer) {
+                clearInterval(this.asciiAnimationTimer);
+            }
             if (this.asciiAnimationTimeout) {
                 clearTimeout(this.asciiAnimationTimeout);
             }
