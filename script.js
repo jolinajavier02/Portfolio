@@ -8,6 +8,7 @@ class TerminalPortfolio {
         this.commandHistory = [];
         this.historyIndex = -1;
         this.currentPath = '~';
+        this.isLandingPage = true;
         this.asciiAnimationActive = false;
         this.asciiAnimationTimeout = null;
         
