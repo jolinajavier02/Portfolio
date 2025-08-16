@@ -127,11 +127,17 @@ class TerminalPortfolio {
     }
     
     initWelcomeSection() {
-        const asciiArt = this.generateAsciiArt('JOLINA JAVIER');
+        const asciiArt = `██╗ ██████╗ ██╗     ██╗███╗   ██╗ █████╗       ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗ 
+██║██╔═══██╗██║     ██║████╗  ██║██╔══██╗      ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
+██║██║   ██║██║     ██║██╔██╗ ██║███████║      ██║███████║██║   ██║██║█████╗  ██████╔╝
+██   ██║██║   ██║██║     ██║██║╚██╗██║██╔══██║ ██   ██║██╔══██║╚██╗ ██╔╝██║██╔══╝  ██╔══██╗
+╚█████╔╝╚██████╔╝███████╗██║██║ ╚████║██║  ██║ ╚█████╔╝██║  ██║ ╚████╔╝ ██║███████╗██║  ██║
+ ╚════╝  ╚═════╝ ╚══════╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝  ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚══════╝╚═╝  ╚═╝`;
         
         const asciiNameElement = document.getElementById('ascii-name');
         if (asciiNameElement) {
-            this.animateAsciiName(asciiNameElement, asciiArt);
+            asciiNameElement.innerHTML = asciiArt;
+            asciiNameElement.classList.add('finished');
         }
     }
     
@@ -196,8 +202,10 @@ class TerminalPortfolio {
         this.setupLandingPage();
         this.commandInput.focus();
         
-        // Initialize ASCII art in welcome section
-        this.initWelcomeSection();
+        // Initialize ASCII art in welcome section after a short delay
+        setTimeout(() => {
+            this.initWelcomeSection();
+        }, 100);
         
         // Show welcome message with typing effect
         setTimeout(() => {
