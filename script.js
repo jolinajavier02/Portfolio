@@ -65,9 +65,16 @@ class TerminalPortfolio {
     startTypewriterAnimation() {
         const text1 = "Hi! I'm Jolina Javier, a passionate UI/UX Designer and Front-End Developer.";
         const text2 = "I enjoy creating intuitive and user-friendly digital experiences.";
+        const asciiArt = `     ██╗ ██████╗ ██╗     ██╗███╗   ██╗ █████╗       ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗ 
+     ██║██╔═══██╗██║     ██║████╗  ██║██╔══██╗      ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
+     ██║██║   ██║██║     ██║██╔██╗ ██║███████║      ██║███████║██║   ██║██║█████╗  ██████╔╝
+██   ██║██║   ██║██║     ██║██║╚██╗██║██╔══██║ ██   ██║██╔══██║╚██╗ ██╔╝██║██╔══╝  ██╔══██╗
+╚█████╔╝╚██████╔╝███████╗██║██║ ╚████║██║  ██║ ╚█████╔╝██║  ██║ ╚████╔╝ ██║███████╗██║  ██║
+ ╚════╝  ╚═════╝ ╚══════╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝  ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚══════╝╚═╝  ╚═╝`;
         
         const typewriter1 = document.getElementById('typewriter1');
         const typewriter2 = document.getElementById('typewriter2');
+        const asciiNameElement = document.getElementById('ascii-name');
         const instructionDiv = document.querySelector('.landing-instruction');
         
         // Hide instruction initially
@@ -76,19 +83,26 @@ class TerminalPortfolio {
             instructionDiv.style.transition = 'opacity 0.5s ease-in';
         }
         
+        // Start continuous animation for ASCII art name
+        if (asciiNameElement) {
+            this.typeTextTypewriter(asciiNameElement, asciiArt, 20, null, true);
+        }
+        
         if (typewriter1 && typewriter2) {
-            // Show instruction immediately since animation will be continuous
-            if (instructionDiv) {
-                instructionDiv.style.opacity = '1';
-            }
-            
-            // Start both lines with continuous animation
-            this.typeTextTypewriter(typewriter1, text1, 50, null, true);
-            
-            // Start second line after a delay
-            setTimeout(() => {
-                this.typeTextTypewriter(typewriter2, text2, 50, null, true);
-            }, text1.length * 50 + 1000); // Wait for first line to complete plus 1 second
+            // Start first line immediately (no continuous animation)
+            this.typeTextTypewriter(typewriter1, text1, 50, () => {
+                // Start second line after first is complete
+                setTimeout(() => {
+                    this.typeTextTypewriter(typewriter2, text2, 50, () => {
+                        // Show instruction after both lines are complete
+                        setTimeout(() => {
+                            if (instructionDiv) {
+                                instructionDiv.style.opacity = '1';
+                            }
+                        }, 500);
+                    });
+                }, 500);
+            });
         }
     }
     
