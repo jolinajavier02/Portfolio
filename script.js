@@ -127,17 +127,17 @@ class TerminalPortfolio {
     }
     
     initWelcomeSection() {
-        const asciiArt = `██╗ ██████╗ ██╗     ██╗███╗   ██╗ █████╗       ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗ 
-██║██╔═══██╗██║     ██║████╗  ██║██╔══██╗      ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
-██║██║   ██║██║     ██║██╔██╗ ██║███████║      ██║███████║██║   ██║██║█████╗  ██████╔╝
-██   ██║██║   ██║██║     ██║██║╚██╗██║██╔══██║ ██   ██║██╔══██║╚██╗ ██╔╝██║██╔══╝  ██╔══██╗
-╚█████╔╝╚██████╔╝███████╗██║██║ ╚████║██║  ██║ ╚█████╔╝██║  ██║ ╚████╔╝ ██║███████╗██║  ██║
- ╚════╝  ╚═════╝ ╚══════╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝  ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚══════╝╚═╝  ╚═╝`;
-        
         const asciiNameElement = document.getElementById('ascii-name');
         if (asciiNameElement) {
-            asciiNameElement.innerHTML = asciiArt;
-            asciiNameElement.classList.add('finished');
+            // Apply the same styling as the landing page typewriter
+            asciiNameElement.style.color = '#ccc';
+            asciiNameElement.style.fontSize = '18px';
+            asciiNameElement.style.lineHeight = '1.6';
+            asciiNameElement.style.fontFamily = "'JetBrains Mono', monospace";
+            asciiNameElement.style.textAlign = 'center';
+            
+            // Use the same typewriter animation as "Hi Dear" text
+            this.typeTextTypewriter(asciiNameElement, 'JOLINA JAVIER', 100);
         }
     }
     
