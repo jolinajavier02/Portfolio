@@ -53,14 +53,8 @@ class TerminalPortfolio {
                     element.classList.remove('typing');
                     element.classList.add('finished');
                     
-                    // Wait 3 seconds then restart if still active
-                    this.currentAsciiTimeout = setTimeout(() => {
-                        if (this.asciiAnimationActive) {
-                            element.classList.remove('finished');
-                            element.innerHTML = ''; // Clear content before restarting
-                            animateOnce();
-                        }
-                    }, 3000);
+                    // Keep the text visible after animation completes
+                    // No restart - animation runs only once
                 }
             }, 30);
         };
