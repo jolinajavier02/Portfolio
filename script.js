@@ -8,6 +8,8 @@ class TerminalPortfolio {
         this.commandHistory = [];
         this.historyIndex = -1;
         this.currentPath = '~';
+        this.asciiAnimationActive = false;
+        this.asciiAnimationTimeout = null;
         
         this.commands = {
             help: this.showHelp.bind(this),
@@ -27,7 +29,41 @@ class TerminalPortfolio {
         this.init();
     }
     
-
+    animateAsciiName(element, text) {
+        // Display the full text immediately
+        element.innerHTML = text;
+        
+        const fadeAnimation = () => {
+            if (!this.asciiAnimationActive) return;
+            
+            // Fade in
+            element.style.opacity = '0';
+            element.style.transition = 'opacity 1s ease-in-out';
+            
+            setTimeout(() => {
+                if (this.asciiAnimationActive) {
+                    element.style.opacity = '1';
+                }
+            }, 100);
+            
+            // Fade out after 3 seconds
+            this.asciiAnimationTimeout = setTimeout(() => {
+                if (this.asciiAnimationActive) {
+                    element.style.opacity = '0';
+                    
+                    // Restart after fade out completes
+                    setTimeout(() => {
+                        if (this.asciiAnimationActive) {
+                            fadeAnimation();
+                        }
+                    }, 1000);
+                }
+            }, 3000);
+        };
+        
+        this.asciiAnimationActive = true;
+        fadeAnimation();
+    }
     
     init() {
         this.commandInput.addEventListener('keydown', this.handleKeyDown.bind(this));
@@ -67,6 +103,13 @@ class TerminalPortfolio {
     startTypewriterAnimation() {
         const text1 = "Hi! I'm Jolina Javier, a passionate UI/UX Designer and Front-End Developer.";
         const text2 = "I enjoy creating intuitive and user-friendly digital experiences.";
+        const asciiArt = `     ██╗ ██████╗ ██╗     ██╗███╗   ██╗ █████╗       ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗ 
+     ██║██╔═══██╗██║     ██║████╗  ██║██╔══██╗      ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
+     ██║██║   ██║██║     ██║██╔██╗ ██║███████║      ██║███████║██║   ██║██║█████╗  ██████╔╝
+██   ██║██║   ██║██║     ██║██║╚██╗██║██╔══██║ ██   ██║██╔══██║╚██╗ ██╔╝██║██╔══╝  ██╔══██╗
+╚█████╔╝╚██████╔╝███████╗██║██║ ╚████║██║  ██║ ╚█████╔╝██║  ██║ ╚████╔╝ ██║███████╗██║  ██║
+ ╚════╝  ╚═════╝ ╚══════╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝  ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚══════╝╚═╝  ╚═╝`;
+        
         const typewriter1 = document.getElementById('typewriter1');
         const typewriter2 = document.getElementById('typewriter2');
         const asciiNameElement = document.getElementById('ascii-name');
@@ -78,7 +121,10 @@ class TerminalPortfolio {
             instructionDiv.style.transition = 'opacity 0.5s ease-in';
         }
         
-        // ASCII art name is now displayed as static text in HTML
+        // Start repeated animation for ASCII art name
+        if (asciiNameElement) {
+            this.animateAsciiName(asciiNameElement, asciiArt);
+        }
         
         if (typewriter1 && typewriter2) {
             // Start first line immediately (no continuous animation)
@@ -125,6 +171,13 @@ class TerminalPortfolio {
     
     hideLandingPage() {
         if (this.landingOverlay) {
+            // Stop ASCII animation
+            this.asciiAnimationActive = false;
+            if (this.asciiAnimationTimeout) {
+                clearTimeout(this.asciiAnimationTimeout);
+            }
+            
+            this.isLandingPage = false;
             this.landingOverlay.classList.add('hidden');
             // Focus on terminal input after landing page disappears
             setTimeout(() => {
@@ -136,19 +189,29 @@ class TerminalPortfolio {
     handleKeyDown(e) {
         switch(e.key) {
             case 'Enter':
-                this.processCommand();
+                if (this.isLandingPage) {
+                    this.hideLandingPage();
+                } else {
+                    this.processCommand();
+                }
                 break;
             case 'ArrowUp':
-                this.navigateHistory(-1);
-                e.preventDefault();
+                if (!this.isLandingPage) {
+                    this.navigateHistory(-1);
+                    e.preventDefault();
+                }
                 break;
             case 'ArrowDown':
-                this.navigateHistory(1);
-                e.preventDefault();
+                if (!this.isLandingPage) {
+                    this.navigateHistory(1);
+                    e.preventDefault();
+                }
                 break;
             case 'Tab':
-                this.autoComplete();
-                e.preventDefault();
+                if (!this.isLandingPage) {
+                    this.autoComplete();
+                    e.preventDefault();
+                }
                 break;
         }
     }

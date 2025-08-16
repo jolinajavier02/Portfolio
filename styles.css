@@ -87,10 +87,12 @@ body {
 
 .ascii-art {
     color: #00ff00;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 10px;
     line-height: 1.2;
     margin-bottom: 20px;
     text-align: center;
+    white-space: pre;
 }
 
 .ascii-name-container {
