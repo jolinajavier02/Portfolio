@@ -129,13 +129,16 @@ class TerminalPortfolio {
     initWelcomeSection() {
         const asciiNameElement = document.getElementById('ascii-name');
         if (asciiNameElement) {
-            // Apply the exact same styling as the landing page "Hi Dear" text
+            // Apply the exact same styling and classes as the landing page "Hi Dear" text
+            asciiNameElement.className = 'typewriter';
             asciiNameElement.style.color = '#ccc';
             asciiNameElement.style.fontSize = '18px';
             asciiNameElement.style.lineHeight = '1.6';
             asciiNameElement.style.margin = '10px 0';
             asciiNameElement.style.fontFamily = "'JetBrains Mono', monospace";
             asciiNameElement.style.textAlign = 'center';
+            asciiNameElement.style.display = 'inline-block';
+            asciiNameElement.style.minWidth = '0';
             
             // Use the same typewriter animation as "Hi Dear" text
             this.typeTextTypewriter(asciiNameElement, 'JOLINA JAVIER', 100);
