@@ -94,7 +94,7 @@ class TerminalPortfolio {
         }
     }
     
-    typeTextTypewriter(element, text, speed, callback) {
+    typeTextTypewriter(element, text, speed, callback, continuous = false) {
         let i = 0;
         element.innerHTML = '';
         element.classList.add('typing');
@@ -111,7 +111,16 @@ class TerminalPortfolio {
                 element.classList.remove('typing');
                 element.classList.add('finished');
                 element.style.width = 'auto';
-                if (callback) callback();
+                
+                if (continuous) {
+                    // Wait 2 seconds then restart the animation
+                    setTimeout(() => {
+                        element.classList.remove('finished');
+                        this.typeTextTypewriter(element, text, speed, callback, continuous);
+                    }, 2000);
+                } else if (callback) {
+                    callback();
+                }
             }
         }, speed);
     }
