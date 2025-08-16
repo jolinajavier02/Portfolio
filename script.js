@@ -46,15 +46,15 @@ class TerminalPortfolio {
                 }
                 
                 if (i < text.length) {
-                    element.textContent = text.substring(0, i + 1);
+                    element.innerHTML += text.charAt(i);
                     i++;
                 } else {
                     clearInterval(this.currentAsciiTimer);
                     element.classList.remove('typing');
                     element.classList.add('finished');
                     
-                    // Ensure final text is properly set and visible
-                    element.textContent = text;
+                    // Keep the text visible after animation completes
+                    // No restart - animation runs only once
                 }
             }, 30);
         };

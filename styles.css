@@ -100,12 +100,15 @@ body {
 
 .ascii-name-container .ascii-art {
     margin: 0;
-    display: inline-block;
+    display: block;
     font-family: 'Courier New', monospace;
     color: #00ff00;
-    white-space: pre;
+    white-space: pre-wrap;
     font-size: 12px;
-    line-height: 1.1;
+    line-height: 1.2;
+    text-align: left;
+    overflow: visible;
+    word-wrap: break-word;
 }
 
 .welcome-message p {
