@@ -78,10 +78,10 @@ class TerminalPortfolio {
         
         if (typewriter1 && typewriter2) {
             // Start first line immediately
-            this.typeText(typewriter1, text1, 50, () => {
+            this.typeTextTypewriter(typewriter1, text1, 50, () => {
                 // Start second line after first is complete
                 setTimeout(() => {
-                    this.typeText(typewriter2, text2, 50, () => {
+                    this.typeTextTypewriter(typewriter2, text2, 50, () => {
                         // Show instruction after both lines are complete
                         setTimeout(() => {
                             if (instructionDiv) {
@@ -94,7 +94,7 @@ class TerminalPortfolio {
         }
     }
     
-    typeText(element, text, speed, callback) {
+    typeTextTypewriter(element, text, speed, callback) {
         let i = 0;
         element.innerHTML = '';
         element.classList.add('typing');
