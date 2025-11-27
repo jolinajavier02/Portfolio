@@ -9,6 +9,7 @@ class TerminalPortfolio {
         this.historyIndex = -1;
         this.currentPath = '~';
         this.helpTyped = false;
+        this.landingKeyHandler = null;
 
         this.commands = {
             help: this.showHelp.bind(this),
@@ -130,6 +131,8 @@ class TerminalPortfolio {
     initWelcomeSection() {
         const asciiNameElement = document.getElementById('ascii-name');
         if (asciiNameElement) {
+            // Remove typewriter class to prevent cursor from appearing
+            asciiNameElement.className = 'ascii-art';
             // Apply the same ASCII art styling as the landing page
             asciiNameElement.innerHTML = `<pre class="landing-ascii">
       ██╗ ██████╗ ██╗     ██╗███╗   ██╗ █████╗         ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗ 
@@ -288,11 +291,13 @@ class TerminalPortfolio {
 
     setupLandingPage() {
         // Handle Enter key press on landing page
-        document.addEventListener('keydown', (e) => {
+        // Store handler reference to avoid duplicates
+        this.landingKeyHandler = (e) => {
             if (e.key === 'Enter' && this.landingOverlay && !this.landingOverlay.classList.contains('hidden')) {
                 this.hideLandingPage();
             }
-        });
+        };
+        document.addEventListener('keydown', this.landingKeyHandler);
 
         // Also handle click on landing page
         if (this.landingOverlay) {
