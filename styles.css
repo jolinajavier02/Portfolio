@@ -835,3 +835,42 @@ body {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+/* Window Controls States */
+.terminal-container.minimized {
+    height: auto;
+    min-height: auto;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    transition: all 0.3s ease;
+}
+
+.terminal-container.minimized .terminal-body {
+    display: none;
+}
+
+.terminal-container.fullscreen {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    border-radius: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    z-index: 900;
+    transition: all 0.3s ease;
+}
+
+.terminal-container.closed {
+    display: none;
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+/* Add transition to base class for smooth animations */
+.terminal-container {
+    transition: all 0.3s ease;
+}

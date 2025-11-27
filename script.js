@@ -200,6 +200,7 @@ class TerminalPortfolio {
     
     init() {
         this.commandInput.addEventListener('keydown', this.handleKeyDown.bind(this));
+        this.setupWindowControls();
         this.setupLandingPage();
         this.commandInput.focus();
         
@@ -217,6 +218,64 @@ class TerminalPortfolio {
         document.addEventListener('click', () => {
             this.commandInput.focus();
         });
+    }
+
+    setupWindowControls() {
+        const closeBtn = document.querySelector('.btn.close');
+        const minimizeBtn = document.querySelector('.btn.minimize');
+        const maximizeBtn = document.querySelector('.btn.maximize');
+        const terminalContainer = document.querySelector('.terminal-container');
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent click from focusing input immediately
+                // Red: Exit tab (Close terminal and show landing page)
+                if (terminalContainer) {
+                    terminalContainer.classList.add('closed');
+                    
+                    // Show landing page again after a delay
+                    setTimeout(() => {
+                        if (this.landingOverlay) {
+                            this.landingOverlay.classList.remove('hidden');
+                            this.landingOverlay.style.opacity = '1';
+                            this.landingOverlay.style.visibility = 'visible';
+                            
+                            // Reset terminal state
+                            setTimeout(() => {
+                                terminalContainer.classList.remove('closed');
+                                terminalContainer.classList.remove('minimized');
+                                terminalContainer.classList.remove('fullscreen');
+                                this.clearTerminal();
+                                this.initWelcomeSection();
+                                this.typeText('Type "help" to see available commands.', 'info');
+                            }, 500);
+                        }
+                    }, 300);
+                }
+            });
+        }
+        
+        if (minimizeBtn) {
+            minimizeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Yellow: Close but still there (Minimize)
+                if (terminalContainer) {
+                    terminalContainer.classList.toggle('minimized');
+                    terminalContainer.classList.remove('fullscreen');
+                }
+            });
+        }
+        
+        if (maximizeBtn) {
+            maximizeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Green: Expanding (Fullscreen)
+                if (terminalContainer) {
+                    terminalContainer.classList.toggle('fullscreen');
+                    terminalContainer.classList.remove('minimized');
+                }
+            });
+        }
     }
     
     setupLandingPage() {
