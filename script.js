@@ -935,7 +935,11 @@ class TerminalPortfolio {
     }
 
     clearTerminal() {
-        this.output.innerHTML = '';
+        // Get all command outputs (everything except the welcome message)
+        const commandOutputs = this.output.querySelectorAll('.command-output, .command-line');
+        commandOutputs.forEach(output => output.remove());
+
+        // Add a "Terminal cleared" message
         this.addOutput('Terminal cleared.', 'success');
     }
 
