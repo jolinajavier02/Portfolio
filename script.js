@@ -649,29 +649,29 @@ class TerminalPortfolio {
     showProjects() {
         const projects = [
             {
-                name: 'Broccobae.com',
+                name: 'Natours Travel',
+                url: 'https://natours-travel.com/',
+                description: 'A fully designed travel & tours website offering flight bookings, hotel reservations, tour packages, cruises, and visa assistance. Features clear booking flows, user-friendly navigation, and reliable travel information.'
+            },
+            {
+                name: 'Brocoobae',
                 url: 'https://broccobae.com',
-                description: 'A website designed to showcase vegan recipes, helping users discover meal ideas with images, categories, and easy navigation for cooking inspiration.'
+                description: 'A vegan recipe website designed to inspire healthy, plant-based cooking. Showcases a curated collection of vegan dishes with simple instructions, beautiful visuals, and beginner-friendly recipes.'
             },
             {
-                name: 'Caldef',
+                name: 'CalDef',
                 url: 'https://github.com/jolina/Caldef',
-                description: 'A web application that calculates daily food intake and tracks the weight of meals for individuals following a diet deficit plan, helping users manage nutrition and health goals.'
-            },
-            {
-                name: 'Coffee App',
-                url: 'https://github.com/jolina/Coffee-App',
-                description: 'A mobile and web app design for ordering coffee online, featuring intuitive user flow, menu browsing, order tracking, and an interactive interface for customers to customize and place orders.'
+                description: 'A health-focused website aimed at helping users understand calorie deficit, weight management, and sustainable fitness habits. Presents information in a friendly, educational, and easy-to-digest format.'
             },
             {
                 name: 'Globetrone Bank App',
-                url: 'https://github.com/jolina/Globetrone-Bank-App',
-                description: 'A banking app concept designed for international users and foreign workers in Japan, including features for currency exchange, international money transfers, account management, and secure transactions.'
+                url: 'https://jolinajavier02.github.io/Globetrone-Bank-App/',
+                description: 'A fintech concept app designed for foreign workers and international users who need to transfer money abroad. Includes a full UX case study, covering user research, persona creation, user flows, wireframes, and final high-fidelity UI.'
             },
             {
-                name: 'Globetrone Case Study',
-                url: 'https://jolinajavier02.github.io/Globetrone-Case-Study/',
-                description: 'A detailed UX case study documenting the research, wireframes, user flows, and prototypes of the Globetrone Bank App, focusing on problem-solving and creating a user-friendly financial experience.'
+                name: 'Coffee App',
+                url: 'https://jolinajavier02.github.io/Coffee-App/',
+                description: 'A mobile ordering and delivery concept where users can browse coffee menus, customize orders, and check out seamlessly. Highlights a simple and inviting interface to encourage quick purchasing decisions.'
             }
         ];
 
