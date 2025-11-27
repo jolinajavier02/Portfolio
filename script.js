@@ -9,7 +9,7 @@ class TerminalPortfolio {
         this.historyIndex = -1;
         this.currentPath = '~';
         this.helpTyped = false;
-        
+
         this.commands = {
             help: this.showHelp.bind(this),
             about: this.showAbout.bind(this),
@@ -25,10 +25,10 @@ class TerminalPortfolio {
             date: this.showDate.bind(this),
             echo: this.echo.bind(this)
         };
-        
+
         this.init();
     }
-    
+
     generateAsciiArt(text) {
         // ASCII character mappings for block letters
         const asciiChars = {
@@ -113,25 +113,25 @@ class TerminalPortfolio {
                 '╚═╝  ╚═╝'
             ]
         };
-        
+
         const lines = ['', '', '', '', '', ''];
         const chars = text.toUpperCase().split('');
-        
+
         chars.forEach(char => {
             const charLines = asciiChars[char] || asciiChars[' '];
             for (let i = 0; i < 6; i++) {
                 lines[i] += charLines[i];
             }
         });
-        
+
         return lines.join('\n');
     }
-    
+
     initWelcomeSection() {
         const asciiNameElement = document.getElementById('ascii-name');
         if (asciiNameElement) {
             // Apply the same ASCII art styling as the landing page
-             asciiNameElement.innerHTML = `<pre class="landing-ascii">
+            asciiNameElement.innerHTML = `<pre class="landing-ascii">
       ██╗ ██████╗ ██╗     ██╗███╗   ██╗ █████╗         ██╗ █████╗ ██╗   ██╗██╗███████╗██████╗ 
       ██║██╔═══██╗██║     ██║████╗  ██║██╔══██╗        ██║██╔══██╗██║   ██║██║██╔════╝██╔══██╗
       ██║██║   ██║██║     ██║██╔██╗ ██║███████║        ██║███████║██║   ██║██║█████╗  ██████╔╝
@@ -141,23 +141,23 @@ class TerminalPortfolio {
              </pre>`;
         }
     }
-    
+
     animateAsciiName(element, text) {
         this.asciiAnimationActive = true;
         this.currentAsciiTimer = null;
         this.currentAsciiTimeout = null;
-        
+
         const animateOnce = () => {
             if (!this.asciiAnimationActive) return;
-            
+
             const lines = text.split('\n');
             let currentLine = 0;
             element.innerHTML = '';
             element.classList.add('typing');
-            
+
             const animateNextLine = () => {
                 if (!this.asciiAnimationActive) return;
-                
+
                 if (currentLine < lines.length) {
                     // Add the current line
                     if (currentLine > 0) {
@@ -165,14 +165,14 @@ class TerminalPortfolio {
                     }
                     element.innerHTML += lines[currentLine];
                     currentLine++;
-                    
+
                     // Schedule next line
                     this.currentAsciiTimeout = setTimeout(animateNextLine, 200);
                 } else {
                     // Animation complete
                     element.classList.remove('typing');
                     element.classList.add('finished');
-                    
+
                     // Loop the animation continuously until 'help' is typed
                     this.currentAsciiTimeout = setTimeout(() => {
                         if (this.asciiAnimationActive && !this.helpTyped) {
@@ -181,13 +181,13 @@ class TerminalPortfolio {
                     }, 2000);
                 }
             };
-            
+
             animateNextLine();
         };
-        
+
         animateOnce();
     }
-    
+
     stopAsciiAnimation() {
         this.asciiAnimationActive = false;
         if (this.currentAsciiTimer) {
@@ -197,23 +197,31 @@ class TerminalPortfolio {
             clearTimeout(this.currentAsciiTimeout);
         }
     }
-    
+
+    updateCommandText() {
+        if (this.commandText) {
+            this.commandText.textContent = this.commandInput.value;
+        }
+    }
+
     init() {
+        this.commandText = document.getElementById('commandText');
         this.commandInput.addEventListener('keydown', this.handleKeyDown.bind(this));
+        this.commandInput.addEventListener('input', this.updateCommandText.bind(this));
         this.setupWindowControls();
         this.setupLandingPage();
         this.commandInput.focus();
-        
+
         // Initialize ASCII art in welcome section after a short delay
         setTimeout(() => {
             this.initWelcomeSection();
         }, 100);
-        
+
         // Show welcome message with typing effect
         setTimeout(() => {
             this.typeText('Type "help" to see available commands.', 'info');
         }, 1000);
-        
+
         // Keep input focused
         document.addEventListener('click', () => {
             this.commandInput.focus();
@@ -225,21 +233,21 @@ class TerminalPortfolio {
         const minimizeBtn = document.querySelector('.btn.minimize');
         const maximizeBtn = document.querySelector('.btn.maximize');
         const terminalContainer = document.querySelector('.terminal-container');
-        
+
         if (closeBtn) {
             closeBtn.addEventListener('click', (e) => {
                 e.stopPropagation(); // Prevent click from focusing input immediately
                 // Red: Exit tab (Close terminal and show landing page)
                 if (terminalContainer) {
                     terminalContainer.classList.add('closed');
-                    
+
                     // Show landing page again after a delay
                     setTimeout(() => {
                         if (this.landingOverlay) {
                             this.landingOverlay.classList.remove('hidden');
                             this.landingOverlay.style.opacity = '1';
                             this.landingOverlay.style.visibility = 'visible';
-                            
+
                             // Reset terminal state
                             setTimeout(() => {
                                 terminalContainer.classList.remove('closed');
@@ -254,7 +262,7 @@ class TerminalPortfolio {
                 }
             });
         }
-        
+
         if (minimizeBtn) {
             minimizeBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -265,7 +273,7 @@ class TerminalPortfolio {
                 }
             });
         }
-        
+
         if (maximizeBtn) {
             maximizeBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -277,7 +285,7 @@ class TerminalPortfolio {
             });
         }
     }
-    
+
     setupLandingPage() {
         // Handle Enter key press on landing page
         document.addEventListener('keydown', (e) => {
@@ -285,32 +293,32 @@ class TerminalPortfolio {
                 this.hideLandingPage();
             }
         });
-        
+
         // Also handle click on landing page
         if (this.landingOverlay) {
             this.landingOverlay.addEventListener('click', () => {
                 this.hideLandingPage();
             });
         }
-        
+
         // Start typewriter animation
         this.startTypewriterAnimation();
     }
-    
+
     startTypewriterAnimation() {
         const text1 = "Hi! I'm Jolina Javier, a passionate UI/UX Designer and Front-End Developer.";
         const text2 = "I enjoy creating intuitive and user-friendly digital experiences.";
-        
+
         const typewriter1 = document.getElementById('typewriter1');
         const typewriter2 = document.getElementById('typewriter2');
         const instructionDiv = document.querySelector('.landing-instruction');
-        
+
         // Hide instruction initially
         if (instructionDiv) {
             instructionDiv.style.opacity = '0';
             instructionDiv.style.transition = 'opacity 0.5s ease-in';
         }
-        
+
         if (typewriter1 && typewriter2) {
             // Start first line immediately (no continuous animation)
             this.typeTextTypewriter(typewriter1, text1, 50, () => {
@@ -328,14 +336,14 @@ class TerminalPortfolio {
             });
         }
     }
-    
+
     typeTextTypewriter(element, text, speed, callback) {
         let i = 0;
         element.innerHTML = '';
         element.classList.add('typing');
         element.style.width = '0';
         element.style.display = 'inline-block';
-        
+
         const timer = setInterval(() => {
             if (i < text.length) {
                 element.innerHTML += text.charAt(i);
@@ -346,14 +354,14 @@ class TerminalPortfolio {
                 element.classList.remove('typing');
                 element.classList.add('finished');
                 element.style.width = 'auto';
-                
+
                 if (callback) {
                     callback();
                 }
             }
         }, speed);
     }
-    
+
     hideLandingPage() {
         if (this.landingOverlay) {
             this.landingOverlay.classList.add('hidden');
@@ -363,9 +371,9 @@ class TerminalPortfolio {
             }, 500);
         }
     }
-    
+
     handleKeyDown(e) {
-        switch(e.key) {
+        switch (e.key) {
             case 'Enter':
                 this.stopAsciiAnimation();
                 this.processCommand();
@@ -384,21 +392,21 @@ class TerminalPortfolio {
                 break;
         }
     }
-    
+
     processCommand() {
         const input = this.commandInput.value.trim();
         if (!input) return;
-        
+
         // Add to history
         this.commandHistory.push(input);
         this.historyIndex = this.commandHistory.length;
-        
+
         // Display command
         this.addOutput(`jolina@portfolio:${this.currentPath}$ ${input}`, 'command-line');
-        
+
         // Parse and execute command
         const [command, ...args] = input.split(' ');
-        
+
         if (this.commands[command]) {
             // Stop ASCII animation when help is typed
             if (command === 'help') {
@@ -409,56 +417,60 @@ class TerminalPortfolio {
         } else {
             this.addOutput(`Command not found: ${command}. Type 'help' for available commands.`, 'error');
         }
-        
+
         // Clear input
         this.commandInput.value = '';
-        
+        this.updateCommandText();
+
         // Scroll to bottom
         this.scrollToBottom();
     }
-    
+
     navigateHistory(direction) {
         if (this.commandHistory.length === 0) return;
-        
+
         this.historyIndex += direction;
-        
+
         if (this.historyIndex < 0) {
             this.historyIndex = 0;
         } else if (this.historyIndex >= this.commandHistory.length) {
             this.historyIndex = this.commandHistory.length;
             this.commandInput.value = '';
+            this.updateCommandText();
             return;
         }
-        
+
         this.commandInput.value = this.commandHistory[this.historyIndex] || '';
+        this.updateCommandText();
     }
-    
+
     autoComplete() {
         const input = this.commandInput.value;
         const matches = Object.keys(this.commands).filter(cmd => cmd.startsWith(input));
-        
+
         if (matches.length === 1) {
             this.commandInput.value = matches[0];
+            this.updateCommandText();
         } else if (matches.length > 1) {
             this.addOutput(`Available commands: ${matches.join(', ')}`, 'info');
         }
     }
-    
+
     addOutput(text, className = '') {
         const div = document.createElement('div');
         div.className = `command-output ${className}`;
         div.innerHTML = text;
         this.output.appendChild(div);
     }
-    
+
     typeText(text, className = '', delay = 50) {
         const div = document.createElement('div');
         div.className = `command-output ${className}`;
         this.output.appendChild(div);
-        
+
         // Check if text contains HTML tags
         const hasHTML = /<[^>]*>/.test(text);
-        
+
         if (hasHTML) {
             // For HTML content, type character by character but preserve HTML structure
             let i = 0;
@@ -484,12 +496,12 @@ class TerminalPortfolio {
             }, delay);
         }
     }
-    
+
     scrollToBottom() {
         const terminalBody = document.querySelector('.terminal-body');
         terminalBody.scrollTop = terminalBody.scrollHeight;
     }
-    
+
     // Command implementations
     showHelp() {
         const helpText = `
@@ -513,11 +525,11 @@ class TerminalPortfolio {
 </div>`;
         this.addOutput(helpText);
     }
-    
+
     showAbout() {
         this.addOutput('About Me', 'help-title');
         this.addOutput('', '');
-        
+
         setTimeout(() => {
             const aboutContent = `
                 <div class="about-section">
@@ -563,7 +575,7 @@ class TerminalPortfolio {
             this.addOutput(aboutContent, 'about-content');
         }, 300);
     }
-    
+
     showSkills() {
         const technicalSkills = [
             { name: 'HTML', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
@@ -575,7 +587,7 @@ class TerminalPortfolio {
             { name: 'Hosting', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/digitalocean/digitalocean-original.svg' },
             { name: 'VS Code', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' }
         ];
-        
+
         const designSkills = [
             { name: 'Responsive Design', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
             { name: 'Visual Layout', icon: 'https://img.icons8.com/fluency/48/design.png' },
@@ -583,15 +595,15 @@ class TerminalPortfolio {
             { name: 'Collaboration', icon: 'https://img.icons8.com/fluency/48/collaboration.png' },
             { name: 'Adaptability', icon: 'https://img.icons8.com/color/48/change.png' }
         ];
-        
+
         this.addOutput('Skills Portfolio:', 'help-title');
         this.addOutput('', '');
-        
+
         // Technical Skills Section
         setTimeout(() => {
             this.typeText('Technical Skills & Tools:', 'section-title', 30);
         }, 200);
-        
+
         setTimeout(() => {
             let techTable = '<table style="width: 100%; margin: 10px 0;"><tr>';
             technicalSkills.forEach((skill, index) => {
@@ -606,13 +618,13 @@ class TerminalPortfolio {
             techTable += '</tr></table>';
             this.addOutput(techTable, 'skills-table');
         }, 800);
-        
+
         // Design & Soft Skills Section
         setTimeout(() => {
             this.addOutput('', '');
             this.typeText('Design & Soft Skills:', 'section-title', 30);
         }, 1400);
-        
+
         setTimeout(() => {
             let designTable = '<table style="width: 100%; margin: 10px 0;"><tr>';
             designSkills.forEach((skill, index) => {
@@ -627,45 +639,45 @@ class TerminalPortfolio {
             designTable += '</tr></table>';
             this.addOutput(designTable, 'skills-table');
         }, 2000);
-        
+
         setTimeout(() => {
             this.addOutput('', '');
             this.typeText('💡 Always learning and expanding my skillset!', 'info', 40);
         }, 2600);
     }
-    
+
     showProjects() {
         const projects = [
-            { 
-                name: 'Broccobae.com', 
-                url: 'https://broccobae.com', 
-                description: 'A website designed to showcase vegan recipes, helping users discover meal ideas with images, categories, and easy navigation for cooking inspiration.' 
+            {
+                name: 'Broccobae.com',
+                url: 'https://broccobae.com',
+                description: 'A website designed to showcase vegan recipes, helping users discover meal ideas with images, categories, and easy navigation for cooking inspiration.'
             },
-            { 
-                name: 'Caldef', 
-                url: 'https://github.com/jolina/Caldef', 
-                description: 'A web application that calculates daily food intake and tracks the weight of meals for individuals following a diet deficit plan, helping users manage nutrition and health goals.' 
+            {
+                name: 'Caldef',
+                url: 'https://github.com/jolina/Caldef',
+                description: 'A web application that calculates daily food intake and tracks the weight of meals for individuals following a diet deficit plan, helping users manage nutrition and health goals.'
             },
-            { 
-                name: 'Coffee App', 
-                url: 'https://github.com/jolina/Coffee-App', 
-                description: 'A mobile and web app design for ordering coffee online, featuring intuitive user flow, menu browsing, order tracking, and an interactive interface for customers to customize and place orders.' 
+            {
+                name: 'Coffee App',
+                url: 'https://github.com/jolina/Coffee-App',
+                description: 'A mobile and web app design for ordering coffee online, featuring intuitive user flow, menu browsing, order tracking, and an interactive interface for customers to customize and place orders.'
             },
-            { 
-                name: 'Globetrone Bank App', 
-                url: 'https://github.com/jolina/Globetrone-Bank-App', 
-                description: 'A banking app concept designed for international users and foreign workers in Japan, including features for currency exchange, international money transfers, account management, and secure transactions.' 
+            {
+                name: 'Globetrone Bank App',
+                url: 'https://github.com/jolina/Globetrone-Bank-App',
+                description: 'A banking app concept designed for international users and foreign workers in Japan, including features for currency exchange, international money transfers, account management, and secure transactions.'
             },
-            { 
-                name: 'Globetrone Case Study', 
-                url: 'https://jolinajavier02.github.io/Globetrone-Case-Study/', 
-                description: 'A detailed UX case study documenting the research, wireframes, user flows, and prototypes of the Globetrone Bank App, focusing on problem-solving and creating a user-friendly financial experience.' 
+            {
+                name: 'Globetrone Case Study',
+                url: 'https://jolinajavier02.github.io/Globetrone-Case-Study/',
+                description: 'A detailed UX case study documenting the research, wireframes, user flows, and prototypes of the Globetrone Bank App, focusing on problem-solving and creating a user-friendly financial experience.'
             }
         ];
-        
+
         this.addOutput('Projects Portfolio:', 'help-title');
         this.addOutput('', '');
-        
+
         let delay = 0;
         projects.forEach((project, index) => {
             setTimeout(() => {
@@ -673,23 +685,23 @@ class TerminalPortfolio {
                 this.typeText(projectLine, 'project-item', 30);
             }, delay);
             delay += 800;
-            
+
             setTimeout(() => {
                 this.typeText(`   ${project.description}`, 'project-description', 20);
                 this.addOutput('', '');
             }, delay);
             delay += 1000;
         });
-        
+
         setTimeout(() => {
             this.typeText('💡 Click on any project name to open it in a new tab', 'info', 40);
         }, delay + 300);
     }
-    
+
     showEducation() {
         this.addOutput('Education & Certifications:', 'help-title');
         this.addOutput('', '');
-        
+
         // Google UX Design Certificate
         setTimeout(() => {
             const googleCert = `
@@ -711,7 +723,7 @@ class TerminalPortfolio {
                 </div>`;
             this.addOutput(googleCert, 'education-section');
         }, 300);
-        
+
         // UI/UX Design Specialization
         setTimeout(() => {
             const calartsCert = `
@@ -728,7 +740,7 @@ class TerminalPortfolio {
                 </div>`;
             this.addOutput(calartsCert, 'education-section');
         }, 1200);
-        
+
         // Bachelor's Degree
         setTimeout(() => {
             const bachelorDegree = `
@@ -744,17 +756,17 @@ class TerminalPortfolio {
                 </div>`;
             this.addOutput(bachelorDegree, 'education-section');
         }, 2100);
-        
+
         setTimeout(() => {
             this.addOutput('', '');
             this.typeText('🌟 Continuously learning and growing in UX/UI design!', 'info', 40);
         }, 2800);
     }
-    
+
     showResume() {
         this.addOutput('Resume Downloads:', 'help-title');
         this.addOutput('', '');
-        
+
         const resumeText = `
 <div class="resume-section">
     <div class="resume-option">
@@ -793,15 +805,15 @@ class TerminalPortfolio {
         </div>
     </div>
 </div>`;
-        
+
         this.addOutput(resumeText, 'resume-section');
-        
+
         setTimeout(() => {
             this.addOutput('', '');
             this.typeText('💡 Choose the resume that best fits the role you\'re considering!', 'info', 40);
         }, 500);
     }
-    
+
     showContact() {
         const contactText = `
 <div class="contact-section">
@@ -830,16 +842,16 @@ class TerminalPortfolio {
 </div>`;
         this.addOutput(contactText);
     }
-    
+
     clearTerminal() {
         this.output.innerHTML = '';
         this.addOutput('Terminal cleared.', 'success');
     }
-    
+
     whoami() {
         this.addOutput('jolina', 'info');
     }
-    
+
     listDirectory() {
         const files = [
             'about.txt',
@@ -849,7 +861,7 @@ class TerminalPortfolio {
             'contact.vcf',
             'resume.pdf'
         ];
-        
+
         this.addOutput('Directory contents:', 'info');
         files.forEach(file => {
             const isDirectory = file.endsWith('/');
@@ -857,11 +869,11 @@ class TerminalPortfolio {
             this.addOutput(`  ${file}`, color);
         });
     }
-    
+
     printWorkingDirectory() {
         this.addOutput(`/home/jolina${this.currentPath}`, 'info');
     }
-    
+
     showDate() {
         const now = new Date();
         const dateString = now.toLocaleString('en-US', {
@@ -875,7 +887,7 @@ class TerminalPortfolio {
         });
         this.addOutput(dateString, 'info');
     }
-    
+
     echo(args) {
         const text = args.join(' ');
         this.addOutput(text || '', 'info');
@@ -898,7 +910,7 @@ function animateAsciiArt() {
 document.addEventListener('DOMContentLoaded', () => {
     new TerminalPortfolio();
     animateAsciiArt();
-    
+
     // Add some easter eggs
     const easterEggs = {
         'sudo': () => 'Nice try! But you don\'t have sudo privileges here. 😄',
@@ -908,7 +920,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'matrix': () => 'There is no spoon... 🥄',
         'konami': () => '⬆️⬆️⬇️⬇️⬅️➡️⬅️➡️🅱️🅰️ - You found the Konami code!'
     };
-    
+
     // Add easter eggs to terminal
     const terminal = window.terminal || {};
     Object.assign(terminal, easterEggs);
