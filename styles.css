@@ -941,3 +941,42 @@ body {
     margin-left: 0 !important;
     display: inline-block !important;
 }
+
+/* Enhanced Project Styling */
+.project-header {
+    color: #00ff00;
+    font-size: 1.1em;
+    margin: 15px 0 10px 0;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+.project-header strong {
+    color: #00ff00;
+    font-weight: bold;
+}
+
+.project-title {
+    margin: 10px 0;
+}
+
+.project-link-line {
+    color: #ccc;
+    margin: 5px 0;
+    line-height: 1.6;
+}
+
+.project-feature {
+    color: #ccc;
+    margin: 5px 0;
+    padding-left: 10px;
+    line-height: 1.5;
+    font-size: 0.95em;
+}
+
+.project-description {
+    color: #cccccc;
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin: 8px 0;
+    text-align: justify;
+}

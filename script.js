@@ -365,8 +365,6 @@ class TerminalPortfolio {
     hideLandingPage() {
         if (this.landingOverlay) {
             this.landingOverlay.classList.add('hidden');
-            this.landingOverlay.style.opacity = '';
-            this.landingOverlay.style.visibility = '';
             // Focus on terminal input after landing page disappears
             setTimeout(() => {
                 this.commandInput.focus();
@@ -652,56 +650,142 @@ class TerminalPortfolio {
         const projects = [
             {
                 name: 'Natours Travel',
+                title: 'Natours Travel — Travel & Tours Website',
                 url: 'https://natours-travel.com/',
-                description: 'Natours Travel is a fully designed and developed travel & tours website offering flight bookings, hotel reservations, tour packages, cruises, and visa assistance. The platform focuses on clear booking flows, user-friendly navigation, and reliable travel information such as country requirements, airline recommendations, and travel checklists. I designed the interface with intuitive layouts and structured content to help users plan trips confidently from inquiry to confirmation.'
+                description: 'Natours Travel is a fully designed and developed travel & tours website offering flight bookings, hotel reservations, tour packages, cruises, and visa assistance. The platform focuses on clear booking flows, user-friendly navigation, and reliable travel information such as country requirements, airline recommendations, and travel checklists. I designed the interface with intuitive layouts and structured content to help users plan trips confidently from inquiry to confirmation.',
+                features: [
+                    'Multi-service travel booking (Flights, Hotels, Tours, Cruise, Visa Assistance)',
+                    'Step-by-step booking process',
+                    'Travel guidelines and country requirements',
+                    'Responsive layout and clean visual design',
+                    'Integrated inquiry form',
+                    'Custom branding and UX writing'
+                ]
             },
             {
-                name: 'Brocoobae',
+                name: 'Broccobae',
+                title: 'Broccobae — Vegan Recipe Website',
                 url: 'https://broccobae.com',
-                description: 'Brocoobae is a vegan recipe website designed to inspire healthy, plant-based cooking. The platform showcases a curated collection of vegan dishes, featuring simple instructions, beautiful visuals, and beginner-friendly recipes. It aims to guide users who want to explore nutritious and delicious vegan meals without feeling overwhelmed.'
+                description: 'Broccobae is a vegan recipe website designed to inspire healthy, plant-based cooking. The platform showcases a curated collection of vegan dishes, featuring simple instructions, beautiful visuals, and beginner-friendly recipes. It aims to guide users who want to explore nutritious and delicious vegan meals without feeling overwhelmed.',
+                features: [
+                    'Clean and inviting UI designed for easy browsing',
+                    'Categorized recipes for exploring different vegan meal types',
+                    'Step-by-step instructions ideal for beginners',
+                    'Focus on plant-based, healthy, and accessible ingredients',
+                    'Responsive layout for mobile and desktop users'
+                ]
             },
             {
                 name: 'CalDef',
-                url: '#',
-                description: 'CalDef is a health-focused website aimed at helping users understand calorie deficit, weight management, and sustainable fitness habits. The design presents information in a friendly, educational, and easy-to-digest format, making it perfect for individuals starting their fitness journey or wanting simple guidance on healthy eating.'
+                title: 'CalDef — Calorie Deficit Guidance Website',
+                url: 'https://github.com/jolina/Caldef',
+                description: 'CalDef is a health-focused website aimed at helping users understand calorie deficit, weight management, and sustainable fitness habits. The design presents information in a friendly, educational, and easy-to-digest format, making it perfect for individuals starting their fitness journey or wanting simple guidance on healthy eating.',
+                features: [
+                    'Informative and beginner-friendly calorie deficit explanations',
+                    'Visual layout that highlights important health tips',
+                    'Intuitive design for reading and learning',
+                    'Mobile-responsive pages for on-the-go access',
+                    'Organized content focused on fitness, nutrition, and lifestyle balance'
+                ]
             },
             {
-                name: 'Globetrone Bank App — UI Screens',
+                name: 'Globetrone Bank App',
+                title: 'Globetrone Bank App — Fintech UI/UX Case Study',
                 url: 'https://jolinajavier02.github.io/Globetrone-Bank-App/',
-                description: 'A fintech concept app designed for foreign workers and international users who need to transfer money abroad. Features money transfer and banking UI, user persona for international workers, and a clean, modern interface.'
-            },
-            {
-                name: 'Globetrone Bank App — Case Study',
-                url: 'https://jolinajavier02.github.io/Globetrone-Case-Study/',
-                description: 'A complete UX case study covering user research, persona creation, empathy map, journey map, user flows, wireframes, and final high-fidelity prototypes. Focuses on problem-solving and creating a user-friendly financial experience.'
+                caseStudyUrl: 'https://jolinajavier02.github.io/Globetrone-Case-Study/',
+                description: 'Globetrone is a fintech concept app designed for foreign workers and international users who need to transfer money abroad. The project includes a full UX case study, covering user research, persona creation, user flows, wireframes, and final high-fidelity UI.',
+                features: [
+                    'UX case study with complete workflow',
+                    'Money transfer and banking UI',
+                    'User persona: international worker profile',
+                    'Empathy map, journey map, and wireframes',
+                    'High-fidelity prototype',
+                    'Clean, modern interface'
+                ]
             },
             {
                 name: 'Coffee App',
+                title: 'Coffee App — Ordering & Delivery App UI',
                 url: 'https://jolinajavier02.github.io/Coffee-App/',
-                description: 'The Coffee App is a mobile ordering and delivery concept where users can browse coffee menus, customize orders, and check out seamlessly. The design highlights a simple and inviting interface to encourage quick purchasing decisions.'
+                description: 'The Coffee App is a mobile ordering and delivery concept where users can browse coffee menus, customize orders, and check out seamlessly. The design highlights a simple and inviting interface to encourage quick purchasing decisions.',
+                features: [
+                    'Product preview screens',
+                    'User flow for ordering',
+                    'Clean and modern UI',
+                    'Menu layout and customization screens',
+                    'Responsive and visually appealing design'
+                ]
             }
         ];
 
         this.addOutput('Projects Portfolio:', 'help-title');
         this.addOutput('', '');
 
-        let delay = 0;
-        projects.forEach((project, index) => {
-            setTimeout(() => {
-                const projectLine = `${index + 1}. <a href="${project.url}" target="_blank" class="project-link">${project.name}</a>`;
-                this.typeText(projectLine, 'project-item', 30);
-            }, delay);
-            delay += 800;
+        let delay = 200;
 
+        projects.forEach((project, index) => {
+            // Project number and title
             setTimeout(() => {
-                this.typeText(`   ${project.description}`, 'project-description', 20);
+                const projectHeader = `<div class="project-header">${index + 1}. <strong>${project.title}</strong></div>`;
+                this.addOutput(projectHeader, 'project-title');
+            }, delay);
+            delay += 400;
+
+            // Live site link
+            setTimeout(() => {
+                const liveLink = `   <span style="color: #74c0fc;">Live Site:</span> <a href="${project.url}" target="_blank" class="project-link">${project.url}</a>`;
+                this.typeText(liveLink, 'project-link-line', 20);
+            }, delay);
+            delay += 600;
+
+            // Case study link (if exists)
+            if (project.caseStudyUrl) {
+                setTimeout(() => {
+                    const caseStudyLink = `   <span style="color: #74c0fc;">Case Study:</span> <a href="${project.caseStudyUrl}" target="_blank" class="project-link">${project.caseStudyUrl}</a>`;
+                    this.typeText(caseStudyLink, 'project-link-line', 20);
+                }, delay);
+                delay += 600;
+            }
+
+            // Description header
+            setTimeout(() => {
+                this.addOutput('   <span style="color: #00ff00; font-weight: bold;">Description:</span>', '');
+            }, delay);
+            delay += 200;
+
+            // Description text
+            setTimeout(() => {
+                this.typeText(`   ${project.description}`, 'project-description', 15);
+            }, delay);
+            delay += Math.ceil(project.description.length * 15) + 300;
+
+            // Key Features header
+            setTimeout(() => {
+                this.addOutput('', '');
+                this.addOutput('   <span style="color: #00ff00; font-weight: bold;">Key Features:</span>', '');
+            }, delay);
+            delay += 300;
+
+            // Features list
+            project.features.forEach((feature, featureIndex) => {
+                setTimeout(() => {
+                    this.typeText(`   • ${feature}`, 'project-feature', 10);
+                }, delay);
+                delay += Math.ceil(feature.length * 10) + 200;
+            });
+
+            // Spacing between projects
+            setTimeout(() => {
+                this.addOutput('', '');
+                this.addOutput('<div style="border-bottom: 1px solid rgba(0, 255, 0, 0.2); margin: 15px 0;"></div>', '');
                 this.addOutput('', '');
             }, delay);
-            delay += 1000;
+            delay += 400;
         });
 
+        // Final message
         setTimeout(() => {
-            this.typeText('💡 Click on any project name to open it in a new tab', 'info', 40);
+            this.typeText('💡 Click on any link to view the live project or case study', 'info', 40);
         }, delay + 300);
     }
 
@@ -829,13 +913,16 @@ class TerminalPortfolio {
     <p>I'm always interested in new opportunities and collaborations!</p>
     <br>
     <div class="contact-links">
-        <a href="mailto:jolinapjavier@gmail.com" class="contact-link">
-            <i class="fas fa-envelope"></i> jolinapjavier@gmail.com
+        <a href="mailto:jolina.javier@email.com" class="contact-link">
+            <i class="fas fa-envelope"></i> jolina.javier@email.com
         </a>
-        <a href="https://www.linkedin.com/in/jolina-javier-ab92b4326/" target="_blank" class="contact-link">
+        <a href="https://linkedin.com/in/jolina-javier" target="_blank" class="contact-link">
             <i class="fab fa-linkedin"></i> LinkedIn Profile
         </a>
-        <a href="https://github.com/jolinajavier02" target="_blank" class="contact-link">
+        <a href="https://wantedly.com/users/jolina-javier" target="_blank" class="contact-link">
+            <i class="fas fa-briefcase"></i> Wantedly Profile
+        </a>
+        <a href="https://github.com/jolina-javier" target="_blank" class="contact-link">
             <i class="fab fa-github"></i> GitHub Profile
         </a>
     </div>
