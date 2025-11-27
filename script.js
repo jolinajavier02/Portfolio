@@ -239,29 +239,17 @@ class TerminalPortfolio {
 
         if (closeBtn) {
             closeBtn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent click from focusing input immediately
-                // Red: Exit tab (Close terminal and show landing page)
-                if (terminalContainer) {
-                    terminalContainer.classList.add('closed');
-
-                    // Show landing page again after a delay
+                e.stopPropagation();
+                // Red: Close the browser tab/window
+                // Show confirmation message before closing
+                const confirmClose = confirm('Close this terminal session?');
+                if (confirmClose) {
+                    window.close();
+                    // If window.close() doesn't work (some browsers block it),
+                    // redirect to a blank page
                     setTimeout(() => {
-                        if (this.landingOverlay) {
-                            this.landingOverlay.classList.remove('hidden');
-                            this.landingOverlay.style.opacity = '1';
-                            this.landingOverlay.style.visibility = 'visible';
-
-                            // Reset terminal state
-                            setTimeout(() => {
-                                terminalContainer.classList.remove('closed');
-                                terminalContainer.classList.remove('minimized');
-                                terminalContainer.classList.remove('fullscreen');
-                                this.clearTerminal();
-                                this.initWelcomeSection();
-                                this.typeText('Type "help" to see available commands.', 'info');
-                            }, 500);
-                        }
-                    }, 300);
+                        window.location.href = 'about:blank';
+                    }, 100);
                 }
             });
         }
