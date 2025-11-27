@@ -653,27 +653,32 @@ class TerminalPortfolio {
             {
                 name: 'Natours Travel',
                 url: 'https://natours-travel.com/',
-                description: 'A fully designed travel & tours website offering flight bookings, hotel reservations, tour packages, cruises, and visa assistance. Features clear booking flows, user-friendly navigation, and reliable travel information.'
+                description: 'Natours Travel is a fully designed and developed travel & tours website offering flight bookings, hotel reservations, tour packages, cruises, and visa assistance. The platform focuses on clear booking flows, user-friendly navigation, and reliable travel information such as country requirements, airline recommendations, and travel checklists. I designed the interface with intuitive layouts and structured content to help users plan trips confidently from inquiry to confirmation.'
             },
             {
                 name: 'Brocoobae',
                 url: 'https://broccobae.com',
-                description: 'A vegan recipe website designed to inspire healthy, plant-based cooking. Showcases a curated collection of vegan dishes with simple instructions, beautiful visuals, and beginner-friendly recipes.'
+                description: 'Brocoobae is a vegan recipe website designed to inspire healthy, plant-based cooking. The platform showcases a curated collection of vegan dishes, featuring simple instructions, beautiful visuals, and beginner-friendly recipes. It aims to guide users who want to explore nutritious and delicious vegan meals without feeling overwhelmed.'
             },
             {
                 name: 'CalDef',
-                url: 'https://github.com/jolina/Caldef',
-                description: 'A health-focused website aimed at helping users understand calorie deficit, weight management, and sustainable fitness habits. Presents information in a friendly, educational, and easy-to-digest format.'
+                url: '#',
+                description: 'CalDef is a health-focused website aimed at helping users understand calorie deficit, weight management, and sustainable fitness habits. The design presents information in a friendly, educational, and easy-to-digest format, making it perfect for individuals starting their fitness journey or wanting simple guidance on healthy eating.'
             },
             {
-                name: 'Globetrone Bank App',
+                name: 'Globetrone Bank App — UI Screens',
                 url: 'https://jolinajavier02.github.io/Globetrone-Bank-App/',
-                description: 'A fintech concept app designed for foreign workers and international users who need to transfer money abroad. Includes a full UX case study, covering user research, persona creation, user flows, wireframes, and final high-fidelity UI.'
+                description: 'A fintech concept app designed for foreign workers and international users who need to transfer money abroad. Features money transfer and banking UI, user persona for international workers, and a clean, modern interface.'
+            },
+            {
+                name: 'Globetrone Bank App — Case Study',
+                url: 'https://jolinajavier02.github.io/Globetrone-Case-Study/',
+                description: 'A complete UX case study covering user research, persona creation, empathy map, journey map, user flows, wireframes, and final high-fidelity prototypes. Focuses on problem-solving and creating a user-friendly financial experience.'
             },
             {
                 name: 'Coffee App',
                 url: 'https://jolinajavier02.github.io/Coffee-App/',
-                description: 'A mobile ordering and delivery concept where users can browse coffee menus, customize orders, and check out seamlessly. Highlights a simple and inviting interface to encourage quick purchasing decisions.'
+                description: 'The Coffee App is a mobile ordering and delivery concept where users can browse coffee menus, customize orders, and check out seamlessly. The design highlights a simple and inviting interface to encourage quick purchasing decisions.'
             }
         ];
 
@@ -824,16 +829,13 @@ class TerminalPortfolio {
     <p>I'm always interested in new opportunities and collaborations!</p>
     <br>
     <div class="contact-links">
-        <a href="mailto:jolina.javier@email.com" class="contact-link">
-            <i class="fas fa-envelope"></i> jolina.javier@email.com
+        <a href="mailto:jolinapjavier@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i> jolinapjavier@gmail.com
         </a>
-        <a href="https://linkedin.com/in/jolina-javier" target="_blank" class="contact-link">
+        <a href="https://www.linkedin.com/in/jolina-javier-ab92b4326/" target="_blank" class="contact-link">
             <i class="fab fa-linkedin"></i> LinkedIn Profile
         </a>
-        <a href="https://wantedly.com/users/jolina-javier" target="_blank" class="contact-link">
-            <i class="fas fa-briefcase"></i> Wantedly Profile
-        </a>
-        <a href="https://github.com/jolina-javier" target="_blank" class="contact-link">
+        <a href="https://github.com/jolinajavier02" target="_blank" class="contact-link">
             <i class="fab fa-github"></i> GitHub Profile
         </a>
     </div>
