@@ -365,6 +365,8 @@ class TerminalPortfolio {
     hideLandingPage() {
         if (this.landingOverlay) {
             this.landingOverlay.classList.add('hidden');
+            this.landingOverlay.style.opacity = '';
+            this.landingOverlay.style.visibility = '';
             // Focus on terminal input after landing page disappears
             setTimeout(() => {
                 this.commandInput.focus();
