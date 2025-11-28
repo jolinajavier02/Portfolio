@@ -906,16 +906,13 @@ class TerminalPortfolio {
     <p>I'm always interested in new opportunities and collaborations!</p>
     <br>
     <div class="contact-links">
-        <a href="mailto:jolina.javier@email.com" class="contact-link">
-            <i class="fas fa-envelope"></i> jolina.javier@email.com
+        <a href="mailto:jolinapjavier@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i> jolinapjavier@gmail.com
         </a>
-        <a href="https://linkedin.com/in/jolina-javier" target="_blank" class="contact-link">
+        <a href="https://www.linkedin.com/in/jolina-javier-ab92b4326/" target="_blank" class="contact-link">
             <i class="fab fa-linkedin"></i> LinkedIn Profile
         </a>
-        <a href="https://wantedly.com/users/jolina-javier" target="_blank" class="contact-link">
-            <i class="fas fa-briefcase"></i> Wantedly Profile
-        </a>
-        <a href="https://github.com/jolina-javier" target="_blank" class="contact-link">
+        <a href="https://github.com/jolinajavier02" target="_blank" class="contact-link">
             <i class="fab fa-github"></i> GitHub Profile
         </a>
     </div>
