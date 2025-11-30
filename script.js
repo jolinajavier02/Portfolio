@@ -456,38 +456,52 @@ class TerminalPortfolio {
         this.output.appendChild(div);
     }
 
-    typeText(text, className = '', delay = 50) {
+    async typeHtml(element, html, speed) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        
+        const typeNode = async (node, targetParent) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                const text = node.textContent;
+                if (!text) return;
+                
+                const textNode = document.createTextNode('');
+                targetParent.appendChild(textNode);
+                
+                for (let i = 0; i < text.length; i++) {
+                    textNode.textContent += text[i];
+                    this.scrollToBottom();
+                    await new Promise(resolve => setTimeout(resolve, speed));
+                }
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                const newElement = document.createElement(node.tagName);
+                Array.from(node.attributes).forEach(attr => {
+                    newElement.setAttribute(attr.name, attr.value);
+                });
+                targetParent.appendChild(newElement);
+                
+                // If it's an image or other void element, it appears instantly.
+                // We can add a small delay after an element appears to give it rhythm
+                if (node.tagName === 'IMG' || node.tagName === 'BR' || node.tagName === 'HR') {
+                     await new Promise(resolve => setTimeout(resolve, speed * 2));
+                }
+
+                for (const child of Array.from(node.childNodes)) {
+                    await typeNode(child, newElement);
+                }
+            }
+        };
+
+        for (const child of Array.from(tempDiv.childNodes)) {
+            await typeNode(child, element);
+        }
+    }
+
+    async typeText(text, className = '', delay = 30) {
         const div = document.createElement('div');
         div.className = `command-output ${className}`;
         this.output.appendChild(div);
-
-        // Check if text contains HTML tags
-        const hasHTML = /<[^>]*>/.test(text);
-
-        if (hasHTML) {
-            // For HTML content, type character by character but preserve HTML structure
-            let i = 0;
-            let currentHTML = '';
-            const typeInterval = setInterval(() => {
-                currentHTML += text[i];
-                // Update innerHTML to render HTML properly
-                div.innerHTML = currentHTML;
-                i++;
-                if (i >= text.length) {
-                    clearInterval(typeInterval);
-                }
-            }, delay);
-        } else {
-            // For plain text, use textContent as before
-            let i = 0;
-            const typeInterval = setInterval(() => {
-                div.textContent += text[i];
-                i++;
-                if (i >= text.length) {
-                    clearInterval(typeInterval);
-                }
-            }, delay);
-        }
+        await this.typeHtml(div, text, delay);
     }
 
     scrollToBottom() {
@@ -569,7 +583,7 @@ class TerminalPortfolio {
         }, 300);
     }
 
-    showSkills() {
+    async showSkills() {
         const technicalSkills = [
             { name: 'HTML', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
             { name: 'CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
@@ -593,53 +607,46 @@ class TerminalPortfolio {
         this.addOutput('', '');
 
         // Technical Skills Section
-        setTimeout(() => {
-            this.typeText('Technical Skills & Tools:', 'section-title', 30);
-        }, 200);
+        await this.typeText('Technical Skills & Tools:', 'section-title', 20);
 
-        setTimeout(() => {
-            let techTable = '<table style="width: 100%; margin: 10px 0;"><tr>';
-            technicalSkills.forEach((skill, index) => {
-                if (index % 4 === 0 && index > 0) {
-                    techTable += '</tr><tr>';
-                }
-                techTable += `<td align="center" style="width: 120px; padding: 10px;">
-                    <img src="${skill.icon}" width="48" height="48" style="filter: brightness(0.9);" />
-                    <br><span style="color: #00ff00; font-size: 0.9em;">${skill.name}</span>
-                </td>`;
-            });
-            techTable += '</tr></table>';
-            this.addOutput(techTable, 'skills-table');
-        }, 800);
+        let techTable = '<table style="width: 100%; margin: 10px 0;"><tr>';
+        technicalSkills.forEach((skill, index) => {
+            if (index % 4 === 0 && index > 0) {
+                techTable += '</tr><tr>';
+            }
+            techTable += `<td align="center" style="width: 120px; padding: 10px;">
+                <img src="${skill.icon}" width="48" height="48" style="filter: brightness(0.9);" />
+                <br><span style="color: #00ff00; font-size: 0.9em;">${skill.name}</span>
+            </td>`;
+        });
+        techTable += '</tr></table>';
+        
+        // Animate the table generation
+        await this.typeText(techTable, 'skills-table', 5);
 
         // Design & Soft Skills Section
-        setTimeout(() => {
-            this.addOutput('', '');
-            this.typeText('Design & Soft Skills:', 'section-title', 30);
-        }, 1400);
+        this.addOutput('', '');
+        await this.typeText('Design & Soft Skills:', 'section-title', 20);
 
-        setTimeout(() => {
-            let designTable = '<table style="width: 100%; margin: 10px 0;"><tr>';
-            designSkills.forEach((skill, index) => {
-                if (index % 3 === 0 && index > 0) {
-                    designTable += '</tr><tr>';
-                }
-                designTable += `<td align="center" style="width: 150px; padding: 10px;">
-                    <img src="${skill.icon}" width="48" height="48" style="filter: brightness(0.9);" />
-                    <br><span style="color: #00ff00; font-size: 0.9em;">${skill.name}</span>
-                </td>`;
-            });
-            designTable += '</tr></table>';
-            this.addOutput(designTable, 'skills-table');
-        }, 2000);
+        let designTable = '<table style="width: 100%; margin: 10px 0;"><tr>';
+        designSkills.forEach((skill, index) => {
+            if (index % 3 === 0 && index > 0) {
+                designTable += '</tr><tr>';
+            }
+            designTable += `<td align="center" style="width: 150px; padding: 10px;">
+                <img src="${skill.icon}" width="48" height="48" style="filter: brightness(0.9);" />
+                <br><span style="color: #00ff00; font-size: 0.9em;">${skill.name}</span>
+            </td>`;
+        });
+        designTable += '</tr></table>';
+        
+        await this.typeText(designTable, 'skills-table', 5);
 
-        setTimeout(() => {
-            this.addOutput('', '');
-            this.typeText('💡 Always learning and expanding my skillset!', 'info', 40);
-        }, 2600);
+        this.addOutput('', '');
+        await this.typeText('💡 Always learning and expanding my skillset!', 'info', 30);
     }
 
-    showProjects() {
+    async showProjects() {
         const projects = [
             {
                 name: 'Natours Travel',
@@ -714,72 +721,47 @@ class TerminalPortfolio {
         this.addOutput('Projects Portfolio:', 'help-title');
         this.addOutput('', '');
 
-        let delay = 200;
-
-        projects.forEach((project, index) => {
+        for (const [index, project] of projects.entries()) {
             // Project number and title
-            setTimeout(() => {
-                const projectHeader = `<div class="project-header">${index + 1}. <strong>${project.title}</strong></div>`;
-                this.addOutput(projectHeader, 'project-title');
-            }, delay);
-            delay += 400;
+            const projectHeader = `<div class="project-header">${index + 1}. <strong>${project.title}</strong></div>`;
+            await this.typeText(projectHeader, 'project-title', 15);
 
             // Live site link
-            setTimeout(() => {
-                const liveLink = `   <span style="color: #74c0fc;">Live Site:</span> <a href="${project.url}" target="_blank" class="project-link">${project.url}</a>`;
-                this.typeText(liveLink, 'project-link-line', 20);
-            }, delay);
-            delay += 600;
+            const liveLink = `   <span style="color: #74c0fc;">Live Site:</span> <a href="${project.url}" target="_blank" class="project-link">${project.url}</a>`;
+            await this.typeText(liveLink, 'project-link-line', 10);
 
             // Case study link (if exists)
             if (project.caseStudyUrl) {
-                setTimeout(() => {
-                    const caseStudyLink = `   <span style="color: #74c0fc;">Case Study:</span> <a href="${project.caseStudyUrl}" target="_blank" class="project-link">${project.caseStudyUrl}</a>`;
-                    this.typeText(caseStudyLink, 'project-link-line', 20);
-                }, delay);
-                delay += 600;
+                const caseStudyLink = `   <span style="color: #74c0fc;">Case Study:</span> <a href="${project.caseStudyUrl}" target="_blank" class="project-link">${project.caseStudyUrl}</a>`;
+                await this.typeText(caseStudyLink, 'project-link-line', 10);
             }
 
             // Description header
-            setTimeout(() => {
-                this.addOutput('   <span style="color: #00ff00; font-weight: bold;">Description:</span>', '');
-            }, delay);
-            delay += 200;
-
-            // Description text
-            setTimeout(() => {
-                this.typeText(`   ${project.description}`, 'project-description', 15);
-            }, delay);
-            delay += Math.ceil(project.description.length * 15) + 300;
+            this.addOutput('   <span style="color: #00ff00; font-weight: bold;">Description:</span>', '');
+            
+            // Description text (Faster speed: 5ms)
+            await this.typeText(`   ${project.description}`, 'project-description', 5);
 
             // Key Features header
-            setTimeout(() => {
-                this.addOutput('', '');
-                this.addOutput('   <span style="color: #00ff00; font-weight: bold;">Key Features:</span>', '');
-            }, delay);
-            delay += 300;
+            this.addOutput('', '');
+            this.addOutput('   <span style="color: #00ff00; font-weight: bold;">Key Features:</span>', '');
 
             // Features list
-            project.features.forEach((feature, featureIndex) => {
-                setTimeout(() => {
-                    this.typeText(`   • ${feature}`, 'project-feature', 10);
-                }, delay);
-                delay += Math.ceil(feature.length * 10) + 200;
-            });
+            for (const feature of project.features) {
+                await this.typeText(`   • ${feature}`, 'project-feature', 5);
+            }
 
             // Spacing between projects
-            setTimeout(() => {
-                this.addOutput('', '');
-                this.addOutput('<div style="border-bottom: 1px solid rgba(0, 255, 0, 0.2); margin: 15px 0;"></div>', '');
-                this.addOutput('', '');
-            }, delay);
-            delay += 400;
-        });
+            this.addOutput('', '');
+            this.addOutput('<div style="border-bottom: 1px solid rgba(0, 255, 0, 0.2); margin: 15px 0;"></div>', '');
+            this.addOutput('', '');
+            
+            // Small pause between projects
+            await new Promise(resolve => setTimeout(resolve, 300));
+        }
 
         // Final message
-        setTimeout(() => {
-            this.typeText('💡 Click on any link to view the live project or case study', 'info', 40);
-        }, delay + 300);
+        await this.typeText('💡 Click on any link to view the live project or case study', 'info', 30);
     }
 
     showEducation() {
