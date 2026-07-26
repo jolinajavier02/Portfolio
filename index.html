@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jolina Javier - Terminal Portfolio</title>
+    <link rel="icon" href="favicon.jpeg" type="image/jpeg">
+    <link rel="stylesheet" href="styles.css?v=1.1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Landing Page Overlay -->
+    <div class="landing-overlay" id="landingOverlay">
+        <div class="landing-content">
+            <pre class="landing-ascii">
+██╗  ██╗██╗    ██████╗ ███████╗ █████╗ ██████╗ 
+██║  ██║██║    ██╔══██╗██╔════╝██╔══██╗██╔══██╗
+███████║██║    ██║  ██║█████╗  ███████║██████╔╝
+██╔══██║██║    ██║  ██║██╔══╝  ██╔══██║██╔══██╗
+██║  ██║██║    ██████╔╝███████╗██║  ██║██║  ██║
+╚═╝  ╚═╝╚═╝    ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
+            </pre>
+            <div class="landing-description">
+                <p id="typewriter1" class="typewriter"></p>
+                <p id="typewriter2" class="typewriter"></p>
+            </div>
+            <div class="landing-instruction">
+                <p>Click 'Enter' to see my work, and to get in touch!</p>
+                <div class="enter-hint">Press <span class="key-highlight">ENTER</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="btn close"></span>
+                <span class="btn minimize"></span>
+                <span class="btn maximize"></span>
+            </div>
+            <div class="terminal-title">jolina@portfolio:~$</div>
+        </div>
+
+        <div class="terminal-body">
+            <div class="output" id="output">
+                <div class="welcome-message">
+                    <div class="ascii-name-container">
+                        <pre class="ascii-art" id="ascii-name"></pre>
+                    </div>
+                    <p>Welcome to Jolina Javier's Terminal Portfolio</p>
+                    <p>UI/UX Designer & Front-End Developer</p>
+                    <p>Type <span class="highlight">'help'</span> to see available commands.</p>
+                </div>
+            </div>
+
+            <div class="input-line">
+                <span class="prompt">jolina@portfolio:~$ </span>
+                <span id="commandText"></span><span class="cursor-blink">|</span>
+                <input type="text" id="commandInput" class="command-input" autocomplete="off" spellcheck="false">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
