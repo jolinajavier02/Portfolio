@@ -844,33 +844,14 @@ class TerminalPortfolio {
             Focused on user experience design, research, and interface design skills.
         </div>
         <div class="resume-download">
-            <a href="UI_UX Designer Resume.pdf" download="Jolina_Javier_UIUX_Resume.pdf" 
+            <a href="JOLINA_JAVIER_RESUME.pdf" download="Jolina_Javier_UIUX_Resume.pdf" 
                style="color: #74c0fc; text-decoration: none; font-weight: bold;"
                onmouseover="this.style.color='#339af0'" 
                onmouseout="this.style.color='#74c0fc'">
                📥 Download UI/UX Resume
             </a>
         </div>
-    </div>
-    
-    <div class="resume-option">
-        <div class="resume-header">
-            <span style="font-size: 24px; margin-right: 10px;">💻</span>
-            <strong style="color: #00ff00;">Front-End Developer Resume</strong>
-        </div>
-        <div class="resume-description">
-            Highlighting technical skills, programming languages, and development projects.
-        </div>
-        <div class="resume-download">
-            <a href="Front end Developer Resume.pdf" download="Jolina_Javier_Frontend_Resume.pdf" 
-               style="color: #74c0fc; text-decoration: none; font-weight: bold;"
-               onmouseover="this.style.color='#339af0'" 
-               onmouseout="this.style.color='#74c0fc'">
-               📥 Download Front-End Resume
-            </a>
-        </div>
-    </div>
-</div>`;
+    </div>;
 
         this.addOutput(resumeText, 'resume-section');
 
