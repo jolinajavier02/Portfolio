@@ -96,12 +96,16 @@ button {
   place-items: center;
   width: 40px;
   height: 40px;
+  overflow: hidden;
   border: 1px solid var(--line-strong);
   border-radius: 50%;
-  color: var(--terminal);
-  font-size: 0.78rem;
-  font-weight: 800;
   background: rgba(0, 0, 0, 0.58);
+}
+
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .brand-name {
@@ -284,7 +288,7 @@ button {
   z-index: 2;
   width: clamp(300px, 32vw, 520px);
   height: min(94vh, 920px);
-  opacity: 0.62;
+  opacity: 0.5;
   transform:
     translate3d(0, calc(var(--progress) * -4vh), 90px)
     rotateX(calc(var(--tilt-y) * 1deg))
@@ -297,9 +301,10 @@ button {
   right: clamp(-130px, -5vw, 18px);
   bottom: -8vh;
   z-index: 1;
-  width: clamp(270px, 29vw, 480px);
-  height: min(88vh, 860px);
-  opacity: 0.34;
+  width: clamp(300px, 32vw, 520px);
+  aspect-ratio: 862 / 1824;
+  height: auto;
+  opacity: 0.28;
   transform:
     translate3d(0, calc(var(--progress) * -2.6vh), -170px)
     rotateX(calc(var(--tilt-y) * 0.5deg))
@@ -326,6 +331,7 @@ button {
   object-position: bottom center;
   filter: contrast(1.08) brightness(0.94) drop-shadow(0 26px 40px rgba(0, 0, 0, 0.78));
   mix-blend-mode: screen;
+  isolation: isolate;
   -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 82%, rgba(0, 0, 0, 0.62) 100%);
   mask-image: linear-gradient(180deg, #000 0%, #000 82%, rgba(0, 0, 0, 0.62) 100%);
 }
@@ -402,7 +408,6 @@ p {
 
 h1,
 h2 {
-  max-width: 12ch;
   margin-bottom: 24px;
   font-family: Georgia, "Times New Roman", serif;
   font-weight: 500;
@@ -410,10 +415,12 @@ h2 {
 }
 
 h1 {
+  max-width: 9ch;
   font-size: clamp(4.2rem, 8.5vw, 10rem);
 }
 
 h2 {
+  max-width: 12ch;
   font-size: clamp(3rem, 5vw, 6.8rem);
 }
 
@@ -621,6 +628,22 @@ h3 {
   text-transform: uppercase;
 }
 
+.contact-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.contact-label svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .contact-stack strong {
   min-width: 0;
   overflow-wrap: anywhere;
@@ -708,10 +731,10 @@ h3 {
   }
 
   .statue-secondary {
-    right: -22vw;
-    width: min(68vw, 320px);
-    height: 66vh;
-    opacity: 0.24;
+    right: -18vw;
+    width: min(74vw, 390px);
+    height: auto;
+    opacity: 0.22;
   }
 
   .stage-floor {

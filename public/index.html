@@ -8,6 +8,7 @@
       content="Portfolio of Jolina P. Javier, a web developer crafting clean interfaces, practical systems, and cinematic web experiences."
     />
     <title>Jolina P. Javier | Portfolio</title>
+    <link rel="icon" type="image/jpeg" href="assets/images/Favicon.jpeg" />
     <link rel="preload" href="assets/images/statue-jolina.png" as="image" />
     <link rel="preload" href="assets/images/statue-jolina-secondary.png" as="image" />
     <link rel="stylesheet" href="assets/css/styles.css" />
@@ -15,7 +16,9 @@
   <body>
     <header class="topbar" aria-label="Primary">
       <a class="brand" href="#intro" data-jump="0" aria-label="Go to introduction">
-        <span class="brand-mark">JPJ</span>
+        <span class="brand-mark">
+          <img src="assets/images/logo.jpeg" alt="" />
+        </span>
         <span class="brand-name">Jolina P. Javier</span>
       </a>
 
@@ -186,19 +189,47 @@
             <h2>Let us build something precise and memorable.</h2>
             <div class="contact-stack">
               <a href="mailto:hello@jolinapjavier.com">
-                <span>Email</span>
+                <span class="contact-label">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                    <path d="m4 7 8 6 8-6"></path>
+                  </svg>
+                  Email
+                </span>
                 <strong>hello@jolinapjavier.com</strong>
               </a>
               <a href="https://jolinapjavier.com">
-                <span>Terminal website</span>
+                <span class="contact-label">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                    <path d="m7 10 3 2-3 2"></path>
+                    <path d="M12 16h5"></path>
+                  </svg>
+                  Terminal website
+                </span>
                 <strong>jolinapjavier.com</strong>
               </a>
               <a href="https://www.linkedin.com" aria-label="LinkedIn placeholder link">
-                <span>LinkedIn</span>
+                <span class="contact-label">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                    <path d="M8 10v6"></path>
+                    <path d="M8 8v.01"></path>
+                    <path d="M12 16v-3a2 2 0 0 1 4 0v3"></path>
+                    <path d="M12 10v6"></path>
+                  </svg>
+                  LinkedIn
+                </span>
                 <strong>Add your LinkedIn profile</strong>
               </a>
               <a href="https://github.com" aria-label="GitHub placeholder link">
-                <span>GitHub</span>
+                <span class="contact-label">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M9 19c-4 1.5-4-2-5.5-2"></path>
+                    <path d="M15 19v-3.2c0-.9-.3-1.5-.8-1.8 2.6-.3 5.3-1.3 5.3-5.8 0-1.3-.5-2.4-1.2-3.2.1-.3.5-1.6-.1-3.2 0 0-1-.3-3.3 1.2a11.5 11.5 0 0 0-6 0C6.6 2.5 5.6 2.8 5.6 2.8c-.6 1.6-.2 2.9-.1 3.2C4.8 6.8 4.3 7.9 4.3 9.2c0 4.5 2.7 5.5 5.3 5.8-.5.3-.8.8-.8 1.8V19"></path>
+                  </svg>
+                  GitHub
+                </span>
                 <strong>Add your GitHub profile</strong>
               </a>
             </div>
