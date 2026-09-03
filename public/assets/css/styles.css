@@ -260,24 +260,52 @@ button {
   pointer-events: none;
 }
 
-.statue-frame {
+.sculpture-layer {
   position: fixed;
+  inset: 0;
   z-index: 4;
-  left: clamp(4px, 9vw, 164px);
-  bottom: -6vh;
-  width: clamp(300px, 34vw, 540px);
-  height: min(94vh, 920px);
-  margin: 0;
+  overflow: hidden;
   pointer-events: none;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.statue-frame {
+  position: absolute;
+  bottom: -7vh;
+  margin: 0;
+  transform-origin: bottom center;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.statue-primary {
+  left: clamp(-14px, 7vw, 140px);
+  z-index: 2;
+  width: clamp(300px, 32vw, 520px);
+  height: min(94vh, 920px);
+  opacity: 0.62;
   transform:
-    perspective(1200px)
-    translate3d(0, calc(var(--progress) * -4vh), 0)
+    translate3d(0, calc(var(--progress) * -4vh), 90px)
     rotateX(calc(var(--tilt-y) * 1deg))
     rotateY(calc(var(--tilt-x) * 1deg))
     scale(calc(1 - (var(--progress) * 0.025)));
-  transform-origin: bottom center;
-  transform-style: preserve-3d;
-  transition: filter 240ms ease;
+  transition: opacity 700ms ease, transform 700ms cubic-bezier(0.2, 0.85, 0.2, 1);
+}
+
+.statue-secondary {
+  right: clamp(-130px, -5vw, 18px);
+  bottom: -8vh;
+  z-index: 1;
+  width: clamp(270px, 29vw, 480px);
+  height: min(88vh, 860px);
+  opacity: 0.34;
+  transform:
+    translate3d(0, calc(var(--progress) * -2.6vh), -170px)
+    rotateX(calc(var(--tilt-y) * 0.5deg))
+    rotateY(calc((var(--tilt-x) - 12) * 1deg))
+    scale(0.92);
+  transition: opacity 700ms ease, transform 700ms cubic-bezier(0.2, 0.85, 0.2, 1);
 }
 
 .statue-frame::after {
@@ -296,13 +324,19 @@ button {
   height: 100%;
   object-fit: contain;
   object-position: bottom center;
-  filter: contrast(1.05) brightness(0.95);
+  filter: contrast(1.08) brightness(0.94) drop-shadow(0 26px 40px rgba(0, 0, 0, 0.78));
   mix-blend-mode: screen;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 82%, rgba(0, 0, 0, 0.62) 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 82%, rgba(0, 0, 0, 0.62) 100%);
+}
+
+.statue-secondary img {
+  filter: contrast(1.14) brightness(0.68) saturate(0.84) drop-shadow(0 24px 44px rgba(0, 0, 0, 0.9));
 }
 
 .content-stack {
   position: relative;
-  z-index: 5;
+  z-index: 8;
 }
 
 .panel {
@@ -334,7 +368,7 @@ button {
   z-index: 4;
   width: min(680px, calc(100vw - var(--copy-left) - var(--copy-right)));
   max-width: 680px;
-  margin-left: var(--copy-left);
+  margin: 0 auto;
   opacity: 0.25;
   transform: translateY(26px);
   transition:
@@ -465,8 +499,7 @@ h3 {
 }
 
 .panel-wide .panel-copy {
-  --copy-left: clamp(320px, 34vw, 520px);
-  width: min(1020px, calc(100vw - var(--copy-left) - var(--copy-right)));
+  width: min(1020px, calc(100vw - 40px));
   max-width: none;
 }
 
@@ -627,13 +660,9 @@ h3 {
     --copy-left: min(46vw, 480px);
   }
 
-  .statue-frame {
+  .statue-primary {
     left: clamp(-44px, 2vw, 20px);
     width: clamp(270px, 40vw, 440px);
-  }
-
-  .panel-wide .panel-copy {
-    --copy-left: min(26vw, 280px);
   }
 
   .project-grid {
@@ -667,16 +696,22 @@ h3 {
       var(--black);
   }
 
-  .statue-frame {
+  .statue-primary {
     left: 50%;
     bottom: -10vh;
     width: min(76vw, 360px);
     height: 72vh;
-    opacity: 0.5;
     transform:
       translateX(-50%)
       translateY(calc(var(--progress) * -3vh))
       scale(1);
+  }
+
+  .statue-secondary {
+    right: -22vw;
+    width: min(68vw, 320px);
+    height: 66vh;
+    opacity: 0.24;
   }
 
   .stage-floor {
