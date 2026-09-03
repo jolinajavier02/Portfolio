@@ -287,8 +287,7 @@ button {
   left: clamp(-14px, 7vw, 140px);
   z-index: 2;
   width: clamp(300px, 32vw, 520px);
-  aspect-ratio: 257 / 600;
-  height: auto;
+  height: min(94vh, 920px);
   opacity: 0.5;
   transform:
     translate3d(0, calc(var(--progress) * -4vh), 90px)
@@ -303,8 +302,7 @@ button {
   bottom: -8vh;
   z-index: 1;
   width: clamp(300px, 32vw, 520px);
-  aspect-ratio: 257 / 600;
-  height: auto;
+  height: min(88vh, 860px);
   opacity: 0.28;
   transform:
     translate3d(0, calc(var(--progress) * -2.6vh), -170px)
@@ -760,7 +758,7 @@ h3 {
     left: 50%;
     bottom: -10vh;
     width: min(76vw, 360px);
-    height: auto;
+    height: 72vh;
     transform:
       translateX(-50%)
       translateY(calc(var(--progress) * -3vh))
@@ -770,7 +768,7 @@ h3 {
   .statue-secondary {
     right: -18vw;
     width: min(74vw, 390px);
-    height: auto;
+    height: 66vh;
     opacity: 0.22;
   }
 
