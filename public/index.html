@@ -33,10 +33,14 @@
         aria-label="Open terminal website"
         title="Open terminal website"
       >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="m4 17 6-6-6-6"></path>
-          <path d="M12 19h8"></path>
-        </svg>
+        <span>Terminal</span>
+        <span class="terminal-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+            <path d="m7 10 3 2-3 2"></path>
+            <path d="M12 16h5"></path>
+          </svg>
+        </span>
       </a>
     </header>
 
@@ -217,13 +221,6 @@
         </article>
       </section>
 
-      <aside class="progress-shell" aria-label="Scroll progress">
-        <span id="currentPanel">01</span>
-        <div class="progress-track"><span id="progressBar"></span></div>
-        <span>06</span>
-      </aside>
-
-      <p class="scroll-cue" aria-hidden="true">scroll</p>
     </main>
 
     <script src="assets/js/app.js"></script>

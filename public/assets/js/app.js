@@ -1,7 +1,5 @@
 const panels = Array.from(document.querySelectorAll(".panel"));
 const navDots = Array.from(document.querySelectorAll(".nav-dot"));
-const progressBar = document.querySelector("#progressBar");
-const currentPanel = document.querySelector("#currentPanel");
 const root = document.documentElement;
 
 let ticking = false;
@@ -38,14 +36,12 @@ function setActivePanel(activeIndex) {
     dot.setAttribute("aria-current", index === activeIndex ? "true" : "false");
   });
 
-  currentPanel.textContent = String(activeIndex + 1).padStart(2, "0");
 }
 
 function updateScene() {
   const progress = getPageProgress();
 
   root.style.setProperty("--progress", progress.toFixed(4));
-  progressBar.style.width = `${progress * 100}%`;
   setActivePanel(getActivePanelIndex());
   ticking = false;
 }
