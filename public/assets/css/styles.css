@@ -531,6 +531,7 @@ h3 {
 }
 
 .project-card {
+  position: relative;
   min-height: 214px;
   padding: 18px;
   border: 1px solid var(--line);
@@ -541,12 +542,36 @@ h3 {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
+.project-logo {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin-bottom: 16px;
+  border: 1px dashed rgba(241, 238, 232, 0.38);
+  border-radius: 8px;
+  color: var(--terminal);
+  background: rgba(110, 255, 159, 0.06);
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+
 .project-number {
   display: block;
-  margin-bottom: 28px;
+  margin-bottom: 12px;
   color: var(--copper);
   font-size: 0.78rem;
   font-weight: 900;
+}
+
+.project-card h3 a {
+  transition: color 180ms ease;
+}
+
+.project-card h3 a:hover,
+.project-card h3 a:focus-visible {
+  color: var(--terminal);
 }
 
 .project-card p {
@@ -563,30 +588,41 @@ h3 {
 
 .certificate-list {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   margin: 32px 0 0;
-  padding: 0;
-  list-style: none;
 }
 
-.certificate-list li {
+.certificate-card {
   display: grid;
-  gap: 6px;
-  padding: 18px 0;
-  border-top: 1px solid var(--line);
+  gap: 8px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
 }
 
-.certificate-list li:last-child {
-  border-bottom: 1px solid var(--line);
+.certificate-frame {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  border: 1px dashed rgba(241, 238, 232, 0.38);
+  border-radius: 5px;
+  color: var(--terminal);
+  background: rgba(110, 255, 159, 0.05);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.15rem;
+  font-weight: 700;
 }
 
-.certificate-list span {
+.certificate-card strong {
   color: var(--marble);
-  font-size: clamp(1.05rem, 1.2vw, 1.2rem);
+  font-size: 0.92rem;
   font-weight: 800;
 }
 
-.certificate-list small {
+.certificate-card small {
   color: var(--muted);
   font-size: 0.84rem;
   text-transform: uppercase;
