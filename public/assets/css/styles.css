@@ -1,20 +1,19 @@
 :root {
   color-scheme: dark;
   --black: #030303;
-  --black-soft: #090909;
-  --ink: #111111;
   --marble: #f1eee8;
-  --stone: #bdb8ad;
   --muted: #8f8a80;
   --line: rgba(241, 238, 232, 0.16);
   --line-strong: rgba(241, 238, 232, 0.34);
-  --glass: rgba(255, 255, 255, 0.055);
   --terminal: #6eff9f;
   --copper: #d98d52;
   --coral: #e2695d;
   --teal: #66d1c6;
-  --panel-count: 6;
   --progress: 0;
+  --tilt-x: 0;
+  --tilt-y: 0;
+  --copy-left: clamp(380px, 49vw, 760px);
+  --copy-right: clamp(20px, 6vw, 90px);
 }
 
 * {
@@ -23,22 +22,31 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
   background: var(--black);
 }
 
 body {
   min-height: 100vh;
   margin: 0;
-  overflow-x: hidden;
+  overflow-x: clip;
   background: var(--black);
   color: var(--marble);
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  scrollbar-width: none;
 }
 
 body::-webkit-scrollbar {
-  display: none;
+  width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(241, 238, 232, 0.24);
 }
 
 a {
@@ -81,7 +89,6 @@ button {
   align-items: center;
   gap: 12px;
   min-width: 0;
-  color: var(--marble);
 }
 
 .brand-mark {
@@ -94,7 +101,6 @@ button {
   color: var(--terminal);
   font-size: 0.78rem;
   font-weight: 800;
-  letter-spacing: 0;
   background: rgba(0, 0, 0, 0.58);
 }
 
@@ -104,7 +110,6 @@ button {
   color: rgba(241, 238, 232, 0.82);
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0;
   text-transform: uppercase;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -160,6 +165,7 @@ button {
   transition:
     border-color 180ms ease,
     background 180ms ease,
+    color 180ms ease,
     transform 180ms ease;
 }
 
@@ -183,32 +189,42 @@ button {
 }
 
 .stage {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: var(--black);
+}
+
+.stage::before {
+  content: "";
   position: fixed;
   inset: 0;
-  z-index: 1;
-  overflow: hidden;
-  min-height: 100vh;
+  z-index: 0;
   background:
     linear-gradient(90deg, rgba(3, 3, 3, 0.98) 0%, rgba(3, 3, 3, 0.84) 46%, rgba(3, 3, 3, 0.98) 100%),
     linear-gradient(135deg, rgba(110, 255, 159, 0.07), transparent 31%),
     linear-gradient(315deg, rgba(226, 105, 93, 0.09), transparent 34%),
     var(--black);
+  pointer-events: none;
 }
 
 .ambient-grid {
-  position: absolute;
+  position: fixed;
   inset: 0;
+  z-index: 1;
   opacity: 0.24;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 96px 96px;
-  transform: translateX(calc(var(--progress) * -96px));
+  transform: translateY(calc(var(--progress) * -96px));
+  pointer-events: none;
 }
 
 .rail-shadow {
-  position: absolute;
+  position: fixed;
   inset: 0;
+  z-index: 2;
   background:
     linear-gradient(90deg, rgba(0, 0, 0, 0.78), transparent 22%, transparent 76%, rgba(0, 0, 0, 0.85)),
     linear-gradient(180deg, rgba(0, 0, 0, 0.86), transparent 34%, transparent 74%, rgba(0, 0, 0, 0.92));
@@ -216,29 +232,37 @@ button {
 }
 
 .stage-floor {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 3;
   height: 24vh;
   background:
     linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.05) 14%, rgba(255, 255, 255, 0.13) 100%),
     repeating-linear-gradient(90deg, rgba(241, 238, 232, 0.05) 0 1px, transparent 1px 20vw);
   clip-path: polygon(0 48%, 100% 20%, 100% 100%, 0 100%);
   opacity: 0.86;
+  pointer-events: none;
 }
 
 .statue-frame {
-  position: absolute;
-  z-index: 3;
-  left: clamp(4px, 11vw, 190px);
-  bottom: -5vh;
+  position: fixed;
+  z-index: 4;
+  left: clamp(4px, 9vw, 164px);
+  bottom: -6vh;
   width: clamp(300px, 34vw, 540px);
-  height: min(93vh, 900px);
+  height: min(94vh, 920px);
   margin: 0;
   pointer-events: none;
-  transform: translate3d(calc(var(--progress) * -5vw), 0, 0) scale(calc(1 - (var(--progress) * 0.035)));
+  transform:
+    perspective(1200px)
+    translate3d(0, calc(var(--progress) * -4vh), 0)
+    rotateX(calc(var(--tilt-y) * 1deg))
+    rotateY(calc(var(--tilt-x) * 1deg))
+    scale(calc(1 - (var(--progress) * 0.025)));
   transform-origin: bottom center;
+  transform-style: preserve-3d;
   transition: filter 240ms ease;
 }
 
@@ -258,27 +282,22 @@ button {
   height: 100%;
   object-fit: contain;
   object-position: bottom center;
-  filter: contrast(1.04) brightness(0.94);
+  filter: contrast(1.05) brightness(0.95);
   mix-blend-mode: screen;
 }
 
-.rail {
-  position: absolute;
-  inset: 0;
+.content-stack {
+  position: relative;
   z-index: 5;
-  display: flex;
-  width: calc(var(--panel-count) * 100vw);
-  will-change: transform;
 }
 
 .panel {
   position: relative;
   display: grid;
   align-items: center;
-  width: 100vw;
-  min-width: 100vw;
-  height: 100vh;
-  padding: 100px clamp(20px, 5vw, 86px) 74px;
+  min-height: 100svh;
+  padding: 100px var(--copy-right) 76px clamp(20px, 5vw, 86px);
+  scroll-snap-align: start;
 }
 
 .panel::before {
@@ -292,7 +311,6 @@ button {
   font-size: clamp(4.8rem, 13vw, 15rem);
   font-weight: 700;
   line-height: 0.76;
-  letter-spacing: 0;
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -300,10 +318,11 @@ button {
 .panel-copy {
   position: relative;
   z-index: 4;
+  width: min(680px, calc(100vw - var(--copy-left) - var(--copy-right)));
   max-width: 680px;
-  margin-left: min(50vw, 760px);
-  opacity: 0.36;
-  transform: translateY(18px);
+  margin-left: var(--copy-left);
+  opacity: 0.25;
+  transform: translateY(26px);
   transition:
     opacity 480ms ease,
     transform 480ms ease;
@@ -323,7 +342,6 @@ button {
   color: var(--terminal);
   font-size: 0.76rem;
   font-weight: 800;
-  letter-spacing: 0;
   text-transform: uppercase;
 }
 
@@ -341,7 +359,6 @@ h2 {
   font-family: Georgia, "Times New Roman", serif;
   font-weight: 500;
   line-height: 0.92;
-  letter-spacing: 0;
 }
 
 h1 {
@@ -357,7 +374,6 @@ h3 {
   color: var(--marble);
   font-size: clamp(1.05rem, 1.1vw, 1.24rem);
   line-height: 1.15;
-  letter-spacing: 0;
 }
 
 .lead {
@@ -395,7 +411,6 @@ h3 {
   background: rgba(255, 255, 255, 0.04);
   font-size: 0.75rem;
   font-weight: 800;
-  letter-spacing: 0;
   text-transform: uppercase;
 }
 
@@ -416,7 +431,6 @@ h3 {
   background: rgba(255, 255, 255, 0.05);
   font-size: 0.9rem;
   font-weight: 800;
-  letter-spacing: 0;
   transition:
     border-color 180ms ease,
     background 180ms ease,
@@ -437,14 +451,14 @@ h3 {
 }
 
 .panel-wide .panel-copy {
-  width: min(72vw, 1120px);
+  --copy-left: clamp(320px, 34vw, 520px);
+  width: min(1020px, calc(100vw - var(--copy-left) - var(--copy-right)));
   max-width: none;
-  margin-left: min(24vw, 380px);
 }
 
 .section-head {
   display: grid;
-  grid-template-columns: minmax(260px, 0.7fr) minmax(300px, 1fr);
+  grid-template-columns: minmax(230px, 0.7fr) minmax(300px, 1fr);
   gap: clamp(20px, 4vw, 60px);
   align-items: end;
   margin-bottom: 28px;
@@ -479,7 +493,6 @@ h3 {
   color: var(--copper);
   font-size: 0.78rem;
   font-weight: 900;
-  letter-spacing: 0;
 }
 
 .project-card p {
@@ -606,7 +619,6 @@ h3 {
   color: rgba(241, 238, 232, 0.7);
   font-size: 0.78rem;
   font-weight: 900;
-  letter-spacing: 0;
 }
 
 .progress-track {
@@ -633,7 +645,6 @@ h3 {
   color: rgba(241, 238, 232, 0.45);
   font-size: 0.72rem;
   font-weight: 900;
-  letter-spacing: 0;
   text-transform: uppercase;
   writing-mode: vertical-rl;
   transform: translateY(-50%);
@@ -649,18 +660,17 @@ h3 {
 }
 
 @media (max-width: 1120px) {
+  :root {
+    --copy-left: min(46vw, 480px);
+  }
+
   .statue-frame {
-    left: clamp(-40px, 2vw, 20px);
+    left: clamp(-44px, 2vw, 20px);
     width: clamp(270px, 40vw, 440px);
   }
 
-  .panel-copy {
-    margin-left: min(46vw, 480px);
-  }
-
   .panel-wide .panel-copy {
-    width: min(78vw, 900px);
-    margin-left: min(20vw, 260px);
+    --copy-left: min(26vw, 280px);
   }
 
   .project-grid {
@@ -688,7 +698,7 @@ h3 {
     height: 42px;
   }
 
-  .stage {
+  .stage::before {
     background:
       linear-gradient(180deg, rgba(3, 3, 3, 0.8), rgba(3, 3, 3, 0.96)),
       linear-gradient(135deg, rgba(110, 255, 159, 0.08), transparent 42%),
@@ -700,8 +710,11 @@ h3 {
     bottom: -10vh;
     width: min(76vw, 360px);
     height: 72vh;
-    opacity: 0.52;
-    transform: translateX(-50%) scale(1);
+    opacity: 0.5;
+    transform:
+      translateX(-50%)
+      translateY(calc(var(--progress) * -3vh))
+      scale(1);
   }
 
   .stage-floor {
@@ -710,6 +723,7 @@ h3 {
 
   .panel {
     align-items: start;
+    min-height: 100svh;
     padding: 94px 20px 94px;
   }
 
@@ -770,12 +784,9 @@ h3 {
     margin-bottom: 14px;
   }
 
-  .certificate-list {
-    max-height: 54vh;
-    overflow: auto;
-  }
-
-  .contact-stack {
+  .certificate-list,
+  .contact-stack,
+  .studio-grid {
     max-height: 54vh;
     overflow: auto;
   }
@@ -787,8 +798,6 @@ h3 {
 
   .studio-grid {
     grid-template-columns: 1fr;
-    max-height: 54vh;
-    overflow: auto;
   }
 
   .studio-grid div {

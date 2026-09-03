@@ -2,8 +2,8 @@
 
 A cinematic one-page portfolio inspired by the scroll construction and sculptural black-stage style of DigiDifference.
 
-Open `public/index.html` in a browser to view the site. The page uses vertical scroll input to move horizontally through
-the portfolio panels while keeping the statue composition fixed in the viewport.
+Open `public/index.html` in a browser to view the site. The page is a single vertical-scroll experience with a fixed
+3D-style statue composition and full-screen portfolio sections.
 
 ## Structure
 
