@@ -584,7 +584,7 @@ const educationDetails = [
 const commands = {
   about: () =>
     printTerminal(
-      "JOLINA JAVIER\nUI/UX Designer & Front-End Developer\n\nHi, I am Jolina Javier, a passionate UI/UX Designer and Front-End Developer.\nI enjoy creating intuitive and user-friendly digital experiences.",
+      "JOLINA P. JAVIER\nAspiring UI/UX Designer & Front-End Developer\n\nFocused on building user-centered, visually intuitive digital experiences. Skilled in transforming design concepts into functional, responsive web applications using modern tools and frameworks. Experienced in Figma, code implementation, and deploying live projects using cloud platforms.",
     ),
   clear: () => {
     terminalBody.innerHTML = "";
@@ -647,7 +647,7 @@ const commands = {
     ),
   skills: () =>
     printTerminal(
-      "TECHNICAL SKILLS & TOOLS\nHTML / CSS / JavaScript / React / Figma / GitHub / Hosting / VS Code\n\nDESIGN & SOFT SKILLS\nResponsive Design / Visual Layout / Project Execution / Collaboration / Adaptability",
+      "SKILLS\n\nDesign: Figma, User Research, User Flows, Wireframing, Prototyping, Interaction & State Design, Responsive Layouts\n\nFrontend: HTML/CSS, JavaScript, TypeScript, React, REST API integration, SQL, Git & GitHub, VS Code\n\nDeployment: AWS Lightsail, S3, IAM, CloudFormation, Certificates, Domain & DNS configuration, HTTPS/SSL setup\n\nLanguage: English (Business), Japanese (Basic), Filipino (Native)",
     ),
   spin: (arg) => {
     const value = Number.parseFloat(arg);
@@ -806,8 +806,8 @@ function renderFrame() {
   statueRig.scale.setScalar(lerp(0.38, 1, rise) * statueScale);
   statueRig.position.y = statueYOffset + lerp(-0.72, 0, rise);
   statueRig.position.x = layoutMobile ? -1.45 : lerp(-0.8, -5.85, smoothStep(0.78, 1, introProgress));
-  secondaryRig.position.set(layoutMobile ? 1.15 : 4.25, layoutMobile ? 0.78 : 0.15, -3.25);
-  secondaryRig.scale.setScalar((layoutMobile ? 0.34 : 0.68) * Math.max(smoothStep(0.78, 1, introProgress), 0.001));
+  secondaryRig.position.set(layoutMobile ? 1.2 : 4.05, layoutMobile ? 0.78 : 0.12, -3.25);
+  secondaryRig.scale.setScalar((layoutMobile ? 0.36 : 0.78) * Math.max(smoothStep(0.78, 1, introProgress), 0.001));
 
   const scrollRotation = introProgress < 1 ? lerp(-1.15, ROTATIONS[0], easeInOut(introProgress)) : rotationAt(sectionFloat);
   if (!dragState && performance.now() - lastUserTime > 3500 && introProgress >= 1) {
@@ -844,7 +844,7 @@ function renderFrame() {
   sectionWordProgress = Math.min(1, sectionWordProgress + delta * 2.4);
   targetWordVisible = damp(targetWordVisible, idx >= 0 ? 1 : 0, 4, delta);
   const wordEase = 1 - Math.pow(1 - sectionWordProgress, 3);
-  wordMesh.material.opacity = 0.76 * wordEase * targetWordVisible * smoothStep(0.86, 1, introProgress);
+  wordMesh.material.opacity = 0.58 * wordEase * targetWordVisible * smoothStep(0.86, 1, introProgress);
   const [wordX, wordY, wordZ] = wordMesh.userData.base || [0.35, 2, -7.6];
   wordMesh.position.set(wordX + mouse.x * 0.35, wordY - 0.45 * (1 - wordEase), wordZ);
 

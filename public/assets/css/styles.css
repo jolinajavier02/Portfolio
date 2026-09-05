@@ -352,12 +352,12 @@ body:not(.intro-done) .topbar {
 
 .panel {
   position: absolute;
-  left: 43vw;
+  left: 50%;
   top: 16vh;
-  width: min(700px, 50vw);
+  width: min(760px, 48vw);
   height: 72vh;
   opacity: 0;
-  transform: translateY(30px);
+  transform: translate(-50%, 30px);
   transition:
     opacity 500ms ease,
     transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1),
@@ -367,11 +367,24 @@ body:not(.intro-done) .topbar {
 
 .panel.is-active {
   opacity: 1;
-  transform: none;
+  transform: translate(-50%, 0);
   transition:
     opacity 650ms ease 120ms,
     transform 650ms cubic-bezier(0.2, 0.7, 0.2, 1) 120ms;
   visibility: visible;
+}
+
+.panel:not(.panel-wide) {
+  text-align: center;
+}
+
+.panel:not(.panel-wide) .lead {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.panel:not(.panel-wide) .skill-row {
+  text-align: left;
 }
 
 .reveal {
@@ -413,12 +426,32 @@ h2 {
   line-height: 1.06;
 }
 
+.panel[data-section="About"] {
+  top: 12vh;
+  height: 78vh;
+}
+
+.panel[data-section="About"] h2 {
+  margin-bottom: 22px;
+  font-size: clamp(34px, 3.8vw, 56px);
+}
+
+.panel[data-section="About"] .lead {
+  margin-bottom: 24px;
+  font-size: clamp(14px, 0.95vw, 16px);
+}
+
+.panel[data-section="About"] .stats {
+  margin-top: 22px;
+}
+
 .lead {
-  max-width: 52ch;
+  max-width: 66ch;
   margin-bottom: 32px;
-  color: #b9beb4;
-  font-size: 19px;
+  color: rgba(237, 239, 231, 0.86);
+  font-size: clamp(15px, 1.05vw, 18px);
   line-height: 1.55;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.65);
 }
 
 .tags,
@@ -428,6 +461,7 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: center;
 }
 
 .tags span,
@@ -435,10 +469,10 @@ h2 {
 .socials a,
 .actions a {
   padding: 11px 18px;
-  border: 1px solid #262a26;
+  border: 1px solid rgba(241, 238, 232, 0.28);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.02);
-  color: #cfd4c9;
+  background: rgba(5, 8, 6, 0.58);
+  color: #f0f3eb;
   font: 600 10.5px "JetBrains Mono", monospace;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -462,6 +496,15 @@ h2 {
   margin-top: 36px;
 }
 
+.stats div {
+  min-width: 126px;
+  padding: 10px 12px;
+  border: 1px solid rgba(241, 238, 232, 0.18);
+  border-radius: 8px;
+  background: rgba(5, 8, 6, 0.46);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
 .stats b {
   display: block;
   margin-bottom: 6px;
@@ -471,7 +514,7 @@ h2 {
 
 .stats span,
 .location {
-  color: var(--muted);
+  color: rgba(224, 230, 219, 0.76);
   font: 600 9.5px "JetBrains Mono", monospace;
   letter-spacing: 0.18em;
 }
@@ -782,8 +825,8 @@ h2 {
 
 .skill-row {
   display: block;
-  padding: 13px 0;
-  border-bottom: 1px solid var(--line);
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(241, 238, 232, 0.2);
 }
 
 .skill-row:first-of-type {
@@ -793,36 +836,20 @@ h2 {
 .skill-row p {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
-  color: #c8cdc2;
+  margin-bottom: 8px;
+  color: var(--green);
   font: 600 11px "JetBrains Mono", monospace;
   letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-.skill-row b {
-  color: var(--green);
-}
-
-.skill-row > i {
-  position: relative;
+.skill-row strong {
   display: block;
-  height: 2px;
-  overflow: hidden;
-  background: #1d211d;
-}
-
-.skill-row > i::after {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 0;
-  background: var(--green);
-  box-shadow: 0 0 10px rgba(124, 227, 163, 0.6);
-  transition: width 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) 400ms;
-}
-
-.panel.is-active .skill-row > i::after {
-  width: var(--w);
+  color: rgba(241, 238, 232, 0.84);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
 }
 
 .mail {
@@ -1103,6 +1130,11 @@ body.ready-state.intro-done #hint {
     bottom: 0;
     width: auto;
     height: 62vh;
+    transform: translateY(30px);
+  }
+
+  .panel.is-active {
+    transform: none;
   }
 
   .panel-wide {
