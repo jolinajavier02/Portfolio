@@ -177,9 +177,9 @@ function makeStatuePlane(url, width, height, opacity) {
   return mesh;
 }
 
-const statue = makeStatuePlane("assets/images/statue1.png", 2.75, 7.35, 0.98);
-const statueGlow = makeStatuePlane("assets/images/statue1.png", 3.05, 7.85, 0.16);
-const statueBack = makeStatuePlane("assets/images/statue2.png", 2.85, 7.35, 0.3);
+const statue = makeStatuePlane("assets/images/statue1.png?v=2", 2.75, 7.35, 0.98);
+const statueGlow = makeStatuePlane("assets/images/statue1.png?v=2", 3.05, 7.85, 0.16);
+const statueBack = makeStatuePlane("assets/images/statue2.png?v=2", 2.85, 7.35, 0.3);
 statueGlow.position.z = -0.05;
 statueBack.position.set(0, 4.1, 0);
 statueRig.add(statueGlow, statue);
