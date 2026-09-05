@@ -5,9 +5,9 @@ const damp = THREE.MathUtils.damp;
 const lerp = THREE.MathUtils.lerp;
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const WORDS = ["INTRO", "ABOUT", "WORK", "SKILLS", "PATH", "CONTACT"];
-const ROTATIONS = [0.16, 0.82, -0.5, 1.1, -0.86, 0.35];
-const DISTANCES = [12.2, 11.4, 12.0, 11.2, 11.8, 10.9];
+const WORDS = ["INTRO", "ABOUT", "PROJECTS", "CERTS", "SKILLS", "CONTACT", "LETTER"];
+const ROTATIONS = [0.16, 0.82, -0.5, 1.1, -0.86, 0.35, 0.72];
+const DISTANCES = [12.2, 11.4, 12.0, 11.2, 11.8, 10.9, 11.5];
 const ANCHORS = WORDS.length + 3;
 
 const qs = (selector) => document.querySelector(selector);
@@ -511,30 +511,76 @@ qs("#termClose").addEventListener("click", closeTerminal);
 
 const aliases = {
   about: 1,
+  certificates: 3,
+  certs: 3,
   contact: 5,
-  experience: 4,
+  education: 3,
   intro: 0,
-  path: 4,
   projects: 2,
-  skills: 3,
+  letter: 6,
+  resume: 1,
+  skills: 4,
   work: 2,
 };
 
 const helpText = `AVAILABLE COMMANDS
 
-  goto <section>     intro / about / work / skills / path / contact
+  goto <section>     intro / about / projects / certs / skills / contact / letter
   next / prev        step along the scroll track
   replay             back to the top
-  pose <1-6>         turn the figure to a catalogued angle
+  pose <1-7>         turn the figure to a catalogued angle
   spin <0-10>        idle turntable speed
   zoom <in|out>      dolly the camera
-  about / projects / skills / contact
-  date / echo <msg> / clear / exit`;
+  about / projects / education / skills / resume / contact
+  ls / pwd / whoami / date / echo <msg> / clear / exit`;
+
+const projectDetails = [
+  {
+    name: "Natours Travel",
+    url: "https://natours-travel.com/",
+    summary: "Travel and tours website for flights, hotels, packages, cruises, and visa assistance.",
+  },
+  {
+    name: "Broccobae",
+    url: "https://broccobae.com",
+    summary: "Vegan recipe website with friendly browsing, plant-based meals, and beginner-friendly recipes.",
+  },
+  {
+    name: "CalDef",
+    url: "https://github.com/jolina/Caldef",
+    summary: "Calorie deficit guidance site focused on simple fitness, nutrition, and lifestyle education.",
+  },
+  {
+    name: "Globetrone Bank App",
+    url: "https://jolinajavier02.github.io/Globetrone-Bank-App/",
+    summary: "Fintech UI/UX case study for international money transfer and banking flows.",
+  },
+  {
+    name: "Coffee App",
+    url: "https://jolinajavier02.github.io/Coffee-App/",
+    summary: "Mobile ordering and delivery UI for browsing coffee, customizing orders, and checkout.",
+  },
+];
+
+const educationDetails = [
+  "Google UX Design Certificate - Coursera - Jul-Oct 2024",
+  "Foundations of User Experience Design",
+  "Start the UX Design Process: Empathize, Define, and Ideate",
+  "Build Wireframes and Low-Fidelity Prototypes",
+  "Conduct UX Research and Test Early Concepts",
+  "Create High-Fidelity Designs and Prototypes in Figma",
+  "Responsive Web Design in Adobe XD and Figma",
+  "Design a User Experience for Social Good and Prepare for Jobs",
+  "UI/UX Design Specialization - California Institute of the Arts / Coursera",
+  "Visual Elements of User Interface Design",
+  "UX Design Fundamentals",
+  "Bachelor of Science in Hospitality Management - University of Eastern Philippines - 2020-2024",
+];
 
 const commands = {
   about: () =>
     printTerminal(
-      "JOLINA P. JAVIER - WEB DEVELOPER\nManila, PH\n\nRefined web experiences, responsive interfaces, and cinematic portfolio systems.",
+      "JOLINA JAVIER\nUI/UX Designer & Front-End Developer\n\nHi, I am Jolina Javier, a passionate UI/UX Designer and Front-End Developer.\nI enjoy creating intuitive and user-friendly digital experiences.",
     ),
   clear: () => {
     terminalBody.innerHTML = "";
@@ -542,9 +588,10 @@ const commands = {
   close: closeTerminal,
   contact: () =>
     printTerminal(
-      "email    hello@jolinapjavier.com\ngithub   github.com/jolinajavier02\nlinkedin linkedin.com/in/jolina-javier-ab92b4326",
+      "GET IN TOUCH\n\nemail    jolinapjavier@gmail.com\nlinkedin https://www.linkedin.com/in/jolina-javier-ab92b4326/\ngithub   https://github.com/jolinajavier02\n\nAvailable for UI/UX Design projects, Front-End Development, Freelance work, and Full-time opportunities.\nTypical response time: within 24 hours.",
     ),
   date: () => printTerminal(new Date().toString()),
+  education: () => printTerminal(`EDUCATION & CERTIFICATIONS\n\n${educationDetails.map((item) => `- ${item}`).join("\n")}`),
   echo: (_arg, rest) => printTerminal(rest.join(" ") || ""),
   exit: closeTerminal,
   goto: (arg) => {
@@ -557,6 +604,11 @@ const commands = {
     }
   },
   help: () => printTerminal(helpText),
+  letter: () =>
+    printTerminal(
+      "LETTER\n\nThank you for walking through the work. This portfolio is a quiet room for projects, learning, contact, and the little details that make a digital experience feel personal.",
+    ),
+  ls: () => printTerminal("about.txt\nskills.json\nprojects/\neducation.md\ncontact.vcf\nresume.html\nletter.txt"),
   next: () => navToY((clamp(Math.round(window.scrollY / window.innerHeight), 0, ANCHORS - 1) + 1) * window.innerHeight),
   pose: (arg) => {
     const value = Number.parseInt(arg, 10);
@@ -565,14 +617,26 @@ const commands = {
       spinAngle = 0;
       printTerminal(`pose ${value} - ${WORDS[value - 1]}`, "ok");
     } else {
-      printTerminal("usage: pose <1-6>", "err");
+      printTerminal("usage: pose <1-7>", "err");
     }
   },
+  pwd: () => printTerminal("/home/jolina/~"),
   prev: () => navToY((clamp(Math.round(window.scrollY / window.innerHeight), 0, ANCHORS - 1) - 1) * window.innerHeight),
   projects: () =>
-    printTerminal("01 natours-travel\n02 brocoobae\n03 focus-list\n04 notejp\n05 terminal portfolio\n06 caldef"),
+    printTerminal(
+      `PROJECTS PORTFOLIO\n\n${projectDetails
+        .map((project, index) => `${index + 1}. ${project.name}\n   ${project.url}\n   ${project.summary}`)
+        .join("\n\n")}`,
+    ),
   replay: () => navToY(0),
-  skills: () => printTerminal("html/css/javascript 95\nresponsive ui 92\nfront-end flow 90\nweb motion 86"),
+  resume: () =>
+    printTerminal(
+      "RESUME\n\nUI/UX Designer Resume\nFocused on user experience design, research, and interface design skills.\nDownload from this page: assets/resume/Jolina-P-Javier-Resume.html",
+    ),
+  skills: () =>
+    printTerminal(
+      "TECHNICAL SKILLS & TOOLS\nHTML / CSS / JavaScript / React / Figma / GitHub / Hosting / VS Code\n\nDESIGN & SOFT SKILLS\nResponsive Design / Visual Layout / Project Execution / Collaboration / Adaptability",
+    ),
   spin: (arg) => {
     const value = Number.parseFloat(arg);
     if (Number.isNaN(value)) {
@@ -586,6 +650,7 @@ const commands = {
     idleSpin = 0;
     printTerminal("rotation halted.", "ok");
   },
+  whoami: () => printTerminal("jolina", "ok"),
   zoom: (arg) => {
     zoomMul = clamp(arg === "in" ? zoomMul * 0.88 : arg === "out" ? zoomMul * 1.14 : zoomMul, 0.6, 1.8);
     printTerminal(`camera dolly x ${zoomMul.toFixed(2)}`, "ok");
