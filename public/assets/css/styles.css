@@ -347,9 +347,9 @@ body:not(.intro-done) .topbar {
 
 #panelWrap {
   position: absolute;
-  left: 37vw;
+  left: 40vw;
   top: 16vh;
-  width: min(620px, 50vw);
+  width: min(680px, 52vw);
   height: 72vh;
 }
 
@@ -503,6 +503,11 @@ h2 {
   background: rgba(124, 227, 163, 0.35);
 }
 
+.panel-wide {
+  width: min(760px, 54vw);
+}
+
+.project-card,
 .work-row,
 .path-row {
   display: flex;
@@ -519,10 +524,38 @@ h2 {
   transition: 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
+.project-card {
+  position: relative;
+  min-height: 118px;
+  margin-bottom: 12px;
+  padding: 12px 56px 12px 12px;
+  border: 1px solid rgba(241, 238, 232, 0.13);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.project-card img {
+  width: 142px;
+  height: 86px;
+  border: 1px solid rgba(241, 238, 232, 0.16);
+  border-radius: 6px;
+  object-fit: cover;
+  object-position: top center;
+  background: #111;
+  flex: none;
+}
+
+.project-card em {
+  position: absolute;
+  right: 16px;
+  top: 14px;
+}
+
 .work-row {
   min-height: 82px;
 }
 
+.project-card:first-of-type,
 .work-row:first-of-type,
 .path-row:first-of-type {
   border-top: 1px solid var(--line);
@@ -532,16 +565,19 @@ h2 {
   cursor: pointer;
 }
 
+.project-card:hover,
 .work-row:hover {
   padding-left: 18px;
   border-color: rgba(124, 227, 163, 0.5);
 }
 
+.project-card span,
 .work-row span,
 .path-row p {
   flex: 1;
 }
 
+.project-card b,
 .work-row b,
 .path-row b {
   display: block;
@@ -550,6 +586,7 @@ h2 {
   font: 500 26px "Playfair Display", Georgia, serif;
 }
 
+.project-card small,
 .work-row small,
 .path-row small {
   color: var(--muted);
@@ -557,6 +594,7 @@ h2 {
   letter-spacing: 0.16em;
 }
 
+.project-card em,
 .work-row em,
 .path-row > span {
   color: var(--green);
@@ -570,7 +608,7 @@ h2 {
   gap: 10px;
 }
 
-.certificate-list article {
+.certificate-list a {
   display: grid;
   min-width: 0;
   min-height: 128px;
@@ -578,6 +616,16 @@ h2 {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.035);
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease,
+    background 180ms ease;
+}
+
+.certificate-list a:hover {
+  border-color: rgba(124, 227, 163, 0.55);
+  background: rgba(124, 227, 163, 0.06);
+  transform: translateY(-2px);
 }
 
 .certificate-list span {
@@ -603,6 +651,52 @@ h2 {
   color: var(--muted);
   font: 600 9px "JetBrains Mono", monospace;
   letter-spacing: 0.1em;
+}
+
+.contact-stack {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0 24px;
+  pointer-events: auto;
+}
+
+.contact-stack a {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+  min-height: 58px;
+  padding: 13px 0;
+  border-top: 1px solid var(--line);
+  transition:
+    border-color 180ms ease,
+    color 180ms ease,
+    padding-left 180ms ease;
+}
+
+.contact-stack a:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-stack a:hover {
+  padding-left: 10px;
+  border-color: rgba(124, 227, 163, 0.5);
+  color: var(--green);
+}
+
+.contact-stack span {
+  color: var(--muted);
+  font: 700 10px "JetBrains Mono", monospace;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.contact-stack strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: #f4f1e8;
+  font-size: clamp(15px, 1.5vw, 19px);
+  font-weight: 600;
 }
 
 .skill-row {
@@ -930,6 +1024,10 @@ body.ready-state.intro-done #hint {
     bottom: 0;
   }
 
+  .panel-wide {
+    width: auto;
+  }
+
   h1 {
     font-size: clamp(46px, 13vw, 84px);
   }
@@ -950,6 +1048,27 @@ body.ready-state.intro-done #hint {
     grid-template-columns: 1fr;
     max-height: 34vh;
     overflow-y: auto;
+  }
+
+  .project-card {
+    min-height: 92px;
+    gap: 14px;
+    padding: 10px 44px 10px 10px;
+  }
+
+  .project-card img {
+    width: 96px;
+    height: 64px;
+  }
+
+  .contact-stack {
+    max-height: 34vh;
+    overflow-y: auto;
+  }
+
+  .contact-stack a {
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 
   #hint {
@@ -990,6 +1109,7 @@ body.ready-state.intro-done #hint {
   }
 
   .work-row b,
+  .project-card b,
   .path-row b {
     font-size: 22px;
   }

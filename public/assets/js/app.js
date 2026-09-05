@@ -95,7 +95,12 @@ function showToast(message) {
 }
 
 document.querySelectorAll("[data-toast]").forEach((element) => {
-  element.addEventListener("click", () => showToast(element.dataset.toast));
+  element.addEventListener("click", (event) => {
+    if (element.tagName === "A" && element.getAttribute("href") === "#") {
+      event.preventDefault();
+    }
+    showToast(element.dataset.toast);
+  });
 });
 
 document.querySelectorAll("[data-copy]").forEach((element) => {
@@ -172,9 +177,9 @@ function makeStatuePlane(url, width, height, opacity) {
   return mesh;
 }
 
-const statue = makeStatuePlane("assets/images/Removal-953.png", 3.7, 8.6, 0.95);
-const statueGlow = makeStatuePlane("assets/images/Removal-953.png", 4.1, 9.1, 0.16);
-const statueBack = makeStatuePlane("assets/images/Removal-758.png", 3.5, 8.2, 0.32);
+const statue = makeStatuePlane("assets/images/statue1.png", 2.75, 7.35, 0.98);
+const statueGlow = makeStatuePlane("assets/images/statue1.png", 3.05, 7.85, 0.16);
+const statueBack = makeStatuePlane("assets/images/statue2.png", 2.85, 7.35, 0.3);
 statueGlow.position.z = -0.05;
 statueBack.position.set(0, 4.1, 0);
 statueRig.add(statueGlow, statue);
@@ -320,18 +325,18 @@ function layout3D() {
   layoutMobile = window.innerWidth / window.innerHeight < 0.95 || window.innerWidth < 760;
 
   if (layoutMobile) {
-    statueScale = 0.76;
-    statueYOffset = 0.9;
+    statueScale = 0.62;
+    statueYOffset = 1.15;
     focusX = 0;
-    focusY = 4.15;
+    focusY = 3.85;
     secondaryRig.visible = false;
     wordMesh.scale.setScalar(0.72);
     wordMesh.userData.base = [0, 3.8, -9];
   } else {
-    statueScale = 1;
-    statueYOffset = 0;
-    focusX = -0.55;
-    focusY = 3.6;
+    statueScale = 0.88;
+    statueYOffset = 0.18;
+    focusX = -1.15;
+    focusY = 3.55;
     secondaryRig.visible = idx >= 0;
     wordMesh.scale.setScalar(1);
     wordMesh.userData.base = [0.35, 2.0, -7.6];
@@ -456,16 +461,8 @@ window.addEventListener(
   (event) => {
     if (termOpen) {
       event.preventDefault();
-      return;
     }
-
-    if (event.ctrlKey) {
-      return;
-    }
-
     markUser();
-    const mult = event.deltaMode === 1 ? 33 : 1;
-    window.scrollBy(0, event.deltaY * mult * 1.7);
   },
   { passive: false },
 );
@@ -538,42 +535,52 @@ const projectDetails = [
   {
     name: "Natours Travel",
     url: "https://natours-travel.com/",
+    image: "assets/images/Natours-Travel.png",
     summary: "Travel and tours website for flights, hotels, packages, cruises, and visa assistance.",
   },
   {
     name: "Broccobae",
     url: "https://broccobae.com",
+    image: "assets/images/Broccobae.png",
     summary: "Vegan recipe website with friendly browsing, plant-based meals, and beginner-friendly recipes.",
   },
   {
     name: "CalDef",
     url: "https://github.com/jolina/Caldef",
+    image: "assets/images/Caldef.png",
     summary: "Calorie deficit guidance site focused on simple fitness, nutrition, and lifestyle education.",
   },
   {
-    name: "Globetrone Bank App",
-    url: "https://jolinajavier02.github.io/Globetrone-Bank-App/",
-    summary: "Fintech UI/UX case study for international money transfer and banking flows.",
+    name: "Focus List",
+    url: "assets/images/Focus-list.png",
+    image: "assets/images/Focus-list.png",
+    summary: "Focused task planning tool for organizing priorities, tracking progress, and daily work.",
   },
   {
-    name: "Coffee App",
-    url: "https://jolinajavier02.github.io/Coffee-App/",
-    summary: "Mobile ordering and delivery UI for browsing coffee, customizing orders, and checkout.",
+    name: "NotesJP",
+    url: "assets/images/Notesjp.png",
+    image: "assets/images/Notesjp.png",
+    summary: "Clean note-taking workspace for capturing ideas and returning to what matters.",
+  },
+  {
+    name: "Terminal Portfolio",
+    url: "https://jolinapjavier.com",
+    image: "assets/images/Terminal Portfolio.png",
+    summary: "Command-inspired portfolio experience with keyboard-friendly navigation.",
   },
 ];
 
 const educationDetails = [
-  "Google UX Design Certificate - Coursera - Jul-Oct 2024",
-  "Foundations of User Experience Design",
-  "Start the UX Design Process: Empathize, Define, and Ideate",
-  "Build Wireframes and Low-Fidelity Prototypes",
-  "Conduct UX Research and Test Early Concepts",
-  "Create High-Fidelity Designs and Prototypes in Figma",
-  "Responsive Web Design in Adobe XD and Figma",
-  "Design a User Experience for Social Good and Prepare for Jobs",
-  "UI/UX Design Specialization - California Institute of the Arts / Coursera",
-  "Visual Elements of User Interface Design",
-  "UX Design Fundamentals",
+  "assets/images/Coursera 7JR9NU6QXIQY.pdf",
+  "assets/images/Coursera MZKPBCC13YSR.pdf",
+  "assets/images/Coursera PJGWO5UIKW3D.pdf",
+  "assets/images/Coursera B3J3TCVVBQ7M.pdf",
+  "assets/images/Coursera NFK00YL15EH1.pdf",
+  "assets/images/Coursera KJW3VTEUGU0A.pdf",
+  "assets/images/Coursera 10DXMZQ3I5P3.pdf",
+  "assets/images/Coursera TIDJMBX87GMK.pdf",
+  "assets/images/Coursera RQMV4OF1KPWF.pdf",
+  "assets/images/Coursera YDC1LCVM0UV8.pdf",
   "Bachelor of Science in Hospitality Management - University of Eastern Philippines - 2020-2024",
 ];
 
@@ -600,7 +607,7 @@ const commands = {
       navToY((value + 3) * window.innerHeight);
       printTerminal(`scrolling to ${WORDS[value]}`, "ok");
     } else {
-      printTerminal("unknown section - try intro, about, work, skills, path, contact", "err");
+      printTerminal("unknown section - try intro, about, projects, certs, skills, contact, letter", "err");
     }
   },
   help: () => printTerminal(helpText),
@@ -625,7 +632,7 @@ const commands = {
   projects: () =>
     printTerminal(
       `PROJECTS PORTFOLIO\n\n${projectDetails
-        .map((project, index) => `${index + 1}. ${project.name}\n   ${project.url}\n   ${project.summary}`)
+        .map((project, index) => `${index + 1}. ${project.name}\n   ${project.url}\n   image: ${project.image}\n   ${project.summary}`)
         .join("\n\n")}`,
     ),
   replay: () => navToY(0),
@@ -792,9 +799,9 @@ function renderFrame() {
   const rise = easeInOut(smoothStep(0.3, 0.94, introProgress));
 
   statueRig.scale.setScalar(lerp(0.38, 1, rise) * statueScale);
-  statueRig.position.y = statueYOffset + lerp(-0.55, 0, rise);
-  statueRig.position.x = layoutMobile ? 0 : lerp(0, -2.55, smoothStep(0.78, 1, introProgress));
-  secondaryRig.position.set(4.95, 0, -2.6);
+  statueRig.position.y = statueYOffset + lerp(-0.72, 0, rise);
+  statueRig.position.x = layoutMobile ? 0 : lerp(-0.2, -3.35, smoothStep(0.78, 1, introProgress));
+  secondaryRig.position.set(4.35, 0.28, -2.8);
   secondaryRig.scale.setScalar(0.95 * Math.max(targetWordVisible, 0.001));
 
   const scrollRotation = introProgress < 1 ? lerp(-1.15, ROTATIONS[0], easeInOut(introProgress)) : rotationAt(sectionFloat);
@@ -804,8 +811,8 @@ function renderFrame() {
 
   rotation.target = scrollRotation + userRotation + spinAngle;
   rotation.current = damp(rotation.current, rotation.target, 2.6, delta);
-  statueRig.rotation.y = rotation.current;
-  secondaryRig.rotation.y = 0.55 + Math.sin(elapsed * 0.07) * 0.4;
+  statueRig.rotation.y = Math.sin(rotation.current) * 0.11;
+  secondaryRig.rotation.y = -0.08 + Math.sin(elapsed * 0.07) * 0.05;
 
   const lightLevel = smoothStep(0.12, 0.8, introProgress);
   key.intensity = 2.4 * lightLevel;
@@ -826,8 +833,8 @@ function renderFrame() {
 
   const distanceTarget = introProgress < 1 ? lerp(17.5, distanceAt(0), easeInOut(introProgress)) : distanceAt(sectionFloat) * zoomMul;
   camera.position.z = damp(camera.position.z, distanceTarget, 3, delta);
-  camera.position.x = damp(camera.position.x, mouse.x * 0.45, 2.5, delta);
-  camera.position.y = damp(camera.position.y, (introProgress < 1 ? lerp(6, 3.6, easeInOut(introProgress)) : 3.6) + mouse.y * 0.25, 2.5, delta);
+  camera.position.x = damp(camera.position.x, mouse.x * 0.18, 2.5, delta);
+  camera.position.y = damp(camera.position.y, (introProgress < 1 ? lerp(6, 3.6, easeInOut(introProgress)) : 3.6) + mouse.y * 0.12, 2.5, delta);
   camera.lookAt(introProgress < 1 ? lerp(0, focusX, easeInOut(introProgress)) : focusX, introProgress < 1 ? lerp(5, focusY, easeInOut(introProgress)) : focusY, 0);
 
   sectionWordProgress = Math.min(1, sectionWordProgress + delta * 2.4);
