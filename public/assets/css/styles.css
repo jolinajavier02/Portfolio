@@ -347,15 +347,15 @@ body:not(.intro-done) .topbar {
 
 #panelWrap {
   position: absolute;
-  left: 43vw;
-  top: 16vh;
-  width: min(700px, 50vw);
-  height: 72vh;
+  inset: 0;
 }
 
 .panel {
   position: absolute;
-  inset: 0;
+  left: 43vw;
+  top: 16vh;
+  width: min(700px, 50vw);
+  height: 72vh;
   opacity: 0;
   transform: translateY(30px);
   transition:
@@ -504,7 +504,15 @@ h2 {
 }
 
 .panel-wide {
-  width: min(820px, 52vw);
+  left: 50%;
+  top: 11vh;
+  width: min(1120px, 74vw);
+  height: 80vh;
+  transform: translate(-50%, 30px);
+}
+
+.panel-wide.is-active {
+  transform: translate(-50%, 0);
 }
 
 .work-row,
@@ -545,9 +553,17 @@ h2 {
     transform 220ms ease;
 }
 
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  width: 100%;
+  margin: 0 auto;
+}
+
 .project-card img {
   width: 100%;
-  height: clamp(170px, 19vw, 230px);
+  height: clamp(118px, 11vw, 152px);
   border: 1px solid rgba(241, 238, 232, 0.16);
   border-radius: 6px;
   object-fit: cover;
@@ -568,10 +584,10 @@ h2 {
 }
 
 .project-card p {
-  margin-top: 12px;
+  margin-top: 10px;
   color: rgba(241, 238, 232, 0.68);
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 12px;
+  line-height: 1.42;
 }
 
 .work-row {
@@ -613,7 +629,7 @@ h2 {
   display: block;
   margin-bottom: 5px;
   color: #f4f1e8;
-  font: 500 26px "Playfair Display", Georgia, serif;
+  font: 500 22px "Playfair Display", Georgia, serif;
 }
 
 .project-card small,
@@ -634,14 +650,17 @@ h2 {
 
 .certificate-list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .certificate-list a {
   display: grid;
+  grid-template-rows: 118px auto auto;
   min-width: 0;
-  min-height: 128px;
+  min-height: 210px;
   padding: 13px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -659,19 +678,27 @@ h2 {
 }
 
 .certificate-list span {
-  display: grid;
-  place-items: center;
-  min-height: 42px;
+  display: block;
+  min-height: 118px;
   margin-bottom: 10px;
-  border: 1px dashed rgba(241, 238, 232, 0.35);
+  overflow: hidden;
+  border: 1px solid rgba(241, 238, 232, 0.22);
   border-radius: 5px;
   color: var(--green);
   font: 600 13px "Playfair Display", Georgia, serif;
+  background: #151815;
+}
+
+.certificate-list embed {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  pointer-events: none;
 }
 
 .certificate-list b {
   color: #f4f1e8;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.25;
 }
 
@@ -1042,20 +1069,30 @@ body.ready-state.intro-done #hint {
   }
 
   #panelWrap {
+    inset: 0;
+  }
+
+  .panel {
     left: 6vw;
     right: 6vw;
-    top: 30vh;
+    top: auto;
+    bottom: 0;
     width: auto;
     height: 62vh;
   }
 
-  .panel {
-    top: auto;
-    bottom: 0;
+  .panel-wide {
+    left: 6vw;
+    right: 6vw;
+    top: 14vh;
+    bottom: auto;
+    width: auto;
+    height: 78vh;
+    transform: translateY(30px);
   }
 
-  .panel-wide {
-    width: auto;
+  .panel-wide.is-active {
+    transform: none;
   }
 
   h1 {
@@ -1075,9 +1112,16 @@ body.ready-state.intro-done #hint {
   }
 
   .certificate-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     max-height: 34vh;
     overflow-y: auto;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+    max-height: 54vh;
+    overflow-y: auto;
+    padding-right: 4px;
   }
 
   .project-card {
@@ -1129,6 +1173,10 @@ body.ready-state.intro-done #hint {
 
   .nav-dot.is-active {
     width: 22px;
+  }
+
+  .certificate-list {
+    grid-template-columns: 1fr;
   }
 
   h2 {

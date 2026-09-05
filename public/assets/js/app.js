@@ -180,10 +180,12 @@ function makeStatuePlane(url, width, height, opacity) {
 const statue = makeStatuePlane("assets/images/statue1.png?v=2", 2.75, 7.35, 0.98);
 const statueGlow = makeStatuePlane("assets/images/statue1.png?v=2", 3.05, 7.85, 0.16);
 const statueBack = makeStatuePlane("assets/images/statue2.png?v=2", 2.85, 7.35, 0.3);
+const statueBackGlow = makeStatuePlane("assets/images/statue2.png?v=2", 3.12, 7.85, 0.15);
 statueGlow.position.z = -0.05;
 statueBack.position.set(0, 4.1, 0);
+statueBackGlow.position.z = -0.05;
 statueRig.add(statueGlow, statue);
-secondaryRig.add(statueBack);
+secondaryRig.add(statueBackGlow, statueBack);
 
 const cityGroup = new THREE.Group();
 scene.add(cityGroup);
@@ -293,7 +295,7 @@ function wordTexture(word) {
   const ctx = canvas.getContext("2d");
   let size = 330;
 
-  ctx.fillStyle = "#232723";
+  ctx.fillStyle = "#59665d";
   ctx.textAlign = "center";
   do {
     ctx.font = `500 ${size}px "Playfair Display", Georgia, serif`;
@@ -541,7 +543,7 @@ const projectDetails = [
   },
   {
     name: "CalDef",
-    url: "https://github.com/jolina/Caldef",
+    url: "https://jolinajavier02.github.io/Caldef/",
     image: "assets/images/Caldef.png",
     summary: "Calorie deficit guidance site focused on simple fitness, nutrition, and lifestyle education.",
   },
@@ -799,9 +801,9 @@ function renderFrame() {
 
   statueRig.scale.setScalar(lerp(0.38, 1, rise) * statueScale);
   statueRig.position.y = statueYOffset + lerp(-0.72, 0, rise);
-  statueRig.position.x = layoutMobile ? 0 : lerp(-0.4, -4.25, smoothStep(0.78, 1, introProgress));
-  secondaryRig.position.set(layoutMobile ? 1.1 : -1.65, layoutMobile ? 0.8 : 0.2, -3.2);
-  secondaryRig.scale.setScalar((layoutMobile ? 0.36 : 0.74) * Math.max(smoothStep(0.78, 1, introProgress), 0.001));
+  statueRig.position.x = layoutMobile ? -1.35 : lerp(-0.8, -5.15, smoothStep(0.78, 1, introProgress));
+  secondaryRig.position.set(layoutMobile ? 1.3 : 5.25, layoutMobile ? 0.82 : 0.2, -3.25);
+  secondaryRig.scale.setScalar((layoutMobile ? 0.34 : 0.78) * Math.max(smoothStep(0.78, 1, introProgress), 0.001));
 
   const scrollRotation = introProgress < 1 ? lerp(-1.15, ROTATIONS[0], easeInOut(introProgress)) : rotationAt(sectionFloat);
   if (!dragState && performance.now() - lastUserTime > 3500 && introProgress >= 1) {
@@ -838,7 +840,7 @@ function renderFrame() {
   sectionWordProgress = Math.min(1, sectionWordProgress + delta * 2.4);
   targetWordVisible = damp(targetWordVisible, idx >= 0 ? 1 : 0, 4, delta);
   const wordEase = 1 - Math.pow(1 - sectionWordProgress, 3);
-  wordMesh.material.opacity = 0.95 * wordEase * targetWordVisible * smoothStep(0.86, 1, introProgress);
+  wordMesh.material.opacity = 0.62 * wordEase * targetWordVisible * smoothStep(0.86, 1, introProgress);
   const [wordX, wordY, wordZ] = wordMesh.userData.base || [0.35, 2, -7.6];
   wordMesh.position.set(wordX + mouse.x * 0.35, wordY - 0.45 * (1 - wordEase), wordZ);
 
