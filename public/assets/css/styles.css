@@ -347,9 +347,9 @@ body:not(.intro-done) .topbar {
 
 #panelWrap {
   position: absolute;
-  left: 40vw;
+  left: 43vw;
   top: 16vh;
-  width: min(680px, 52vw);
+  width: min(700px, 50vw);
   height: 72vh;
 }
 
@@ -504,10 +504,9 @@ h2 {
 }
 
 .panel-wide {
-  width: min(760px, 54vw);
+  width: min(820px, 52vw);
 }
 
-.project-card,
 .work-row,
 .path-row {
   display: flex;
@@ -526,29 +525,53 @@ h2 {
 
 .project-card {
   position: relative;
-  min-height: 118px;
-  margin-bottom: 12px;
-  padding: 12px 56px 12px 12px;
-  border: 1px solid rgba(241, 238, 232, 0.13);
+  display: block;
+  min-height: 0;
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 1px solid rgba(241, 238, 232, 0.18);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.035);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.022)),
+    rgba(0, 0, 0, 0.38);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 46px rgba(0, 0, 0, 0.22);
+  color: inherit;
+  pointer-events: auto;
+  transition:
+    border-color 220ms ease,
+    background 220ms ease,
+    transform 220ms ease;
 }
 
 .project-card img {
-  width: 142px;
-  height: 86px;
+  width: 100%;
+  height: clamp(170px, 19vw, 230px);
   border: 1px solid rgba(241, 238, 232, 0.16);
   border-radius: 6px;
   object-fit: cover;
   object-position: top center;
   background: #111;
-  flex: none;
 }
 
 .project-card em {
   position: absolute;
   right: 16px;
   top: 14px;
+}
+
+.project-card span {
+  display: block;
+  min-width: 0;
+  padding: 14px 36px 2px 2px;
+}
+
+.project-card p {
+  margin-top: 12px;
+  color: rgba(241, 238, 232, 0.68);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .work-row {
@@ -565,7 +588,14 @@ h2 {
   cursor: pointer;
 }
 
-.project-card:hover,
+.project-card:hover {
+  border-color: rgba(124, 227, 163, 0.56);
+  background:
+    linear-gradient(145deg, rgba(124, 227, 163, 0.09), rgba(255, 255, 255, 0.03)),
+    rgba(0, 0, 0, 0.42);
+  transform: translateY(-3px);
+}
+
 .work-row:hover {
   padding-left: 18px;
   border-color: rgba(124, 227, 163, 0.5);
@@ -1051,14 +1081,11 @@ body.ready-state.intro-done #hint {
   }
 
   .project-card {
-    min-height: 92px;
-    gap: 14px;
-    padding: 10px 44px 10px 10px;
+    padding: 10px;
   }
 
   .project-card img {
-    width: 96px;
-    height: 64px;
+    height: 150px;
   }
 
   .contact-stack {

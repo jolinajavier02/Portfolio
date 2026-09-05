@@ -185,13 +185,6 @@ statueBack.position.set(0, 4.1, 0);
 statueRig.add(statueGlow, statue);
 secondaryRig.add(statueBack);
 
-const base = new THREE.Mesh(
-  new THREE.BoxGeometry(4.6, 0.4, 2.4),
-  new THREE.MeshStandardMaterial({ color: 0xd4cec0, roughness: 0.68, metalness: 0.02 }),
-);
-base.position.y = 0.2;
-statueRig.add(base);
-
 const cityGroup = new THREE.Group();
 scene.add(cityGroup);
 
@@ -329,15 +322,15 @@ function layout3D() {
     statueYOffset = 1.15;
     focusX = 0;
     focusY = 3.85;
-    secondaryRig.visible = false;
+    secondaryRig.visible = true;
     wordMesh.scale.setScalar(0.72);
     wordMesh.userData.base = [0, 3.8, -9];
   } else {
-    statueScale = 0.88;
+    statueScale = 0.9;
     statueYOffset = 0.18;
-    focusX = -1.15;
+    focusX = -1.9;
     focusY = 3.55;
-    secondaryRig.visible = idx >= 0;
+    secondaryRig.visible = true;
     wordMesh.scale.setScalar(1);
     wordMesh.userData.base = [0.35, 2.0, -7.6];
   }
@@ -484,8 +477,10 @@ function openTerminal() {
   termOpen = true;
   terminalInput.focus();
   if (!terminalBody.childElementCount) {
-    printTerminal("JOLINA OS v4.0 - one scroll, one figure.", "ok");
-    printTerminal("scroll raises her. type 'help' for commands.", "dim");
+    printTerminal("Welcome to Jolina Javier's Terminal Portfolio", "ok");
+    printTerminal("UI/UX Designer & Front-End Developer", "ok");
+    printTerminal("source: https://jolinapjavier.com", "dim");
+    printTerminal("type 'help' for commands or 'open' for the live terminal site.", "dim");
   }
 }
 
@@ -528,7 +523,7 @@ const helpText = `AVAILABLE COMMANDS
   pose <1-7>         turn the figure to a catalogued angle
   spin <0-10>        idle turntable speed
   zoom <in|out>      dolly the camera
-  about / projects / education / skills / resume / contact
+  about / projects / education / skills / resume / contact / open
   ls / pwd / whoami / date / echo <msg> / clear / exit`;
 
 const projectDetails = [
@@ -617,6 +612,10 @@ const commands = {
     ),
   ls: () => printTerminal("about.txt\nskills.json\nprojects/\neducation.md\ncontact.vcf\nresume.html\nletter.txt"),
   next: () => navToY((clamp(Math.round(window.scrollY / window.innerHeight), 0, ANCHORS - 1) + 1) * window.innerHeight),
+  open: () => {
+    window.open("https://jolinapjavier.com", "_blank", "noopener,noreferrer");
+    printTerminal("opening https://jolinapjavier.com", "ok");
+  },
   pose: (arg) => {
     const value = Number.parseInt(arg, 10);
     if (value >= 1 && value <= WORDS.length) {
@@ -800,9 +799,9 @@ function renderFrame() {
 
   statueRig.scale.setScalar(lerp(0.38, 1, rise) * statueScale);
   statueRig.position.y = statueYOffset + lerp(-0.72, 0, rise);
-  statueRig.position.x = layoutMobile ? 0 : lerp(-0.2, -3.35, smoothStep(0.78, 1, introProgress));
-  secondaryRig.position.set(4.35, 0.28, -2.8);
-  secondaryRig.scale.setScalar(0.95 * Math.max(targetWordVisible, 0.001));
+  statueRig.position.x = layoutMobile ? 0 : lerp(-0.4, -4.25, smoothStep(0.78, 1, introProgress));
+  secondaryRig.position.set(layoutMobile ? 1.1 : -1.65, layoutMobile ? 0.8 : 0.2, -3.2);
+  secondaryRig.scale.setScalar((layoutMobile ? 0.36 : 0.74) * Math.max(smoothStep(0.78, 1, introProgress), 0.001));
 
   const scrollRotation = introProgress < 1 ? lerp(-1.15, ROTATIONS[0], easeInOut(introProgress)) : rotationAt(sectionFloat);
   if (!dragState && performance.now() - lastUserTime > 3500 && introProgress >= 1) {
@@ -821,7 +820,6 @@ function renderFrame() {
   accent.intensity = 5.5 * lightLevel;
   grid.material.opacity = 0.5 * lightLevel;
   dust.material.opacity = 0.45 * lightLevel;
-  base.material.opacity = lightLevel;
 
   const cityFade = smoothStep(0.2, 0.8, introProgress);
   windowMaterials.forEach((material) => {
