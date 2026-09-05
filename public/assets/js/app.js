@@ -5,7 +5,7 @@ const damp = THREE.MathUtils.damp;
 const lerp = THREE.MathUtils.lerp;
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const WORDS = ["INTRO", "ABOUT", "PROJECTS", "CERTS", "SKILLS", "CONTACT", "LETTER"];
+const WORDS = ["INTRO", "ABOUT", "PROJECTS", "CERTS", "SKILLS", "CONTACT", "END"];
 const ROTATIONS = [0.16, 0.82, -0.5, 1.1, -0.86, 0.35, 0.72];
 const DISTANCES = [12.2, 11.4, 12.0, 11.2, 11.8, 10.9, 11.5];
 const ANCHORS = WORDS.length + 3;
@@ -182,7 +182,6 @@ const statueGlow = makeStatuePlane("assets/images/statue1.png?v=2", 3.05, 7.85, 
 const statueBack = makeStatuePlane("assets/images/statue2.png?v=2", 2.85, 7.35, 0.3);
 const statueBackGlow = makeStatuePlane("assets/images/statue2.png?v=2", 3.12, 7.85, 0.15);
 statueGlow.position.z = -0.05;
-statueBack.position.set(0, 4.1, 0);
 statueBackGlow.position.z = -0.05;
 statueRig.add(statueGlow, statue);
 secondaryRig.add(statueBackGlow, statueBack);
@@ -295,7 +294,7 @@ function wordTexture(word) {
   const ctx = canvas.getContext("2d");
   let size = 330;
 
-  ctx.fillStyle = "#59665d";
+  ctx.fillStyle = "#748276";
   ctx.textAlign = "center";
   do {
     ctx.font = `500 ${size}px "Playfair Display", Georgia, serif`;
@@ -326,7 +325,7 @@ function layout3D() {
     focusY = 3.85;
     secondaryRig.visible = true;
     wordMesh.scale.setScalar(0.72);
-    wordMesh.userData.base = [0, 3.8, -9];
+    wordMesh.userData.base = [0, 3.7, -9];
   } else {
     statueScale = 0.9;
     statueYOffset = 0.18;
@@ -334,7 +333,7 @@ function layout3D() {
     focusY = 3.55;
     secondaryRig.visible = true;
     wordMesh.scale.setScalar(1);
-    wordMesh.userData.base = [0.35, 2.0, -7.6];
+    wordMesh.userData.base = [0.18, 2.28, -7.6];
   }
 }
 
@@ -509,9 +508,10 @@ const aliases = {
   certs: 3,
   contact: 5,
   education: 3,
+  end: 6,
   intro: 0,
+  message: 6,
   projects: 2,
-  letter: 6,
   resume: 1,
   skills: 4,
   work: 2,
@@ -519,13 +519,13 @@ const aliases = {
 
 const helpText = `AVAILABLE COMMANDS
 
-  goto <section>     intro / about / projects / certs / skills / contact / letter
+  goto <section>     intro / about / projects / certs / skills / contact / end
   next / prev        step along the scroll track
   replay             back to the top
   pose <1-7>         turn the figure to a catalogued angle
   spin <0-10>        idle turntable speed
   zoom <in|out>      dolly the camera
-  about / projects / education / skills / resume / contact / open
+  about / projects / education / skills / resume / contact / end / open
   ls / pwd / whoami / date / echo <msg> / clear / exit`;
 
 const projectDetails = [
@@ -568,16 +568,16 @@ const projectDetails = [
 ];
 
 const educationDetails = [
-  "assets/images/Coursera 7JR9NU6QXIQY.pdf",
-  "assets/images/Coursera MZKPBCC13YSR.pdf",
-  "assets/images/Coursera PJGWO5UIKW3D.pdf",
-  "assets/images/Coursera B3J3TCVVBQ7M.pdf",
-  "assets/images/Coursera NFK00YL15EH1.pdf",
-  "assets/images/Coursera KJW3VTEUGU0A.pdf",
-  "assets/images/Coursera 10DXMZQ3I5P3.pdf",
-  "assets/images/Coursera TIDJMBX87GMK.pdf",
-  "assets/images/Coursera RQMV4OF1KPWF.pdf",
-  "assets/images/Coursera YDC1LCVM0UV8.pdf",
+  "Google UX Design Certificate - Coursera - Jul-Oct 2024",
+  "Foundations of User Experience Design - Google / Coursera",
+  "Start the UX Design Process: Empathize, Define, and Ideate - Google / Coursera",
+  "Build Wireframes and Low-Fidelity Prototypes - Google / Coursera",
+  "Conduct UX Research and Test Early Concepts - Google / Coursera",
+  "Create High-Fidelity Designs and Prototypes in Figma - Google / Coursera",
+  "Responsive Web Design in Adobe XD and Figma - Google / Coursera",
+  "Design a User Experience for Social Good and Prepare for Jobs - Google / Coursera",
+  "Visual Elements of User Interface Design - CalArts / Coursera",
+  "UX Design Fundamentals - CalArts / Coursera",
   "Bachelor of Science in Hospitality Management - University of Eastern Philippines - 2020-2024",
 ];
 
@@ -604,15 +604,19 @@ const commands = {
       navToY((value + 3) * window.innerHeight);
       printTerminal(`scrolling to ${WORDS[value]}`, "ok");
     } else {
-      printTerminal("unknown section - try intro, about, projects, certs, skills, contact, letter", "err");
+      printTerminal("unknown section - try intro, about, projects, certs, skills, contact, end", "err");
     }
   },
   help: () => printTerminal(helpText),
-  letter: () =>
+  end: () =>
     printTerminal(
-      "LETTER\n\nThank you for walking through the work. This portfolio is a quiet room for projects, learning, contact, and the little details that make a digital experience feel personal.",
+      "END / MESSAGE FOR YOU\n\nThank you for walking through the work. This portfolio is a quiet room for projects, learning, contact, and the little details that make a digital experience feel personal.",
     ),
-  ls: () => printTerminal("about.txt\nskills.json\nprojects/\neducation.md\ncontact.vcf\nresume.html\nletter.txt"),
+  message: () =>
+    printTerminal(
+      "END / MESSAGE FOR YOU\n\nThank you for walking through the work. This portfolio is a quiet room for projects, learning, contact, and the little details that make a digital experience feel personal.",
+    ),
+  ls: () => printTerminal("about.txt\nskills.json\nprojects/\neducation.md\ncontact.vcf\nresume.html\nmessage.txt"),
   next: () => navToY((clamp(Math.round(window.scrollY / window.innerHeight), 0, ANCHORS - 1) + 1) * window.innerHeight),
   open: () => {
     window.open("https://jolinapjavier.com", "_blank", "noopener,noreferrer");
@@ -801,9 +805,9 @@ function renderFrame() {
 
   statueRig.scale.setScalar(lerp(0.38, 1, rise) * statueScale);
   statueRig.position.y = statueYOffset + lerp(-0.72, 0, rise);
-  statueRig.position.x = layoutMobile ? -1.35 : lerp(-0.8, -5.15, smoothStep(0.78, 1, introProgress));
-  secondaryRig.position.set(layoutMobile ? 1.3 : 5.25, layoutMobile ? 0.82 : 0.2, -3.25);
-  secondaryRig.scale.setScalar((layoutMobile ? 0.34 : 0.78) * Math.max(smoothStep(0.78, 1, introProgress), 0.001));
+  statueRig.position.x = layoutMobile ? -1.45 : lerp(-0.8, -5.85, smoothStep(0.78, 1, introProgress));
+  secondaryRig.position.set(layoutMobile ? 1.15 : 4.25, layoutMobile ? 0.78 : 0.15, -3.25);
+  secondaryRig.scale.setScalar((layoutMobile ? 0.34 : 0.68) * Math.max(smoothStep(0.78, 1, introProgress), 0.001));
 
   const scrollRotation = introProgress < 1 ? lerp(-1.15, ROTATIONS[0], easeInOut(introProgress)) : rotationAt(sectionFloat);
   if (!dragState && performance.now() - lastUserTime > 3500 && introProgress >= 1) {
@@ -840,7 +844,7 @@ function renderFrame() {
   sectionWordProgress = Math.min(1, sectionWordProgress + delta * 2.4);
   targetWordVisible = damp(targetWordVisible, idx >= 0 ? 1 : 0, 4, delta);
   const wordEase = 1 - Math.pow(1 - sectionWordProgress, 3);
-  wordMesh.material.opacity = 0.62 * wordEase * targetWordVisible * smoothStep(0.86, 1, introProgress);
+  wordMesh.material.opacity = 0.76 * wordEase * targetWordVisible * smoothStep(0.86, 1, introProgress);
   const [wordX, wordY, wordZ] = wordMesh.userData.base || [0.35, 2, -7.6];
   wordMesh.position.set(wordX + mouse.x * 0.35, wordY - 0.45 * (1 - wordEase), wordZ);
 
