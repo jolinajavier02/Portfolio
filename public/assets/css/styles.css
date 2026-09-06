@@ -833,16 +833,21 @@ h2 {
 }
 
 .panel[data-section="Skills"] {
-  top: 7vh;
+  top: 5vh;
   width: min(1180px, 78vw);
-  height: 88vh;
+  height: 90vh;
+}
+
+.panel[data-section="Skills"] h2 {
+  margin-bottom: 18px;
+  font-size: clamp(32px, 3.5vw, 52px);
 }
 
 .skill-showcase {
   display: grid;
-  gap: 14px;
-  max-height: 68vh;
-  padding: 2px 8px 18px;
+  gap: 10px;
+  max-height: 72vh;
+  padding: 0 6px 14px;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: rgba(124, 227, 163, 0.35) transparent;
@@ -850,14 +855,14 @@ h2 {
 
 .skill-category {
   display: grid;
-  gap: 10px;
+  gap: 7px;
   justify-items: center;
 }
 
 .skill-category h3 {
   margin: 0;
   color: #f4f1e8;
-  font: 500 22px "Playfair Display", Georgia, serif;
+  font: 500 20px "Playfair Display", Georgia, serif;
 }
 
 .skill-tile-grid {
@@ -870,11 +875,11 @@ h2 {
 
 .skill-tile {
   display: grid;
-  grid-template-rows: 54px auto;
+  grid-template-rows: 42px auto;
   place-items: center;
-  width: 112px;
-  min-height: 104px;
-  padding: 10px 8px 9px;
+  width: 102px;
+  min-height: 88px;
+  padding: 8px 6px 7px;
   border: 1px solid rgba(241, 238, 232, 0.24);
   background:
     linear-gradient(150deg, rgba(255, 255, 255, 0.078), rgba(255, 255, 255, 0.024)),
@@ -886,14 +891,14 @@ h2 {
 
 .skill-icon {
   display: block;
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
   object-fit: contain;
-  border-radius: 13px;
+  border-radius: 11px;
   background:
     radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.4), transparent 38%),
     rgba(124, 227, 163, 0.14);
-  padding: 6px;
+  padding: 5px;
   color: var(--green);
   filter: drop-shadow(0 0 12px rgba(124, 227, 163, 0.24));
 }
@@ -919,7 +924,7 @@ svg.skill-icon {
 
 .skill-tile b {
   color: rgba(246, 244, 237, 0.92);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   line-height: 1.22;
 }
@@ -931,7 +936,7 @@ svg.skill-icon {
 }
 
 .language-grid .skill-tile {
-  min-height: 112px;
+  min-height: 96px;
 }
 
 .frontend-grid {
@@ -943,8 +948,8 @@ svg.skill-icon {
 .frontend-grid .skill-tile {
   width: 10%;
   min-width: 0;
-  padding-right: 5px;
-  padding-left: 5px;
+  padding-right: 3px;
+  padding-left: 3px;
 }
 
 .mail {

@@ -647,7 +647,7 @@ const commands = {
     ),
   skills: () =>
     printTerminal(
-      "SKILLS\n\nDesign: Figma, User Research, User Flows, Wireframing, Prototyping, Interaction & State Design, Responsive Layouts\n\nFrontend: HTML/CSS, JavaScript, TypeScript, React, REST API integration, SQL, Supabase, Git & GitHub, VS Code\n\nDeployment: AWS Lightsail, S3, IAM, CloudFormation, Certificates, Domain & DNS configuration, HTTPS/SSL setup\n\nLanguage: English (Business), Japanese (Basic), Filipino (Native)",
+      "SKILLS\n\nDesign: Figma, User Research, User Flows, Wireframing, Prototyping, Interaction & State Design, Responsive Layouts\n\nFrontend: HTML/CSS, JavaScript, TypeScript, React, REST API integration, SQL, Supabase, Git & GitHub, VS Code\n\nDeployment: AWS, Lightsail, S3 Bucket, IAM, CloudFormation, Certificate, Domain & DNS configuration, HTTPS/SSL setup\n\nLanguage: English (Business), Japanese (Basic), Filipino (Native)",
     ),
   spin: (arg) => {
     const value = Number.parseFloat(arg);
