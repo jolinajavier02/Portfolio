@@ -570,14 +570,14 @@ const projectDetails = [
 const educationDetails = [
   "Google UX Design Certificate - Coursera - Jul-Oct 2024",
   "Foundations of User Experience Design - Google / Coursera",
-  "Start the UX Design Process: Empathize, Define, and Ideate - Google / Coursera",
-  "Build Wireframes and Low-Fidelity Prototypes - Google / Coursera",
   "Conduct UX Research and Test Early Concepts - Google / Coursera",
+  "Start the UX Design Process - Google / Coursera",
+  "Build Wireframes and Low-Fidelity Prototypes - Google / Coursera",
   "Create High-Fidelity Designs and Prototypes in Figma - Google / Coursera",
-  "Responsive Web Design in Adobe XD and Figma - Google / Coursera",
-  "Design a User Experience for Social Good and Prepare for Jobs - Google / Coursera",
-  "Visual Elements of User Interface Design - CalArts / Coursera",
+  "Build Dynamic User Interfaces (UI) for Websites - Google / Coursera",
+  "Design a User Experience for Social Good - Google / Coursera",
   "UX Design Fundamentals - CalArts / Coursera",
+  "Visual Elements of User Interface Design - CalArts / Coursera",
   "Bachelor of Science in Hospitality Management - University of Eastern Philippines - 2020-2024",
 ];
 
@@ -647,7 +647,7 @@ const commands = {
     ),
   skills: () =>
     printTerminal(
-      "SKILLS\n\nDesign: Figma, User Research, User Flows, Wireframing, Prototyping, Interaction & State Design, Responsive Layouts\n\nFrontend: HTML/CSS, JavaScript, TypeScript, React, REST API integration, SQL, Git & GitHub, VS Code\n\nDeployment: AWS Lightsail, S3, IAM, CloudFormation, Certificates, Domain & DNS configuration, HTTPS/SSL setup\n\nLanguage: English (Business), Japanese (Basic), Filipino (Native)",
+      "SKILLS\n\nDesign: Figma, User Research, User Flows, Wireframing, Prototyping, Interaction & State Design, Responsive Layouts\n\nFrontend: HTML/CSS, JavaScript, TypeScript, React, REST API integration, SQL, Supabase, Git & GitHub, VS Code\n\nDeployment: AWS Lightsail, S3, IAM, CloudFormation, Certificates, Domain & DNS configuration, HTTPS/SSL setup\n\nLanguage: English (Business), Japanese (Basic), Filipino (Native)",
     ),
   spin: (arg) => {
     const value = Number.parseFloat(arg);
@@ -805,7 +805,7 @@ function renderFrame() {
 
   statueRig.scale.setScalar(lerp(0.38, 1, rise) * statueScale);
   statueRig.position.y = statueYOffset + lerp(-0.72, 0, rise);
-  statueRig.position.x = layoutMobile ? -1.45 : lerp(-0.8, -5.85, smoothStep(0.78, 1, introProgress));
+  statueRig.position.x = layoutMobile ? -1.58 : lerp(-0.8, -6.15, smoothStep(0.78, 1, introProgress));
   secondaryRig.position.set(layoutMobile ? 1.2 : 4.05, layoutMobile ? 0.78 : 0.12, -3.25);
   secondaryRig.scale.setScalar((layoutMobile ? 0.36 : 0.78) * Math.max(smoothStep(0.78, 1, introProgress), 0.001));
 
