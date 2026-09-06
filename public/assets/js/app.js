@@ -23,9 +23,11 @@ const toastEl = qs("#toast");
 const loader = qs("#loader");
 const loaderFill = qs("#loaderFill");
 const loaderStatus = qs("#loaderStatus");
+const terminalUrl = "https://jolinapjavier.com/";
 const terminal = qs("#terminal");
 const terminalBody = qs("#terminalBody");
 const terminalInput = qs("#terminalInput");
+const terminalFrame = qs(".terminal-site-frame");
 
 let idx = -1;
 let smoothedScroll = 0;
@@ -163,6 +165,7 @@ let statueLoaded = 0;
 function makeStatuePlane(url, width, height, opacity) {
   const material = new THREE.MeshBasicMaterial({
     color: 0xf1eee8,
+    depthTest: false,
     depthWrite: false,
     map: loader3D.load(url, () => {
       statueLoaded += 1;
@@ -174,17 +177,19 @@ function makeStatuePlane(url, width, height, opacity) {
 
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(width, height), material);
   mesh.position.y = height / 2;
+  mesh.renderOrder = 10;
   return mesh;
 }
 
 const statue = makeStatuePlane("assets/images/statue1.png?v=2", 2.75, 7.35, 0.98);
 const statueGlow = makeStatuePlane("assets/images/statue1.png?v=2", 3.05, 7.85, 0.16);
-const statueBack = makeStatuePlane("assets/images/statue2.png?v=2", 2.85, 7.35, 0.3);
-const statueBackGlow = makeStatuePlane("assets/images/statue2.png?v=2", 3.12, 7.85, 0.15);
+const statueBack = makeStatuePlane("assets/images/statue2.png?v=2", 2.85, 7.35, 0.5);
 statueGlow.position.z = -0.05;
-statueBackGlow.position.z = -0.05;
+statue.renderOrder = 20;
+statueGlow.renderOrder = 19;
+statueBack.renderOrder = 18;
 statueRig.add(statueGlow, statue);
-secondaryRig.add(statueBackGlow, statueBack);
+secondaryRig.add(statueBack);
 
 const cityGroup = new THREE.Group();
 scene.add(cityGroup);
@@ -464,6 +469,10 @@ window.addEventListener(
 window.addEventListener("touchmove", markUser, { passive: true });
 
 function printTerminal(text, className = "") {
+  if (!terminalBody) {
+    console.info(`[portfolio terminal ${className}] ${text}`);
+    return;
+  }
   text.split("\n").forEach((line) => {
     const row = document.createElement("div");
     row.className = `terminal-line ${className}`;
@@ -474,33 +483,20 @@ function printTerminal(text, className = "") {
 }
 
 function openTerminal() {
-  terminal.classList.add("is-open");
-  termOpen = true;
-  terminalInput.focus();
-  if (!terminalBody.childElementCount) {
-    printTerminal("Welcome to Jolina Javier's Terminal Portfolio", "ok");
-    printTerminal("UI/UX Designer & Front-End Developer", "ok");
-    printTerminal("source: https://jolinapjavier.com", "dim");
-    printTerminal("type 'help' for commands or 'open' for the live terminal site.", "dim");
-  }
+  window.location.assign(terminalUrl);
 }
 
 function closeTerminal() {
-  terminal.classList.remove("is-open");
   termOpen = false;
-  terminalInput.blur();
+  terminalInput?.blur();
 }
 
 function toggleTerminal() {
-  if (termOpen) {
-    closeTerminal();
-  } else {
-    openTerminal();
-  }
+  openTerminal();
 }
 
 qs("#termBtn").addEventListener("click", toggleTerminal);
-qs("#termClose").addEventListener("click", closeTerminal);
+qs("#termClose")?.addEventListener("click", closeTerminal);
 
 const aliases = {
   about: 1,
@@ -587,7 +583,9 @@ const commands = {
       "JOLINA P. JAVIER\nAspiring UI/UX Designer & Front-End Developer\n\nFocused on building user-centered, visually intuitive digital experiences. Skilled in transforming design concepts into functional, responsive web applications using modern tools and frameworks. Experienced in Figma, code implementation, and deploying live projects using cloud platforms.",
     ),
   clear: () => {
-    terminalBody.innerHTML = "";
+    if (terminalBody) {
+      terminalBody.innerHTML = "";
+    }
   },
   close: closeTerminal,
   contact: () =>
@@ -619,7 +617,7 @@ const commands = {
   ls: () => printTerminal("about.txt\nskills.json\nprojects/\neducation.md\ncontact.vcf\nresume.html\nmessage.txt"),
   next: () => navToY((clamp(Math.round(window.scrollY / window.innerHeight), 0, ANCHORS - 1) + 1) * window.innerHeight),
   open: () => {
-    window.open("https://jolinapjavier.com", "_blank", "noopener,noreferrer");
+    openTerminal();
     printTerminal("opening https://jolinapjavier.com", "ok");
   },
   pose: (arg) => {
@@ -672,7 +670,7 @@ const commands = {
 const history = [];
 let historyIndex = 0;
 
-terminalInput.addEventListener("keydown", (event) => {
+terminalInput?.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     const value = terminalInput.value.trim();
     terminalInput.value = "";
@@ -711,21 +709,21 @@ terminalInput.addEventListener("keydown", (event) => {
 });
 
 window.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && termOpen) {
-    closeTerminal();
-    return;
-  }
-
   if (event.key === "`" || event.code === "Backquote") {
-    if (document.activeElement !== terminalInput) {
+    if (!terminalInput || document.activeElement !== terminalInput) {
       event.preventDefault();
-      toggleTerminal();
+      openTerminal();
     }
     return;
   }
 
-  if (termOpen) {
-    return;
+  if (event.key === "Enter") {
+    const activeTag = document.activeElement?.tagName?.toLowerCase();
+    if (!["input", "textarea", "select", "button"].includes(activeTag)) {
+      event.preventDefault();
+      openTerminal();
+      return;
+    }
   }
 
   const anchor = clamp(Math.round(window.scrollY / window.innerHeight), 0, ANCHORS - 1);
