@@ -23,7 +23,7 @@ const toastEl = qs("#toast");
 const loader = qs("#loader");
 const loaderFill = qs("#loaderFill");
 const loaderStatus = qs("#loaderStatus");
-const terminalUrl = "https://jolinapjavier.com/";
+const terminalUrl = "https://terminal.jolinapjavier.com/";
 const terminal = qs("#terminal");
 const terminalBody = qs("#terminalBody");
 const terminalInput = qs("#terminalInput");
@@ -557,7 +557,7 @@ const projectDetails = [
   },
   {
     name: "Terminal Portfolio",
-    url: "https://jolinapjavier.com",
+    url: "https://terminal.jolinapjavier.com/",
     image: "assets/images/Terminal Portfolio.png",
     summary: "Command-inspired portfolio experience with keyboard-friendly navigation.",
   },
@@ -618,7 +618,7 @@ const commands = {
   next: () => navToY((clamp(Math.round(window.scrollY / window.innerHeight), 0, ANCHORS - 1) + 1) * window.innerHeight),
   open: () => {
     openTerminal();
-    printTerminal("opening https://jolinapjavier.com", "ok");
+    printTerminal("opening https://terminal.jolinapjavier.com", "ok");
   },
   pose: (arg) => {
     const value = Number.parseInt(arg, 10);
