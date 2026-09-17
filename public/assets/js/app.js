@@ -822,11 +822,43 @@ function renderFrame() {
   const sectionFloat = clamp(smoothedScroll / viewportHeight - 3, 0, WORDS.length - 1);
   const rise = easeInOut(smoothStep(0.3, 0.94, introProgress));
 
-  statueRig.scale.setScalar(lerp(0.38, 1, rise) * statueScale);
-  statueRig.position.y = statueYOffset + lerp(-0.72, 0, rise);
-  statueRig.position.x = layoutMobile ? -1.58 : lerp(-0.8, -6.15, smoothStep(0.78, 1, introProgress));
-  secondaryRig.position.set(layoutMobile ? 1.2 : 4.05, layoutMobile ? 0.78 : 0.12, -3.25);
-  secondaryRig.scale.setScalar((layoutMobile ? 0.36 : 0.78) * Math.max(smoothStep(0.78, 1, introProgress), 0.001));
+  const revealProgress = smoothStep(0.78, 1, introProgress);
+  const statueBaseScale = lerp(0.38, 1, rise) * statueScale;
+  const secondaryBaseScale = (layoutMobile ? 0.36 : 0.78) * Math.max(revealProgress, 0.001);
+  const statueY = statueYOffset + lerp(-0.72, 0, rise);
+  const secondaryY = layoutMobile ? 0.78 : 0.12;
+
+  if (introProgress < 1) {
+    statueRig.position.set(layoutMobile ? -1.58 : lerp(-0.8, -6.15, revealProgress), statueY, 0);
+    secondaryRig.position.set(layoutMobile ? 1.2 : 4.05, secondaryY, -3.25);
+    statueRig.scale.setScalar(statueBaseScale);
+    secondaryRig.scale.setScalar(secondaryBaseScale);
+  } else {
+    const orbitProgress = sectionFloat / Math.max(1, WORDS.length - 1);
+    const orbitAngle = orbitProgress * Math.PI * 2;
+    const orbitCenterX = layoutMobile ? -0.15 : -1.05;
+    const orbitCenterZ = layoutMobile ? -1.25 : -1.62;
+    const orbitRadiusX = layoutMobile ? 1.58 : 5.1;
+    const orbitRadiusZ = layoutMobile ? 1.05 : 1.65;
+    const orbitCos = Math.cos(orbitAngle);
+    const orbitSweep = Math.sin(orbitAngle) * orbitRadiusZ * 0.45;
+    const statueX = orbitCenterX - orbitCos * orbitRadiusX;
+    const statueZ = orbitCenterZ + orbitCos * orbitRadiusZ + orbitSweep;
+    const secondaryX = orbitCenterX + orbitCos * orbitRadiusX;
+    const secondaryZ = orbitCenterZ - orbitCos * orbitRadiusZ - orbitSweep;
+    const statueFront = smoothStep(orbitCenterZ - orbitRadiusZ, orbitCenterZ + orbitRadiusZ, statueZ);
+    const secondaryFront = smoothStep(orbitCenterZ - orbitRadiusZ, orbitCenterZ + orbitRadiusZ, secondaryZ);
+
+    statueRig.position.set(statueX, statueY, statueZ);
+    secondaryRig.position.set(secondaryX, secondaryY, secondaryZ);
+    statueRig.scale.setScalar(statueBaseScale * lerp(0.82, 1.08, statueFront));
+    secondaryRig.scale.setScalar(secondaryBaseScale * lerp(0.86, 1.18, secondaryFront));
+
+    const statueIsFront = statueZ >= secondaryZ;
+    statue.renderOrder = statueIsFront ? 24 : 19;
+    statueGlow.renderOrder = statueIsFront ? 23 : 18;
+    statueBack.renderOrder = statueIsFront ? 18 : 24;
+  }
 
   const scrollRotation = introProgress < 1 ? lerp(-1.15, ROTATIONS[0], easeInOut(introProgress)) : rotationAt(sectionFloat);
   if (!dragState && performance.now() - lastUserTime > 3500 && introProgress >= 1) {
@@ -835,8 +867,8 @@ function renderFrame() {
 
   rotation.target = scrollRotation + userRotation + spinAngle;
   rotation.current = dragState ? damp(rotation.current, rotation.target, 8, delta) : rotation.target;
-  statueRig.rotation.y = rotation.current;
-  secondaryRig.rotation.y = -rotation.current + Math.sin(elapsed * 0.07) * 0.04;
+  statueRig.rotation.y = introProgress < 1 ? rotation.current : Math.sin(rotation.current) * 0.18;
+  secondaryRig.rotation.y = introProgress < 1 ? -rotation.current : -Math.sin(rotation.current) * 0.18 + Math.sin(elapsed * 0.07) * 0.02;
 
   const lightLevel = smoothStep(0.12, 0.8, introProgress);
   key.intensity = 2.4 * lightLevel;
