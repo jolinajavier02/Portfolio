@@ -5,9 +5,9 @@ const damp = THREE.MathUtils.damp;
 const lerp = THREE.MathUtils.lerp;
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const WORDS = ["INTRO", "ABOUT", "PROJECTS", "CERTS", "SKILLS", "CONTACT", "END"];
-const ROTATIONS = [0.16, 0.82, -0.5, 1.1, -0.86, 0.35, 0.72];
-const DISTANCES = [12.2, 11.4, 12.0, 11.2, 11.8, 10.9, 11.5];
+const WORDS = ["INTRO", "ABOUT", "PROJECTS", "EDUCATION", "CERTS", "SKILLS", "CONTACT", "END"];
+const ROTATIONS = [0, 1.05, 2.1, 3.15, 4.2, 5.25, 6, Math.PI * 2];
+const DISTANCES = [12.2, 11.4, 12.0, 11.6, 11.2, 11.8, 10.9, 11.5];
 const ANCHORS = WORDS.length + 3;
 
 const qs = (selector) => document.querySelector(selector);
@@ -42,7 +42,7 @@ let focusY = 3.6;
 let zoomMul = 1;
 let userRotation = 0;
 let spinAngle = 0;
-let idleSpin = prefersReducedMotion ? 0 : 0.0011;
+let idleSpin = 0;
 let dragState = null;
 let toastTimer;
 let currentLabel = "";
@@ -500,28 +500,28 @@ qs("#termClose")?.addEventListener("click", closeTerminal);
 
 const aliases = {
   about: 1,
-  certificates: 3,
-  certs: 3,
-  contact: 5,
+  certificates: 4,
+  certs: 4,
+  contact: 6,
   education: 3,
-  end: 6,
+  end: 7,
   intro: 0,
-  message: 6,
+  message: 7,
   projects: 2,
   resume: 1,
-  skills: 4,
+  skills: 5,
   work: 2,
 };
 
 const helpText = `AVAILABLE COMMANDS
 
-  goto <section>     intro / about / projects / certs / skills / contact / end
+  goto <section>     intro / about / projects / education / certs / skills / contact / end
   next / prev        step along the scroll track
   replay             back to the top
-  pose <1-7>         turn the figure to a catalogued angle
+  pose <1-8>         turn the figure to a catalogued angle
   spin <0-10>        idle turntable speed
   zoom <in|out>      dolly the camera
-  about / projects / education / skills / resume / contact / end / open
+  about / projects / education / certs / skills / resume / contact / end / open
   ls / pwd / whoami / date / echo <msg> / clear / exit`;
 
 const projectDetails = [
@@ -538,10 +538,22 @@ const projectDetails = [
     summary: "Vegan recipe website with friendly browsing, plant-based meals, and beginner-friendly recipes.",
   },
   {
+    name: "NotesJP",
+    url: "https://notesjp.jolinapjavier.com/",
+    image: "assets/images/Notesjp.png",
+    summary: "Clean note-taking workspace for capturing ideas and returning to what matters.",
+  },
+  {
     name: "CalDef",
     url: "https://caldef.jolinapjavier.com/",
     image: "assets/images/Caldef.png",
     summary: "Calorie deficit guidance site focused on simple fitness, nutrition, and lifestyle education.",
+  },
+  {
+    name: "Terminal Portfolio",
+    url: "https://terminal.jolinapjavier.com/",
+    image: "assets/images/Terminal Portfolio.png",
+    summary: "Command-inspired portfolio experience with keyboard-friendly navigation.",
   },
   {
     name: "Focus List",
@@ -550,16 +562,10 @@ const projectDetails = [
     summary: "Focused task planning tool for organizing priorities, tracking progress, and daily work.",
   },
   {
-    name: "NotesJP",
-    url: "https://notesjp.jolinapjavier.com/",
-    image: "assets/images/Notesjp.png",
-    summary: "Clean note-taking workspace for capturing ideas and returning to what matters.",
-  },
-  {
-    name: "Terminal Portfolio",
-    url: "https://terminal.jolinapjavier.com/",
-    image: "assets/images/Terminal Portfolio.png",
-    summary: "Command-inspired portfolio experience with keyboard-friendly navigation.",
+    name: "Foodfinder",
+    url: "assets/images/Foodfinder.png",
+    image: "assets/images/Foodfinder.png",
+    summary: "Coursera food discovery app concept with onboarding, browsing, item detail, cart, and checkout screens.",
   },
   {
     name: "Online Bank App Case Study",
@@ -579,26 +585,15 @@ const projectDetails = [
     image: "assets/images/Coffee App.png",
     summary: "Coursera cafe ordering prototype for discovery, customization, and checkout.",
   },
-  {
-    name: "Foodfinder",
-    url: "assets/images/Foodfinder.png",
-    image: "assets/images/Foodfinder.png",
-    summary: "Coursera food discovery app concept with onboarding, browsing, item detail, cart, and checkout screens.",
-  },
 ];
 
 const educationDetails = [
-  "Google UX Design Certificate - Coursera - Jul-Oct 2024",
-  "Foundations of User Experience Design - Google / Coursera",
-  "Conduct UX Research and Test Early Concepts - Google / Coursera",
-  "Start the UX Design Process - Google / Coursera",
-  "Build Wireframes and Low-Fidelity Prototypes - Google / Coursera",
-  "Create High-Fidelity Designs and Prototypes in Figma - Google / Coursera",
-  "Build Dynamic User Interfaces (UI) for Websites - Google / Coursera",
-  "Design a User Experience for Social Good - Google / Coursera",
-  "UX Design Fundamentals - CalArts / Coursera",
-  "Visual Elements of User Interface Design - CalArts / Coursera",
   "Bachelor of Science in Hospitality Management - University of Eastern Philippines - 2020-2024",
+  "Built a strong foundation in customer service, communication, business operations, and project management. This background helps me design user-centered digital experiences with empathy, organization, and attention to real user needs.",
+  "Google UX Design Certificate - Coursera - July 2025-October 2025",
+  "Completed a professional UX design program focused on the full design process, including empathizing with users, defining problems, ideating solutions, building wireframes, creating prototypes, conducting usability research, and preparing high-fidelity designs.",
+  "UI/UX Design Specialization - California Institute of the Arts / Coursera - July 2025-October 2025",
+  "Studied core UI/UX design principles through CalArts coursework, with emphasis on visual interface design, layout, hierarchy, user-centered thinking, and translating design concepts into clear digital experiences.",
 ];
 
 const commands = {
@@ -611,6 +606,8 @@ const commands = {
       terminalBody.innerHTML = "";
     }
   },
+  certificates: () => commands.goto("certs"),
+  certs: () => commands.goto("certs"),
   close: closeTerminal,
   contact: () =>
     printTerminal(
@@ -626,7 +623,7 @@ const commands = {
       navToY((value + 3) * window.innerHeight);
       printTerminal(`scrolling to ${WORDS[value]}`, "ok");
     } else {
-      printTerminal("unknown section - try intro, about, projects, certs, skills, contact, end", "err");
+      printTerminal("unknown section - try intro, about, projects, education, certs, skills, contact, end", "err");
     }
   },
   help: () => printTerminal(helpText),
@@ -651,7 +648,7 @@ const commands = {
       spinAngle = 0;
       printTerminal(`pose ${value} - ${WORDS[value - 1]}`, "ok");
     } else {
-      printTerminal("usage: pose <1-7>", "err");
+      printTerminal("usage: pose <1-8>", "err");
     }
   },
   pwd: () => printTerminal("/home/jolina/~"),
@@ -838,8 +835,8 @@ function renderFrame() {
 
   rotation.target = scrollRotation + userRotation + spinAngle;
   rotation.current = damp(rotation.current, rotation.target, 2.6, delta);
-  statueRig.rotation.y = Math.sin(rotation.current) * 0.11;
-  secondaryRig.rotation.y = -0.08 + Math.sin(elapsed * 0.07) * 0.05;
+  statueRig.rotation.y = rotation.current;
+  secondaryRig.rotation.y = -rotation.current + Math.sin(elapsed * 0.07) * 0.04;
 
   const lightLevel = smoothStep(0.12, 0.8, introProgress);
   key.intensity = 2.4 * lightLevel;
