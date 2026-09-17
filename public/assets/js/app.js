@@ -539,7 +539,7 @@ const projectDetails = [
   },
   {
     name: "CalDef",
-    url: "https://jolinajavier02.github.io/Caldef/",
+    url: "https://caldef.jolinapjavier.com/",
     image: "assets/images/Caldef.png",
     summary: "Calorie deficit guidance site focused on simple fitness, nutrition, and lifestyle education.",
   },
@@ -551,7 +551,7 @@ const projectDetails = [
   },
   {
     name: "NotesJP",
-    url: "assets/images/Notesjp.png",
+    url: "https://notesjp.jolinapjavier.com/",
     image: "assets/images/Notesjp.png",
     summary: "Clean note-taking workspace for capturing ideas and returning to what matters.",
   },
