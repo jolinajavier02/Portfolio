@@ -561,6 +561,7 @@ h2 {
 .panel-projects {
   top: 8vh;
   height: 84vh;
+  width: min(1380px, 88vw);
   overflow: visible;
   padding-right: 0;
 }
@@ -631,12 +632,16 @@ h2 {
 .project-layout {
   width: 100%;
   margin: 0 auto;
+  overflow-x: auto;
+  padding-bottom: 4px;
 }
 
 .project-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, auto));
   gap: 10px;
+  min-width: 960px;
 }
 
 .coursera-projects {
@@ -660,7 +665,7 @@ h2 {
 
 .project-card img {
   width: 100%;
-  height: clamp(82px, 6.4vw, 106px);
+  height: clamp(76px, 5.4vw, 96px);
   border: 1px solid rgba(241, 238, 232, 0.32);
   border-radius: 6px;
   object-fit: cover;
@@ -703,14 +708,14 @@ h2 {
 .project-card span {
   display: block;
   min-width: 0;
-  padding: 10px 32px 0 2px;
+  padding: 9px 28px 0 2px;
 }
 
 .project-card p {
-  margin-top: 7px;
+  margin-top: 6px;
   color: rgba(241, 238, 232, 0.68);
-  font-size: 11.5px;
-  line-height: 1.32;
+  font-size: 10.5px;
+  line-height: 1.28;
 }
 
 .work-row {
@@ -752,15 +757,15 @@ h2 {
   display: block;
   margin-bottom: 5px;
   color: #f4f1e8;
-  font: 500 clamp(15px, 1.28vw, 18px) "Playfair Display", Georgia, serif;
+  font: 500 clamp(14px, 1.05vw, 17px) "Playfair Display", Georgia, serif;
 }
 
 .project-card small,
 .work-row small,
 .path-row small {
   color: var(--muted);
-  font: 600 8.5px "JetBrains Mono", monospace;
-  letter-spacing: 0.12em;
+  font: 600 8px "JetBrains Mono", monospace;
+  letter-spacing: 0.1em;
 }
 
 .project-card em,
@@ -776,6 +781,7 @@ h2 {
 }
 
 .education-list {
+  counter-reset: education;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
@@ -783,22 +789,62 @@ h2 {
 }
 
 .education-card {
+  position: relative;
+  overflow: hidden;
+  counter-increment: education;
   min-height: 360px;
-  padding: 22px;
+  padding: 76px 24px 24px;
   border: 1px solid rgba(241, 238, 232, 0.28);
   border-radius: 8px;
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02)),
+    radial-gradient(circle at 92% 16%, rgba(124, 227, 163, 0.22), transparent 28%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.02)),
     rgba(0, 0, 0, 0.48);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
     0 18px 42px rgba(0, 0, 0, 0.26);
 }
 
-.education-card small {
+.education-card::before {
+  content: "0" counter(education);
+  position: absolute;
+  left: 22px;
+  top: 18px;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(124, 227, 163, 0.52);
+  border-radius: 50%;
   color: var(--green);
-  font: 600 10px "JetBrains Mono", monospace;
-  letter-spacing: 0.14em;
+  font: 600 12px "JetBrains Mono", monospace;
+  background: rgba(124, 227, 163, 0.08);
+  box-shadow: 0 0 24px rgba(124, 227, 163, 0.12);
+}
+
+.education-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--green), rgba(241, 238, 232, 0.12));
+}
+
+.education-card small {
+  position: absolute;
+  right: 18px;
+  top: 22px;
+  max-width: calc(100% - 90px);
+  padding: 8px 10px;
+  border: 1px solid rgba(241, 238, 232, 0.16);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.26);
+  color: var(--green);
+  font: 600 9px "JetBrains Mono", monospace;
+  letter-spacing: 0.08em;
+  text-align: right;
   text-transform: uppercase;
 }
 
@@ -810,8 +856,10 @@ h2 {
 
 .education-card b {
   display: block;
-  margin-top: 12px;
-  color: rgba(241, 238, 232, 0.78);
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(241, 238, 232, 0.12);
+  color: #cdeed9;
   font-size: 13px;
   line-height: 1.45;
 }
@@ -1303,15 +1351,15 @@ body.ready-state.intro-done #hint {
   }
 
   .project-layout {
-    grid-template-columns: 1fr;
     max-height: 54vh;
-    overflow-y: auto;
+    overflow: auto;
     padding-right: 4px;
   }
 
-  .project-grid,
-  .coursera-projects {
-    grid-template-columns: 1fr;
+  .project-grid {
+    grid-template-columns: repeat(5, minmax(150px, 1fr));
+    grid-template-rows: repeat(2, minmax(0, auto));
+    min-width: 790px;
     max-height: none;
     overflow: visible;
     padding-right: 0;
@@ -1334,7 +1382,7 @@ body.ready-state.intro-done #hint {
   }
 
   .project-card img {
-    height: 150px;
+    height: 96px;
   }
 
   .contact-stack {

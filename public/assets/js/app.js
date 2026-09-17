@@ -6,7 +6,7 @@ const lerp = THREE.MathUtils.lerp;
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const WORDS = ["INTRO", "ABOUT", "PROJECTS", "EDUCATION", "CERTS", "SKILLS", "CONTACT", "END"];
-const ROTATIONS = [0, 1.05, 2.1, 3.15, 4.2, 5.25, 6, Math.PI * 2];
+const ROTATIONS = [-0.15, 0.85, 1.75, 2.65, 3.55, 4.45, 5.35, Math.PI * 2 - 0.15];
 const DISTANCES = [12.2, 11.4, 12.0, 11.6, 11.2, 11.8, 10.9, 11.5];
 const ANCHORS = WORDS.length + 3;
 
@@ -834,7 +834,7 @@ function renderFrame() {
   }
 
   rotation.target = scrollRotation + userRotation + spinAngle;
-  rotation.current = damp(rotation.current, rotation.target, 2.6, delta);
+  rotation.current = dragState ? damp(rotation.current, rotation.target, 8, delta) : rotation.target;
   statueRig.rotation.y = rotation.current;
   secondaryRig.rotation.y = -rotation.current + Math.sin(elapsed * 0.07) * 0.04;
 
