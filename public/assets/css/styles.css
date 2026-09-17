@@ -694,7 +694,8 @@ h2 {
 }
 
 .coursera-card-image img {
-  height: 108px;
+  height: 118px;
+  object-fit: cover;
 }
 
 .project-card em {
