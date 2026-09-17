@@ -561,6 +561,30 @@ const projectDetails = [
     image: "assets/images/Terminal Portfolio.png",
     summary: "Command-inspired portfolio experience with keyboard-friendly navigation.",
   },
+  {
+    name: "Online Bank App Case Study",
+    url: "https://www.figma.com/proto/xmFsgogeTHsqN6uPTU2qOt/ONLINE-BANK-APP-CASE-STUDY?node-id=281-250&p=f&viewport=454%2C645%2C0.09&t=nsFsCBiicPBXSIPl-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=281%3A250&page-id=0%3A1",
+    image: "Figma prototype",
+    summary: "Coursera UX case study prototype for online banking flows and financial tasks.",
+  },
+  {
+    name: "Globetrone Bank App",
+    url: "https://www.figma.com/proto/xmFsgogeTHsqN6uPTU2qOt/ONLINE-BANK-APP-CASE-STUDY?node-id=178-1621&p=f&viewport=180%2C220%2C0.13&t=q8sMqhWYMdYLg9KK-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=178%3A1215&page-id=75%3A23",
+    image: "Figma prototype",
+    summary: "Coursera mobile banking prototype with account, transfer, and finance-management interactions.",
+  },
+  {
+    name: "Coffee App",
+    url: "https://www.figma.com/proto/W1T9G5L7xPb4q4rqWSTieV/coffee?node-id=74-277&page-id=1%3A3&starting-point-node-id=13%3A11&t=qrMEwfsku0fZrxPF-1",
+    image: "Figma prototype",
+    summary: "Coursera cafe ordering prototype for discovery, customization, and checkout.",
+  },
+  {
+    name: "Foodfinder",
+    url: "assets/images/Foodfinder.png",
+    image: "assets/images/Foodfinder.png",
+    summary: "Coursera food discovery app concept with onboarding, browsing, item detail, cart, and checkout screens.",
+  },
 ];
 
 const educationDetails = [
