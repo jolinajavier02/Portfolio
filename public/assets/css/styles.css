@@ -628,12 +628,38 @@ h2 {
     transform 220ms ease;
 }
 
-.project-grid {
+.project-layout {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-columns: minmax(0, 1.8fr) minmax(250px, 0.9fr);
+  align-items: start;
+  gap: 14px;
   width: 100%;
   margin: 0 auto;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.coursera-projects {
+  display: grid;
+  gap: 10px;
+  max-height: 63vh;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.coursera-projects::-webkit-scrollbar,
+.project-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.coursera-projects::-webkit-scrollbar-thumb,
+.project-grid::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(124, 227, 163, 0.32);
 }
 
 .project-card img {
@@ -644,6 +670,31 @@ h2 {
   object-fit: cover;
   object-position: top center;
   background: #111;
+}
+
+.coursera-card {
+  min-height: 130px;
+  background:
+    radial-gradient(circle at 18px 18px, rgba(124, 227, 163, 0.28) 0 2px, transparent 3px),
+    radial-gradient(circle at 42px 18px, rgba(241, 238, 232, 0.22) 0 2px, transparent 3px),
+    linear-gradient(145deg, rgba(124, 227, 163, 0.07), rgba(255, 255, 255, 0.02)),
+    rgba(0, 0, 0, 0.5);
+}
+
+.coursera-card span {
+  padding-top: 26px;
+}
+
+.coursera-card-image {
+  min-height: 0;
+}
+
+.coursera-card-image span {
+  padding-top: 10px;
+}
+
+.coursera-card-image img {
+  height: 108px;
 }
 
 .project-card em {
@@ -1202,11 +1253,19 @@ body.ready-state.intro-done #hint {
     overflow-y: auto;
   }
 
-  .project-grid {
+  .project-layout {
     grid-template-columns: 1fr;
     max-height: 54vh;
     overflow-y: auto;
     padding-right: 4px;
+  }
+
+  .project-grid,
+  .coursera-projects {
+    grid-template-columns: 1fr;
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
   }
 
   .project-card {
