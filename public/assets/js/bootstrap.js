@@ -43,16 +43,13 @@ function startReadingLayout() {
   document.querySelector('#termBtn').addEventListener('click', () => window.location.assign('https://terminal.jolinapjavier.com/'));
 }
 
-if (mobileLayout.matches) {
+// Phones use the same animated scene as desktop. Reading mode is only a fallback.
+try {
+  await import('./app.js');
+} catch (error) {
+  console.error('Animated portfolio unavailable; using reading layout.', error);
+  document.documentElement.classList.add('reading-layout');
   startReadingLayout();
-} else {
-  try {
-    await import('./app.js');
-  } catch (error) {
-    console.error('Animated portfolio unavailable; using reading layout.', error);
-    document.documentElement.classList.add('reading-layout');
-    startReadingLayout();
-  }
 }
 // Reinitialize when crossing layouts, including phone rotation and desktop resizing.
 mobileLayout.addEventListener('change', () => window.location.reload());

@@ -121,7 +121,7 @@ document.querySelectorAll("[data-copy]").forEach((element) => {
 });
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth <= 900 ? 1.5 : 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0x000000, 0);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -321,7 +321,7 @@ const wordMesh = new THREE.Mesh(
 scene.add(wordMesh);
 
 function layout3D() {
-  layoutMobile = window.innerWidth / window.innerHeight < 0.95 || window.innerWidth < 760;
+  layoutMobile = window.matchMedia("(max-width: 900px), (max-aspect-ratio: 0.95)").matches;
 
   if (layoutMobile) {
     statueScale = 0.62;

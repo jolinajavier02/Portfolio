@@ -17,9 +17,10 @@ public/
     resume/Jolina-P-Javier-Resume.html
 ```
 
-Phones and tablets use a normal scrolling layout with section links, stacked project
-cards, and image previews linking to the original certificate PDFs. Desktop keeps
-the animated presentation and falls back to readable content if it cannot load.
+Phones, tablets, and desktop share the animated 3D presentation. On smaller screens,
+active sections scroll vertically with stacked project cards and certificate image
+previews linking to the original PDFs. Reading mode is used only if the animation
+cannot initialize.
 
 The creator profile appears in About, after the introduction. Its banner uses
 `public/assets/images/coverphoto.png` and its account photo uses
