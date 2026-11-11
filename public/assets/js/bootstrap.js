@@ -45,7 +45,7 @@ function startReadingLayout() {
 
 // Phones use the same animated scene as desktop. Reading mode is only a fallback.
 try {
-  await import('./app.js');
+  await import('./app.js?v=20261111-3d');
 } catch (error) {
   console.error('Animated portfolio unavailable; using reading layout.', error);
   document.documentElement.classList.add('reading-layout');
