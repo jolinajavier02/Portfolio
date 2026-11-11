@@ -16,3 +16,13 @@ public/
     images/statue-jolina.png
     resume/Jolina-P-Javier-Resume.html
 ```
+
+Phones and tablets use a normal scrolling layout with section links, stacked project
+cards, and image previews linking to the original certificate PDFs. Desktop keeps
+the animated presentation and falls back to readable content if it cannot load.
+
+The creator profile appears in About, after the introduction. Its banner uses
+`public/assets/images/coverphoto.png` and its account photo uses
+`public/assets/images/Profile.png`. The profile uses a circular crop; the banner
+keeps its full aspect ratio. YouTube, Instagram, TikTok, and Facebook links
+are in `public/index.html`.

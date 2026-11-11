@@ -740,7 +740,7 @@ window.addEventListener("keydown", (event) => {
 
   if (event.key === "Enter") {
     const activeTag = document.activeElement?.tagName?.toLowerCase();
-    if (!["input", "textarea", "select", "button"].includes(activeTag)) {
+    if (!["input", "textarea", "select", "button", "a"].includes(activeTag)) {
       event.preventDefault();
       openTerminal();
       return;
